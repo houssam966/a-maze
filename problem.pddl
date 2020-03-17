@@ -1,5 +1,5 @@
 (define (problem problem_name) 
-(:domain domain_name)
+(:domain maze)
 (:objects 
  locationA locationB locationC -locations
   player -robot
