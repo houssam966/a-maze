@@ -10,8 +10,6 @@
     (isConnected ?x ?y - room)
 )
  
-
-
    (:action move
         :parameters (?from ?to )
         :precondition (and (room ?from)(isConnected ?from ?to)(room ?to)(at-robot ?from)) 
