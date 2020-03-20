@@ -14,7 +14,6 @@
     (at-robot r1)
 )
 
-
 (:goal 
     (at-robot r3)
 ))
