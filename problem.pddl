@@ -1,22 +1,23 @@
+
 (define (problem problem_name) 
 (:domain maze)
 (:objects 
- locationA locationB locationC -locations
-  player -robot
+ r1 r2 r3 -room
+
 )
 
 (:init
-
-    (locA locationA)
-    (locB locationB)
-    (locC locationC)
-    (at player locA)
+    (room r1 )
+    (room r2 )
+    (room r3 )
+    (isConnected r1 r2)
+    (isConnected r2 r3)
+    (at-robot r1)
 )
 
 (:goal 
-    (at player locC)
+    (at-robot r3)
 ))
 
 ;un-comment the following line if metric is needed
 ;(:metric minimize (???))
-
