@@ -1,4 +1,3 @@
-
 (define (domain maze)
 (:requirements :strips ::typing)
 (:types 
@@ -8,14 +7,14 @@
 (:predicates 
     (room ?r)
     (at-robot ?r)
-    (isConnected ?r1 ?r2)  
+    (isConnected ?x ?y - room)
 )
  
 
 
    (:action move
-        :parameters (?from ?to)
-        :precondition (and (room ?from)(room ?to)(at-robot ?from)) 
+        :parameters (?from ?to )
+        :precondition (and (room ?from)(isConnected ?from ?to)(room ?to)(at-robot ?from)) 
         :effect (and (at-robot ?to) (not (at-robot ?from)))
         )
 )

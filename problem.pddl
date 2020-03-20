@@ -1,4 +1,3 @@
-
 (define (problem problem_name) 
 (:domain maze)
 (:objects 
@@ -18,6 +17,3 @@
 (:goal 
     (at-robot r3)
 ))
-
-;un-comment the following line if metric is needed
-;(:metric minimize (???))
