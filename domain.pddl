@@ -73,19 +73,19 @@
 
      (:action PICKUP
       :parameters (?p - player ?i - Item ?j1 ?j2 - Junction)
-      :precondition and ((player ?p) (item ?i) (atLocation ?p Locatable ?j - Junction) (atLocation ?i Locatable ?j - Junction) (free ?p))
+      :precondition (and (player ?p) (item ?i) (atLocation ?p Locatable ?j - Junction) (atLocation ?i Locatable ?j - Junction) (free ?p))
       :effect (and (carryItem ?p ?i)(not (free ?p))
      )
 
      (:action DROP
       :parameters (?p - player ?j1 ?j2 - Junction ?i - Item)
-      :precondition and ((player ?p) (item ?i) (isConnected ?j1 ?j2) (atLocation ?p Locatable ?j - Junction) (atLocation ?i Locatable ?j - Junction)  
-      :effect (and (carryItem ?p ?i) (not (atLocation ?i Locatable ?j1 - Junction) (not (atLocation ?i Locatable ?j2 - Junction) ((free ?p))
+      :precondition (and (player ?p) (item ?i) (atLocation ?p Locatable ?j1 - Junction) (atLocation ?i Locatable ?j1 - Junction)  
+      :effect  (and (not(atLocation ?i Locatable ?j1 - Junction) (not (atLocation ?i Locatable ?j1 - Junction) ((free ?p))
      )
 
      (:action PUSH
       :parameters (?p - player ?i - Item ?j1 ?j2 - Junction)
-      :precondition (and (onFloor ?p) (atLocation ?p Locatable ?j1 - Junction) (atLocation ?i Locatable ?j1 - Junction)        
+      :precondition (and (onFloor ?p) (onFloor ?i) (atLocation ?p Locatable ?j1 - Junction) (atLocation ?i Locatable ?j1 - Junction)        
       :effect (and (atLocation ?p Locatable ?j2 - Junction) (atLocation ?i Locatable ?j2 - Junction)(not ((atLocation ?p Locatable ?j1 - Junction))(not (atLocation ?i Locatable ?j1 - Junction))))
      )    
 )
