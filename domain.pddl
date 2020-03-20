@@ -12,7 +12,9 @@
     
         Player Monster - Living
     
-        Box Sword Shield Key Food Gold - Item
+        Box Sword Shield Key Food Gold Box - Item
+
+        location
     
     )
     
@@ -32,6 +34,10 @@
     
         ;inventory
         (isInInventory ?x - Item ?i - Inventory)
+
+        (carryItem ?p - person ?item)
+        
+        (free ?p)
     
     
     )
@@ -58,4 +64,28 @@
         (distanceBetweenJunctions ?j1 ?j2 - Junction) - number
     
     )
+
+     (:action GOTO
+      :parameters (?p - player ?j1 ?j2 - Junction)
+      :precondition (and (atLocation ?p - Locatable ?j1 - Junction)(not (isLocked ?j1 ?j2))
+      :effect (and (atLocation ?p - Locatable ?j2 - Junction) (not (atLocation ?p - Locatable ?j1 - Junction))     
+     )
+
+     (:action PICKUP
+      :parameters (?p - player ?i - Item ?j1 ?j2 - Junction)
+      :precondition and ((player ?p) (item ?i) (atLocation ?p Locatable ?j - Junction) (atLocation ?i Locatable ?j - Junction) (free ?p))
+      :effect (and (carryItem ?p ?i)(not (free ?p))
+     )
+
+     (:action DROP
+      :parameters (?p - player ?j1 ?j2 - Junction ?i - Item)
+      :precondition and ((player ?p) (item ?i) (isConnected ?j1 ?j2) (atLocation ?p Locatable ?j - Junction) (atLocation ?i Locatable ?j - Junction)  
+      :effect (and (carryItem ?p ?i) (not (atLocation ?i Locatable ?j1 - Junction) (not (atLocation ?i Locatable ?j2 - Junction) ((free ?p))
+     )
+
+     (:action PUSH
+      :parameters (?p - player ?i - Item ?j1 ?j2 - Junction)
+      :precondition (and (onFloor ?p) (atLocation ?p Locatable ?j1 - Junction) (atLocation ?i Locatable ?j1 - Junction)        
+      :effect (and (atLocation ?p Locatable ?j2 - Junction) (atLocation ?i Locatable ?j2 - Junction)(not ((atLocation ?p Locatable ?j1 - Junction))(not (atLocation ?i Locatable ?j1 - Junction))))
+     )    
 )
