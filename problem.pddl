@@ -2,7 +2,7 @@
 (define (problem problem_name) 
 (:domain maze)
 (:objects 
- r1 r2 r3 -room
+ r1 r2 r3 - room
 
 )
 
