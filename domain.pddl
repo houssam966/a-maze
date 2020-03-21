@@ -68,8 +68,8 @@
      ; @parameter from {junction}: current location of the player
      ; @parameter to {junction}: next location of the player
      (:action goTo
-      :parameters (?p - player ?from ?to - Junction)
-      :precondition (and (atLocation ?p ?from ) (isConnected ?from ?to) (not (isLocked ?from ?to)))
+      :parameters (?p - player ?m - Monster ?from ?to - Junction)
+      :precondition (and (atLocation ?p ?from ) (isConnected ?from ?to) (not (isLocked ?from ?to) (isMonsterDead ?m))
       :effect (and (atLocation ?p ?to) (not (atLocation ?p ?from)))    
      )
 
@@ -100,7 +100,7 @@
      ; @parameter to {junction}: next location of the player and item
      (:action push
       :parameters (?p - player ?i - Item ?from ?to - Junction)
-      :precondition (and (atLocation ?p ?from) (atLocation ?i ?from))       
+      :precondition (and (atLocation ?p ?from) (atLocation ?i ?from)(isConnected ?from ?to) (not(isLocked ?from ?to))       
       :effect (and (atLocation ?p ?to) (atLocation ?i ?to) (not(atLocation ?p ?from))
               (not (atLocation ?i ?from)))
      )    
