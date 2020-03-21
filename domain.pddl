@@ -82,7 +82,7 @@
       :effect (and (carryItem ?p ?i) (not(atLocation ?i ?j)) (not (canCarry ?p)))
      )
 
-     ; this action makes player able to pick up an item given that item and the player is in the same location and player is free 
+     ; this action makes player able to drop an item given that item and the player is in the same location and player is not free 
       ; @parameter player {Living}: the player of the game
      ; @parameter item {Ittem}: the items (Box Sword Shield Key Food Gold) of the game
      ; @parameter from {junction}: current location of the  player and item
