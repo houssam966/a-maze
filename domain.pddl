@@ -31,10 +31,12 @@
     
         ;inventory
         (isInInventory ?x - Item ?i - Inventory)
+         
+        ;player is carrying an item
+        (carryItem ?p - Player ?item - Item)
 
-        (carryItem ?p - person ?item)
-        
-        (canCarry ?p)
+        ;player can carry item 
+        (canCarry ?p - Player)
     
     
     )
