@@ -88,9 +88,9 @@
      ; @parameter item {Ittem}: the items (Box Sword Shield Key Food Gold) of the game
      ; @parameter j {junction}: current location of the  player and item
      (:action drop
-      :parameters (?p - player ?i - Item)
-      :precondition (and (not(canCarry ?p))(carryItem ?p ?i))
-      :effect  (and (canCarry ?p)(not(carryItem ?p ?i))
+      :parameters (?p - player ?i - Item ?j - Junction)
+      :precondition (and  (atLocation ?p ?j) (not(canCarry ?p)))
+      :effect  (and (atLocation ?i ?j) (canCarry ?p) (not (atLocation ?i ?j) )
      )
      
      ; this action makes player able to push an item given that item and the player is in the same location and player and item is on the floor 
