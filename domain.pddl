@@ -12,7 +12,7 @@
     
         Player Monster - Living
     
-        Box Sword Shield Key Food Gold Box - Item
+        Box Sword Shield Key Food Gold - Item
 
         location
     
@@ -64,28 +64,48 @@
         (distanceBetweenJunctions ?j1 ?j2 - Junction) - number
     
     )
-
-     (:action GOTO
-      :parameters (?p - player ?j1 ?j2 - Junction)
-      :precondition (and (atLocation ?p - Locatable ?j1 - Junction)(not (isLocked ?j1 ?j2))
-      :effect (and (atLocation ?p - Locatable ?j2 - Junction) (not (atLocation ?p - Locatable ?j1 - Junction))     
+     ; this action moves player from location from to location to given that the player is at location from and locations from and to are connected
+     ; @parameter player {Living}: the player of the game
+     ; @parameter from {junction}: the location of the current player
+     ; @parameter to {junction}: last location of the player
+     (:action goTo
+      :parameters (?p - player ?from ?to - Junction)
+      :precondition (and (atLocation ?p - Locatable ?from - Junction) (isConnected ?from ?to- Junction)(not (isLocked ?from ?to))
+      :effect (and (atLocation ?p - Locatable ?to - Junction) (not (atLocation ?p - Locatable ?from - Junction)))    
      )
 
-     (:action PICKUP
-      :parameters (?p - player ?i - Item ?j1 ?j2 - Junction)
-      :precondition (and (player ?p) (item ?i) (atLocation ?p Locatable ?j - Junction) (atLocation ?i Locatable ?j - Junction) (free ?p))
-      :effect (and (carryItem ?p ?i)(not (free ?p))
+     ; this action makes player able to pick up an item given that item and the player is in the same location and player is free 
+     ; @parameter player {Living}: the player of the game
+     ; @parameter item {Ittem}: the items (Box Sword Shield Key Food Gold) of the game
+     ; @parameter from {junction}: the location of the current player and item
+     ; @parameter to {junction}: last location of the player and item
+     (:action pickUp
+      :parameters (?p - player ?i - Item ?from ?to - Junction)
+      :precondition (and (player ?p) (item ?i) (atLocation ?p Locatable ?from - Junction) (atLocation ?i Locatable ?from - Junction) (free ?p))
+      :effect (and (carryItem ?p ?i) (not(atLocation ?i Locatable ?from - Junction)) (not (free ?p)))
      )
 
-     (:action DROP
-      :parameters (?p - player ?j1 ?j2 - Junction ?i - Item)
-      :precondition (and (player ?p) (item ?i) (atLocation ?p Locatable ?j1 - Junction) (atLocation ?i Locatable ?j1 - Junction)  
-      :effect  (and (not(atLocation ?i Locatable ?j1 - Junction) (not (atLocation ?i Locatable ?j1 - Junction) ((free ?p))
+     ; this action makes player able to pick up an item given that item and the player is in the same location and player is free 
+     ; @parameter player {Living}: the player of the game
+     ; @parameter item {Item}: the items (Box Sword Shield Key Food Gold) of the game
+     ; @parameter from {junction}: the location of the current player and item
+     ; @parameter to {junction}: last location of the player and item
+     (:action drop
+      :parameters (?p - player ?from ?to - Junction ?i - Item)
+      :precondition (and (player ?p) (item ?i) (atLocation ?p Locatable ?from - Junction) (atLocation ?i Locatable ?from - Junction) (not(free ?p)))
+      :effect  (and (not(atLocation ?p Locatable ?from - Junction) (not (atLocation ?i Locatable ?from - Junction) 
+               (free ?p) (atLocation ?p Locatable ?to - Junction) (atLocation ?p Locatable ?to - Junction))))
      )
 
-     (:action PUSH
-      :parameters (?p - player ?i - Item ?j1 ?j2 - Junction)
-      :precondition (and (onFloor ?p) (onFloor ?i) (atLocation ?p Locatable ?j1 - Junction) (atLocation ?i Locatable ?j1 - Junction)        
-      :effect (and (atLocation ?p Locatable ?j2 - Junction) (atLocation ?i Locatable ?j2 - Junction)(not ((atLocation ?p Locatable ?j1 - Junction))(not (atLocation ?i Locatable ?j1 - Junction))))
+     ; this action makes player able to push an item given that item and the player is in the same location and player and item is on the floor 
+     ; @parameter player {Living}: the player of the game
+     ; @parameter item {Item}: the items (Box Sword Shield Key Food Gold) of the game
+     ; @parameter from {junction}: the location of the current player and item
+     ; @parameter to {junction}: last location of the player and item
+     (:action push
+      :parameters (?p - player ?i - Item ?from ?to - Junction)
+      :precondition (and (onFloor ?p) (onFloor ?i) (atLocation ?p Locatable ?from - Junction) (atLocation ?i Locatable ?from - Junction)        
+      :effect (and (atLocation ?p Locatable ?to - Junction) (atLocation ?i Locatable ?to - Junction)(not (atLocation ?p Locatable ?from - Junction)
+              (not (atLocation ?i Locatable ?from - Junction))))
      )    
 )
