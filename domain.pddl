@@ -67,7 +67,7 @@
      ; @parameter to {junction}: last location of the player
      (:action goTo
       :parameters (?p - player ?from ?to - Junction)
-      :precondition (and (atLocation ?p ?from ) (isConnected ?from ?to) (not (isLocked ?from ?to))
+      :precondition (and (atLocation ?p ?from ) (isConnected ?from ?to) (not (isLocked ?from ?to)))
       :effect (and (atLocation ?p ?to) (not (atLocation ?p ?from)))    
      )
 
