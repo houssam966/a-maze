@@ -34,7 +34,7 @@
 
         (carryItem ?p - person ?item)
         
-        (free ?p)
+        (canCarry ?p)
     
     
     )
@@ -63,8 +63,8 @@
     )
      ; this action moves player from location from to location to given that the player is at location from and locations from and to are connected
      ; @parameter player {Living}: the player of the game
-     ; @parameter from {junction}: the location of the current player
-     ; @parameter to {junction}: last location of the player
+     ; @parameter from {junction}: current location of the player
+     ; @parameter to {junction}: next location of the player
      (:action goTo
       :parameters (?p - player ?from ?to - Junction)
       :precondition (and (atLocation ?p ?from ) (isConnected ?from ?to) (not (isLocked ?from ?to)))
@@ -74,35 +74,34 @@
      ; this action makes player able to pick up an item given that item and the player is in the same location and player is free 
      ; @parameter player {Living}: the player of the game
      ; @parameter item {Ittem}: the items (Box Sword Shield Key Food Gold) of the game
-     ; @parameter from {junction}: the location of the current player and item
-     ; @parameter to {junction}: last location of the player and item
+     ; @parameter from {junction}: current location of the  player and item
+     ; @parameter to {junction}: next location of the player and item
      (:action pickUp
-      :parameters (?p - player ?i - Item ?from ?to - Junction)
-      :precondition (and (player ?p) (item ?i) (atLocation ?p ?from) (atLocation ?i ?from) (free ?p))
-      :effect (and (carryItem ?p ?i) (not(atLocation ?i ?from)) (not (free ?p)))
+      :parameters (?p - player ?i - Item ?j - Junction)
+      :precondition (and (atLocation ?p ?j) (atLocation ?i ?j) (canCarry ?p))
+      :effect (and (carryItem ?p ?i) (not(atLocation ?i ?j)) (not (canCarry ?p)))
      )
 
      ; this action makes player able to pick up an item given that item and the player is in the same location and player is free 
-     ; @parameter player {Living}: the player of the game
-     ; @parameter item {Item}: the items (Box Sword Shield Key Food Gold) of the game
-     ; @parameter from {junction}: the location of the current player and item
-     ; @parameter to {junction}: last location of the player and item
+      ; @parameter player {Living}: the player of the game
+     ; @parameter item {Ittem}: the items (Box Sword Shield Key Food Gold) of the game
+     ; @parameter from {junction}: current location of the  player and item
+     ; @parameter to {junction}: next location of the player and item
      (:action drop
-      :parameters (?p - player ?from ?to - Junction ?i - Item)
-      :precondition (and (player ?p) (item ?i) (atLocation ?p ?from) (atLocation ?i ?from) (not(free ?p)))
-      :effect  (and (not(atLocation ?p ?from) (not (atLocation ?i ?from)) 
-               (free ?p) (atLocation ?p ?to) (atLocation ?p ?to)))
+      :parameters (?p - player ?i - Item ?j - Junction)
+      :precondition (and (not(canCarry ?p)))
+      :effect  (and (atLocation ?i ?j) (canCarry ?p))
      )
      
      ; this action makes player able to push an item given that item and the player is in the same location and player and item is on the floor 
-     ; @parameter player {Living}: the player of the game
-     ; @parameter item {Item}: the items (Box Sword Shield Key Food Gold) of the game
-     ; @parameter from {junction}: the location of the current player and item
-     ; @parameter to {junction}: last location of the player and item
+      ; @parameter player {Living}: the player of the game
+     ; @parameter item {Ittem}: the items (Box Sword Shield Key Food Gold) of the game
+     ; @parameter from {junction}: current location of the  player and item
+     ; @parameter to {junction}: next location of the player and item
      (:action push
       :parameters (?p - player ?i - Item ?from ?to - Junction)
-      :precondition (and (onFloor ?p) (onFloor ?i) (atLocation ?p ?from) (atLocation ?i ?from))       
-      :effect (and (atLocation ?p ?to) (atLocation ?i ?to)(not (atLocation ?p ?from)))
-              (not (atLocation ?i ?from))
+      :precondition (and (atLocation ?p ?from) (atLocation ?i ?from))       
+      :effect (and (atLocation ?p ?to) (atLocation ?i ?to) (not(atLocation ?p ?from))
+              (not (atLocation ?i ?from)))
      )    
 )
