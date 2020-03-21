@@ -74,8 +74,7 @@
      ; this action makes player able to pick up an item given that player is free 
      ; @parameter player {Living}: the player of the game
      ; @parameter item {Ittem}: the items (Box Sword Shield Key Food Gold) of the game
-     ; @parameter from {junction}: current location of the  player and item
-     ; @parameter to {junction}: next location of the player and item
+     ; @parameter j {junction}: current location of the  player and item
      (:action pickUp
       :parameters (?p - player ?i - Item ?j - Junction)
       :precondition (and (atLocation ?p ?j) (atLocation ?i ?j) (canCarry ?p))
