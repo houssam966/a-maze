@@ -12,10 +12,7 @@
     
         Player Monster - Living
     
-        Box Sword Shield Key Food Gold - Item
-
-        location
-    
+        Box Sword Shield Key Food Gold - Item 
     )
     
     (:predicates 
@@ -23,7 +20,7 @@
         (atLocation ?x - Locatable ?j - Junction)
     
         ;maze
-        (isConnected ?j1 ?j2- Junction)
+        (isConnected ?j1 ?j2 - Junction)
         (isLocked ?j1 ?j2 - Junction);if the route is connected, but needs a key to open
         
         ;monster
@@ -70,8 +67,8 @@
      ; @parameter to {junction}: last location of the player
      (:action goTo
       :parameters (?p - player ?from ?to - Junction)
-      :precondition (and (atLocation ?p - Locatable ?from - Junction) (isConnected ?from ?to- Junction)(not (isLocked ?from ?to))
-      :effect (and (atLocation ?p - Locatable ?to - Junction) (not (atLocation ?p - Locatable ?from - Junction)))    
+      :precondition (and (atLocation ?p ?from ) (isConnected ?from ?to) (not (isLocked ?from ?to))
+      :effect (and (atLocation ?p ?to) (not (atLocation ?p ?from)))    
      )
 
      ; this action makes player able to pick up an item given that item and the player is in the same location and player is free 
@@ -81,8 +78,8 @@
      ; @parameter to {junction}: last location of the player and item
      (:action pickUp
       :parameters (?p - player ?i - Item ?from ?to - Junction)
-      :precondition (and (player ?p) (item ?i) (atLocation ?p Locatable ?from - Junction) (atLocation ?i Locatable ?from - Junction) (free ?p))
-      :effect (and (carryItem ?p ?i) (not(atLocation ?i Locatable ?from - Junction)) (not (free ?p)))
+      :precondition (and (player ?p) (item ?i) (atLocation ?p Locatable ?from) (atLocation ?i Locatable ?from) (free ?p))
+      :effect (and (carryItem ?p ?i) (not(atLocation ?i Locatable ?from)) (not (free ?p)))
      )
 
      ; this action makes player able to pick up an item given that item and the player is in the same location and player is free 
@@ -92,9 +89,9 @@
      ; @parameter to {junction}: last location of the player and item
      (:action drop
       :parameters (?p - player ?from ?to - Junction ?i - Item)
-      :precondition (and (player ?p) (item ?i) (atLocation ?p Locatable ?from - Junction) (atLocation ?i Locatable ?from - Junction) (not(free ?p)))
-      :effect  (and (not(atLocation ?p Locatable ?from - Junction) (not (atLocation ?i Locatable ?from - Junction) 
-               (free ?p) (atLocation ?p Locatable ?to - Junction) (atLocation ?p Locatable ?to - Junction))))
+      :precondition (and (player ?p) (item ?i) (atLocation ?p Locatable ?from) (atLocation ?i Locatable ?from) (not(free ?p)))
+      :effect  (and (not(atLocation ?p Locatable ?from) (not (atLocation ?i Locatable ?from) 
+               (free ?p) (atLocation ?p Locatable ?to) (atLocation ?p Locatable ?to))))
      )
 
      ; this action makes player able to push an item given that item and the player is in the same location and player and item is on the floor 
@@ -104,8 +101,8 @@
      ; @parameter to {junction}: last location of the player and item
      (:action push
       :parameters (?p - player ?i - Item ?from ?to - Junction)
-      :precondition (and (onFloor ?p) (onFloor ?i) (atLocation ?p Locatable ?from - Junction) (atLocation ?i Locatable ?from - Junction)        
-      :effect (and (atLocation ?p Locatable ?to - Junction) (atLocation ?i Locatable ?to - Junction)(not (atLocation ?p Locatable ?from - Junction)
-              (not (atLocation ?i Locatable ?from - Junction))))
+      :precondition (and (onFloor ?p) (onFloor ?i) (atLocation ?p Locatable ?from) (atLocation ?i Locatable ?from)        
+      :effect (and (atLocation ?p Locatable ?to) (atLocation ?i Locatable ?to)(not (atLocation ?p Locatable ?from)
+              (not (atLocation ?i Locatable ?from))))
      )    
 )
