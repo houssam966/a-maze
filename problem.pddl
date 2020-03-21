@@ -1,19 +1,23 @@
 (define (problem simple_problem) 
 (:domain maze)
 (:objects 
- r1 r2 r3 - room
+ j1 j2 j3 - Junction
+ p - Player
+ m - Monster
+ i - Item 
+ i - Inventory
+ S - Shield
+ banana - Food
 )
 (:init
-    (room r1 )
-    (room r2 )
-    (room r3 )
-    (isConnected r1 r2)
-    (isConnected r2 r1)
-    (isConnected r2 r3)
-    (isConnected r3 r2)
-    (at-robot r1)
+    
+    (isConnected j1 j2)
+    (isConnected j2 j1)
+    (isConnected j2 j3)
+    (isConnected j3 j2)
+    (atLocation p j1)
 )
 
 (:goal 
-    (at-robot r3)
+    (atLocation p j3)
 ))
