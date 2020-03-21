@@ -14,9 +14,13 @@
     (isConnected j2 j1)
     (isConnected j2 j3)
     (isConnected j3 j2)
+    (canCarry p )
+    (carryItem p i)
     (atLocation p j1)
+    (atLocation i j1)
 )
 
-(:goal 
-    (atLocation p j3)
+(:goal (and (atLocation p j3)
+    (atLocation i j3))
+    
 ))

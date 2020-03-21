@@ -31,9 +31,9 @@
         ;inventory
         (isInInventory ?x - Item ?i - Inventory)
 
-        (carryItem ?p - Player ?item)
+        (carryItem ?p - Player ?item - Item)
         
-        (canCarry ?p )
+        (canCarry ?p - Player )
     
     
     )
@@ -70,27 +70,28 @@
       :effect (and (atLocation ?p ?to) (not (atLocation ?p ?from)))    
      )
 
-     ; this action makes player able to pick up an item given that player is free 
-     ; @parameter player {Living}: the player of the game
-     ; @parameter item {Ittem}: the items (Box Sword Shield Key Food Gold) of the game
-     ; @parameter from {junction}: current location of the  player and item
-     ; @parameter to {junction}: next location of the player and item
-;      (:action pickUp
-;       :parameters (?p - player ?i - Item ?j - Junction)
-;       :precondition (and (atLocation ?p ?j) (atLocation ?i ?j) (canCarry ?p))
-;       :effect (and (carryItem ?p ?i) (not(atLocation ?i ?j)) (not (canCarry ?p)))
-;      )
+    ;  this action makes player able to pick up an item given that player is free 
+    ;  @parameter player {Living}: the player of the game
+    ;  @parameter item {Ittem}: the items (Box Sword Shield Key Food Gold) of the game
+    ;  @parameter from {junction}: current location of the  player and item
+    ;  @parameter to {junction}: next location of the player and item
+     (:action pickUp
+      :parameters (?p - player ?i - Item ?j - Junction)
+      :precondition (and (atLocation ?p ?j) (atLocation ?i ?j) (canCarry ?p))
+      :effect (and (carryItem ?p ?i) (atLocation ?i ?j)  (not(atLocation ?i ?j)) (not (canCarry ?p)))
+     )
 
 ;      ; this action makes player able to pick up an item given that item and the player is in the same location and player is free 
 ;       ; @parameter player {Living}: the player of the game
 ;      ; @parameter item {Ittem}: the items (Box Sword Shield Key Food Gold) of the game
 ;      ; @parameter from {junction}: current location of the  player and item
 ;      ; @parameter to {junction}: next location of the player and item
-;      (:action drop
-;       :parameters (?p - player ?i - Item ?j - Junction)
-;       :precondition (and (not(canCarry ?p)))
-;       :effect  (and (atLocation ?i ?j) (canCarry ?p))
-;      )
+     (:action drop
+      :parameters (?p - player ?i - Item ?j - Junction)
+      :precondition (and  (atLocation ?p ?j) (not(canCarry ?p)))
+      :effect  (and (atLocation ?i ?j) (canCarry ?p) (not (atLocation ?i ?j) )
+     )
+     )
      
 ;      ; this action makes player able to push an item given that item and the player is in the same location and player and item is on the floor 
 ;       ; @parameter player {Living}: the player of the game
