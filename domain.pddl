@@ -8,7 +8,7 @@
     
         Locatable Junction Inventory - object
     
-        Living Item - Locatable
+        Living Item Box - Locatable
     
         Player Monster - Living
     
@@ -84,7 +84,7 @@
      ; @parameter to {junction}: next location of the player
      (:action goTo
       :parameters (?p - player ?from ?to - Junction)
-      :precondition (and (atLocation ?p ?from ) (isConnected ?from ?to) (not (isLocked ?from ?to) (not(hasMonster ?from)))
+      :precondition (and (atLocation ?p ?from ) (isConnected ?from ?to) (not (isLocked ?from ?to) (not(hasMonster ?from))
       :effect (and (atLocation ?p ?to) (not (atLocation ?p ?from)))    
      )
 
