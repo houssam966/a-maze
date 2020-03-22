@@ -2,7 +2,7 @@
 (:domain maze)
 (:objects
  j1 j2 j3 - Junction
- p - Person
+ p - Player
  m - Monster
  i - Item
  i - Inventory
