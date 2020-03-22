@@ -137,6 +137,6 @@
      ; @parameter j {junction}: current location of the  player and item
      (:action grab
       :parameters (?p - player ?b - box ?k - key ?j - Junction)
-      :precondition (and (onBox ?p ?b) (atLocation ?b ?j) (atLocation ?f ?j))
+      :precondition (and (onBox ?p ?b) (atLocation ?b ?j) (atLocation ?k ?j))
       :effect (and (hasKey ?p ?k)))             
 )
