@@ -1,4 +1,3 @@
-; This is domain
 
 (define (domain maze)
 
@@ -8,11 +7,13 @@
 
         Locatable Junction Inventory - object
 
-        Living Item - Locatable
+        Living Item Box - Locatable
 
         Player Monster - Living
 
-        Box Sword Shield Key Food Gold - Item
+        Sword Shield Key Food Gold - Item
+
+        B - Box
     )
 
     (:predicates
@@ -82,11 +83,11 @@
       :effect (and (carryItem ?p ?i) (not(atLocation ?i ?j)) (not (canCarry ?p)))
      )
 
-     ; this action makes player able to pick up an item given that item and the player is in the same location and player is free
-      ; @parameter player {Living}: the player of the game
-     ; @parameter item {Ittem}: the items (Box Sword Shield Key Food Gold) of the game
-     ; @parameter from {junction}: current location of the  player and item
-     ; @parameter to {junction}: next location of the player and item
+    ;  ; this action makes player able to pick up an item given that item and the player is in the same location and player is free
+    ;   ; @parameter player {Living}: the player of the game
+    ;  ; @parameter item {Ittem}: the items (Box Sword Shield Key Food Gold) of the game
+    ;  ; @parameter from {junction}: current location of the  player and item
+    ;  ; @parameter to {junction}: next location of the player and item
      (:action drop
       :parameters (?p - player ?i - Item ?j - Junction)
       :precondition (and  (atLocation ?p ?j) (not(canCarry ?p)))
@@ -99,10 +100,10 @@
      ; @parameter item {Ittem}: the items (Box Sword Shield Key Food Gold) of the game
      ; @parameter from {junction}: current location of the  player and item
      ; @parameter to {junction}: next location of the player and item
-    ;  (:action push
-    ;   :parameters (?p - player ?i - Item ?from ?to - Junction)
-    ;   :precondition (and (atLocation ?p ?from) (atLocation ?i ?from))
-    ;   :effect (and (atLocation ?p ?to) (atLocation ?i ?to) (not(atLocation ?p ?from))
-    ;           (not (atLocation ?i ?from)))
-    ;  )
+      (:action push
+       :parameters (?p - player ?b - Box ?from ?to - Junction)
+       :precondition (and (atLocation ?p ?from) (atLocation ?b ?from)(isConnected ?from ?to))
+       :effect (and (atLocation ?p ?to) (atLocation ?b ?to) (not(atLocation ?p ?from))
+               (not (atLocation ?b ?from)))
+      )
 )
