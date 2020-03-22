@@ -36,6 +36,18 @@
         (carryItem ?p - Player ?item - Item)
         
         (canCarry ?p - Player )
+
+        ;player is on the floor
+        (onFloor ?p - Player)
+        
+        ;there is nothing on the box
+        (isClear ?b - Box) 
+
+        ;there is a player on the box
+        (onBox ?p - Player ?b - Box)
+
+         ;player has key
+        (hasKey ?p - player ?key - Item) 
     
     
     )
@@ -106,5 +118,20 @@
        :effect (and (atLocation ?p ?to) (atLocation ?b ?to) (not(atLocation ?p ?from))
                (not (atLocation ?b ?from)))
       )
-      
+
+      (:action jump
+      :parameters (?p - player ?b - box ?j - Junction)
+      :precondition (and (onFloor ?p) (atLocation ?p ?j) (atLocation ?b ?j) (isClear ?b))     
+      :effect (and (onBox ?p ?b) (not (isClear ?b)) (not (onFloor ?p))) 
+     )
+
+     ; this action makes player able to push an item given that item and the player is in the same location and player and item is on the floor 
+     ; @parameter player {Living}: the player of the game
+     ; @parameter box {Item}: the box item
+     ; @parameter key {Item}: the key item
+     ; @parameter j {junction}: current location of the  player and item
+     (:action grab
+      :parameters (?p - Player ?b - Box ?k - Item ?j - Junction)
+      :precondition (and (onBox ?p ?b) (atLocation ?b ?j) (atLocation ?k ?j))
+      :effect (and (hasKey ?p ?k)))   
 )
