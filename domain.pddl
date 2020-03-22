@@ -106,4 +106,5 @@
        :effect (and (atLocation ?p ?to) (atLocation ?b ?to) (not(atLocation ?p ?from))
                (not (atLocation ?b ?from)))
       )
+      
 )
