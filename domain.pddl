@@ -12,7 +12,9 @@
     
         Player Monster - Living
     
-        Box Sword Shield Key Food Gold - Item 
+        Sword Shield Key Food Gold - Item 
+
+        Box - Box
     )
     
     (:predicates 
@@ -50,11 +52,10 @@
         ;there is a player on the box
         (onBox ?p - Player ?b - Box)
 
-         ;player has key
-        (hasKey ?p - player ?key)) 
-    
-    )
-    
+         ;player has item
+        (hasItem ?p - player ?item)
+    ) 
+  
     (:functions 
         (playerHealth) - number
         (playerHunger) - number
@@ -109,33 +110,34 @@
      
      ; this action makes player able to push an item given that item and the player is in the same location and player and item is on the floor 
      ; @parameter player {Living}: the player of the game
-     ; @parameter item {Item}: the items (Box Sword Shield Key Food Gold) of the game
+     ; @parameter box {Box}: the box
      ; @parameter from {junction}: current location of the  player and item
      ; @parameter to {junction}: next location of the player and item
      (:action push
-      :parameters (?p - player ?i - Item ?from ?to - Junction)
-      :precondition (and (atLocation ?p ?from) (atLocation ?i ?from)(isConnected ?from ?to) (not(isLocked ?from ?to))       
-      :effect (and (atLocation ?p ?to) (atLocation ?i ?to) (not(atLocation ?p ?from))
-              (not (atLocation ?i ?from)))
+      :parameters (?p - player ?b - Box ?from ?to - Junction)
+      :precondition (and (atLocation ?p ?from) (atLocation ?b ?from)(isConnected ?from ?to) (not(isLocked ?from ?to))       
+      :effect (and (atLocation ?p ?to) (atLocation ?b ?to) (not(atLocation ?p ?from))
+              (not (atLocation ?b ?from)))
      )    
 
      ; this action makes player able to push an item given that item and the player is in the same location and player and item is on the floor 
      ; @parameter player {Living}: the player of the game
-     ; @parameter box {Item}: the box item
+     ; @parameter box {Box}: the box 
      ; @parameter j {junction}: current location of the  player and item
      (:action jump
       :parameters (?p - player ?b - box ?j - Junction)
-      :precondition (and (onFloor ?p) (atLocation ?i ?j) (atLocation ?b ?j) (isClear ?b))     
+      :precondition (and (onFloor ?p) (atLocation ?p ?j) (atLocation ?b ?j) (isClear ?b))     
       :effect (and (onBox ?p ?b) (not (isClear ?b)) (not (onFloor ?p))) 
      )
 
      ; this action makes player able to push an item given that item and the player is in the same location and player and item is on the floor 
      ; @parameter player {Living}: the player of the game
-     ; @parameter box {Item}: the box item
-     ; @parameter key {Item}: the key item
+     ; @parameter box {Box}: the box 
+     ; @parameter item {Item}: the items (Box Sword Shield Key Food Gold) of the game
      ; @parameter j {junction}: current location of the  player and item
      (:action grab
-      :parameters (?p - player ?b - box ?k - key ?j - Junction)
+      :parameters (?p - player ?b - box ?i - Item ?j - Junction)
       :precondition (and (onBox ?p ?b) (atLocation ?b ?j) (atLocation ?k ?j))
-      :effect (and (hasKey ?p ?k)))             
+      :effect (and (hasItem ?p ?i))
+     )             
 )
