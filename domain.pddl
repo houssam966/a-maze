@@ -25,6 +25,9 @@
         
         ;monster
         (isMonsterDead ?m - Monster)
+
+        ;if there is monster in the location
+        (hasMonster ?j - Junction)
     
         ;player
         (isPlayerAlive ?p - Player)
@@ -37,6 +40,18 @@
 
         ;player can carry item 
         (canCarry ?p - Player)
+
+        ;player is on the floor
+        (onFloor ?p - Player)
+        
+        ;there is nothing on the box
+        (isClear ?b - Box) 
+
+        ;there is a player on the box
+        (onBox ?p - Player ?b - Box)
+
+         ;player has key
+        (hasKey ?p - player ?key))
     
     
     )
@@ -68,14 +83,14 @@
      ; @parameter from {junction}: current location of the player
      ; @parameter to {junction}: next location of the player
      (:action goTo
-      :parameters (?p - player ?m - Monster ?from ?to - Junction)
-      :precondition (and (atLocation ?p ?from ) (isConnected ?from ?to) (not (isLocked ?from ?to) (isMonsterDead ?m))
+      :parameters (?p - player ?from ?to - Junction)
+      :precondition (and (atLocation ?p ?from ) (isConnected ?from ?to) (not (isLocked ?from ?to) (not(hasMonster ?from)))
       :effect (and (atLocation ?p ?to) (not (atLocation ?p ?from)))    
      )
 
      ; this action makes player able to pick up an item given that player is free 
      ; @parameter player {Living}: the player of the game
-     ; @parameter item {Ittem}: the items (Box Sword Shield Key Food Gold) of the game
+     ; @parameter item {Item}: the items (Box Sword Shield Key Food Gold) of the game
      ; @parameter j {junction}: current location of the  player and item
      (:action pickUp
       :parameters (?p - player ?i - Item ?j - Junction)
@@ -85,7 +100,7 @@
 
      ; this action makes player able to drop an item given that item and the player is in the same location and player is not free 
      ; @parameter player {Living}: the player of the game
-     ; @parameter item {Ittem}: the items (Box Sword Shield Key Food Gold) of the game
+     ; @parameter item {Item}: the items (Box Sword Shield Key Food Gold) of the game
      ; @parameter j {junction}: current location of the  player and item
      (:action drop
       :parameters (?p - player ?i - Item)
@@ -94,8 +109,8 @@
      )
      
      ; this action makes player able to push an item given that item and the player is in the same location and player and item is on the floor 
-      ; @parameter player {Living}: the player of the game
-     ; @parameter item {Ittem}: the items (Box Sword Shield Key Food Gold) of the game
+     ; @parameter player {Living}: the player of the game
+     ; @parameter item {Item}: the items (Box Sword Shield Key Food Gold) of the game
      ; @parameter from {junction}: current location of the  player and item
      ; @parameter to {junction}: next location of the player and item
      (:action push
@@ -104,4 +119,24 @@
       :effect (and (atLocation ?p ?to) (atLocation ?i ?to) (not(atLocation ?p ?from))
               (not (atLocation ?i ?from)))
      )    
+
+     ; this action makes player able to push an item given that item and the player is in the same location and player and item is on the floor 
+     ; @parameter player {Living}: the player of the game
+     ; @parameter box {Item}: the box item
+     ; @parameter j {junction}: current location of the  player and item
+     (:action jump
+      :parameters (?p - player ?b - box ?j - Junction)
+      :precondition (and (onFloor ?p) (atLocation ?i ?j) (atLocation ?b ?j) (isClear ?b))     
+      :effect (and (onBox ?p ?b) (not (isClear ?b)) (not (onFloor ?p))) 
+     )
+
+     ; this action makes player able to push an item given that item and the player is in the same location and player and item is on the floor 
+     ; @parameter player {Living}: the player of the game
+     ; @parameter box {Item}: the box item
+     ; @parameter key {Item}: the key item
+     ; @parameter j {junction}: current location of the  player and item
+     (:action grab
+      :parameters (?p - player ?b - box ?k - key ?j - Junction)
+      :precondition (and (onBox ?p ?b) (atLocation ?b ?j) (atLocation ?f ?j))
+      :effect (and (hasKey ?p ?k)))             
 )
