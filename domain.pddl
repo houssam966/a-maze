@@ -10,7 +10,9 @@
 
         Player Monster - Living
 
-        Sword Shield  Food Gold - Item 
+        Weapon Shield Food Gold - Item
+
+        Sword - Weapon 
     )
 
     (:predicates
@@ -54,6 +56,8 @@
         (playerWealth) - number
         (monstersSlain) - number
 
+        (monsterHealth)         - number
+
         (maxInventorySize) - number
 
         (inventoryCount) - number
@@ -65,6 +69,9 @@
 
         ;how much damage the monster can deal to the player/shield
         (monsterStrength ?m - Monster) - number
+
+        ;how much damage the weapon can deal to the monster
+        (weaponDamage ?w - Weapon)               - number
 
         ;this could affect how quickly the player gets hungry
         (distanceBetweenJunctions ?j1 ?j2 - Junction) - number
@@ -82,7 +89,7 @@
 
      ; this action makes player able to pick up an item given that player is free
      ; @parameter player {Living}: the player of the game
-     ; @parameter item {Ittem}: the items (Box Sword Shield Key Food Gold) of the game
+     ; @parameter item {Item}: the items (Box Sword Shield Key Food Gold) of the game
      ; @parameter from {junction}: current location of the  player and item
      ; @parameter to {junction}: next location of the player and item
      (:action pickUp
@@ -93,7 +100,7 @@
 
     ;  ; this action makes player able to pick up an item given that item and the player is in the same location and player is free
     ;   ; @parameter player {Living}: the player of the game
-    ;  ; @parameter item {Ittem}: the items (Box Sword Shield Key Food Gold) of the game
+    ;  ; @parameter item {Item}: the items (Box Sword Shield Key Food Gold) of the game
     ;  ; @parameter from {junction}: current location of the  player and item
     ;  ; @parameter to {junction}: next location of the player and item
      (:action drop
@@ -103,8 +110,8 @@
      )
 
      ; this action makes player able to push an item given that item and the player is in the same location and player and item is on the floor
-      ; @parameter player {Living}: the player of the game
-     ; @parameter item {Ittem}: the items (Box Sword Shield Key Food Gold) of the game
+     ; @parameter player {Living}: the player of the game
+     ; @parameter item {Item}: the items (Box Sword Shield Key Food Gold) of the game
      ; @parameter from {junction}: current location of the  player and item
      ; @parameter to {junction}: next location of the player and item
       (:action push
@@ -129,5 +136,18 @@
       :parameters (?p - Player ?b - Box ?k - Key ?j - Junction)
       :precondition (and (onBox ?p ?b) (atLocation ?p ?j) (atLocation ?b ?j) (atLocation ?k ?j))
       :effect (and (hasKey ?p ?k))
-     )   
+     )
+
+     ; this action makes player able to attack the monster given that the player and the monster are in the same location
+     ; and the player has the weapon to attack the monster
+     ; @parameter player {Living}: the player of the game
+     ; @parameter monster {Living}: the monster in the room
+     ; @parameter weapon {Item}: the weapon item
+     ; @parameter j {junction}: current location of the  player and the monster
+     (:action attack
+      :parameters (?p - Player ?m - Monster ?w - Weapon ?j - Junction)
+      :precondition (and (atLocation ?p ?j) (atLocation ?m ?j) (carryItem ?p ?w) (not (isMonsterDead ?m)))
+      :effect (and (decrease (monsterHealth) (weaponDamage ?w)) (decrease (playerHealth) (monsterStrength ?m)))
+     )
+        
 )
