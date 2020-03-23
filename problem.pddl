@@ -5,8 +5,8 @@
  p - Player
  m - Monster
  i - Item
- i - Inventory
- S - Shield
+ in - Inventory
+ s - Shield
  banana - Food
 )
 (:init
