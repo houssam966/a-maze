@@ -98,9 +98,8 @@
     ;  ; @parameter to {junction}: next location of the player and item
      (:action drop
       :parameters (?p - player ?i - Item ?j - Junction)
-      :precondition (and  (atLocation ?p ?j) (not(canCarry ?p)))
-      :effect  (and (atLocation ?i ?j) (canCarry ?p) (not (atLocation ?i ?j) )
-     )
+      :precondition (and (atLocation ?p ?j) (not (canCarry ?p)) (carryItem ?p ?i))
+      :effect  (and (atLocation ?i ?j) (canCarry ?p) (not (carryItem ?p ?i)))
      )
 
      ; this action makes player able to push an item given that item and the player is in the same location and player and item is on the floor
@@ -110,15 +109,15 @@
      ; @parameter to {junction}: next location of the player and item
       (:action push
        :parameters (?p - player ?b - Box ?from ?to - Junction)
-       :precondition (and (atLocation ?p ?from) (atLocation ?b ?from)(isConnected ?from ?to))
+       :precondition (and (atLocation ?p ?from) (atLocation ?b ?from) (isConnected ?from ?to))
        :effect (and (atLocation ?p ?to) (atLocation ?b ?to) (not(atLocation ?p ?from))
                (not (atLocation ?b ?from)))
       )
 
       (:action jump
-      :parameters (?p - player ?b - box ?j - Junction)
-      :precondition (and (onFloor ?p) (atLocation ?p ?j) (atLocation ?b ?j) (isClear ?b))     
-      :effect (and (onBox ?p ?b) (not (isClear ?b)) (not (onFloor ?p))) 
+       :parameters (?p - player ?b - box ?j - Junction)
+       :precondition (and (onFloor ?p) (atLocation ?p ?j) (atLocation ?b ?j) (isClear ?b))     
+       :effect (and (onBox ?p ?b) (not (isClear ?b)) (not (onFloor ?p))) 
       )
 
      ; this action makes player able to push an item given that item and the player is in the same location and player and item is on the floor 
@@ -128,7 +127,7 @@
      ; @parameter j {junction}: current location of the  player and item
      (:action grab
       :parameters (?p - Player ?b - Box ?k - Key ?j - Junction)
-      :precondition (and (onBox ?p ?b) (atLocation ?p ?j)(atLocation ?b ?j) (atLocation ?k ?j))
+      :precondition (and (onBox ?p ?b) (atLocation ?p ?j) (atLocation ?b ?j) (atLocation ?k ?j))
       :effect (and (hasKey ?p ?k))
-      )   
+     )   
 )
