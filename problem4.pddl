@@ -1,5 +1,5 @@
 
-(define (problem simple_problem) 
+(define (problem problem_jump_grab) 
 (:domain maze)
 (:objects 
  j1 j2 j3 - Junction
@@ -8,8 +8,8 @@
  i - Item
  k - Key
  box - Box
- i - Inventory
- S - Shield
+ in - Inventory
+ s - Shield
  banana - Food
 )
 (:init
