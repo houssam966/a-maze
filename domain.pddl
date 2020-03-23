@@ -12,7 +12,7 @@
 
         Weapon Shield Food Gold - Item
 
-        Sword - Weapon 
+        Sword Knife - Weapon 
     )
 
     (:predicates
@@ -56,8 +56,6 @@
         (playerWealth) - number
         (monstersSlain) - number
 
-        (monsterHealth)         - number
-
         (maxInventorySize) - number
 
         (inventoryCount) - number
@@ -69,6 +67,8 @@
 
         ;how much damage the monster can deal to the player/shield
         (monsterStrength ?m - Monster) - number
+        ;monster health bar
+        (monsterHealth ?m - Monster)         - number
 
         ;how much damage the weapon can deal to the monster
         (weaponDamage ?w - Weapon)               - number
@@ -140,14 +140,30 @@
 
      ; this action makes player able to attack the monster given that the player and the monster are in the same location
      ; and the player has the weapon to attack the monster
+     ; this action does not kill the monster but just damage him
      ; @parameter player {Living}: the player of the game
      ; @parameter monster {Living}: the monster in the room
      ; @parameter weapon {Item}: the weapon item
      ; @parameter j {junction}: current location of the  player and the monster
      (:action attack
       :parameters (?p - Player ?m - Monster ?w - Weapon ?j - Junction)
-      :precondition (and (atLocation ?p ?j) (atLocation ?m ?j) (carryItem ?p ?w) (not (isMonsterDead ?m)))
-      :effect (and (decrease (monsterHealth) (weaponDamage ?w)) (decrease (playerHealth) (monsterStrength ?m)))
+      :precondition (and (atLocation ?p ?j) (atLocation ?m ?j) (carryItem ?p ?w)
+                    (not (isMonsterDead ?m)) (< (weaponDamage ?w) (monsterHealth ?m)))
+      :effect (and (decrease (monsterHealth ?m) (weaponDamage ?w)) (decrease (playerHealth) (monsterStrength ?m)))
      )
+
+     ; this action makes player able to kill the monster given that the player and the monster are in the same location
+     ; and the player has a weapon stronger that the monster's current health
+     ; @parameter player {Living}: the player of the game
+     ; @parameter monster {Living}: the monster in the room
+     ; @parameter weapon {Item}: the weapon item
+     ; @parameter j {junction}: current location of the  player and the monster
+     (:action finalAttack
+      :parameters (?p - Player ?m - Monster ?w - Weapon ?j - Junction)
+      :precondition (and (atLocation ?p ?j) (atLocation ?m ?j) (carryItem ?p ?w)
+                    (not (isMonsterDead ?m)) (>= (weaponDamage ?w) (monsterHealth ?m)))
+      :effect (and (not (atLocation ?m ?j)) (isMonsterDead ?m) (increase (monstersSlain) 1))
+     )
+     
         
 )
