@@ -1,10 +1,10 @@
-(define (problem simple_problem)
+(define (problem simple_problem) 
 (:domain maze)
-(:objects
+(:objects 
  j1 j2 j3 - Junction
- p - Person
+ p - Player
  m - Monster
- i - Item
+ i - Item 
  i - Inventory
  S - Shield
  banana - Food
@@ -14,9 +14,13 @@
     (isConnected j2 j1)
     (isConnected j2 j3)
     (isConnected j3 j2)
+    (canCarry p )
+    (carryItem p i)
     (atLocation p j1)
+    (atLocation i j1)
 )
 
-(:goal
-    (atLocation p j3)
+(:goal (and (atLocation p j3)
+    (atLocation i j3))
+    
 ))

@@ -31,7 +31,7 @@
         (isInInventory ?x - Item ?i - Inventory)
 
         (carryItem ?p - Player ?item - Item)
-        
+
         (canCarry ?p - Player )
 
         ;player is on the floor
@@ -44,8 +44,7 @@
         (onBox ?p - Player ?b - Box)
 
          ;player has key
-        (hasKey ?p - player ?key - Key) 
-  
+        (hasKey ?p - player ?key - Key)
     )
 
     (:functions
