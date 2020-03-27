@@ -20,7 +20,6 @@
     (isConnected j3 j2)
     (isClear box)
     (canCarry p)
-    
     (atLocation p j1)
     (atLocation i j3)
     (atLocation k j2)

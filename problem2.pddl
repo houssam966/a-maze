@@ -15,7 +15,6 @@
     (isConnected j2 j3)
     (isConnected j3 j2)
     (canCarry p )
-    (carryItem p i)
     (atLocation p j1)
     (atLocation i j1)
 )
