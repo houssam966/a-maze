@@ -152,11 +152,12 @@
                     (not (isMonsterDead ?m)) (< (weaponDamage ?w) (monsterHealth ?m)) (isPlayerAlive ?p))
       :effect (and (decrease (monsterHealth ?m) (weaponDamage ?w)) (decrease (playerHealth) (monsterStrength ?m))
 
-            ; update player state
-            (when(< (playerHealth) 0 )
-                (not(isPlayerAlive ?p)))
+                ; update player state
+                ; (when (< (playerHealth) 0)
+                ;      (not(isPlayerAlive ?p))
+                ; )
 
-            )
+             )
     )
 
      ; this action makes player able to kill the monster given that the player and the monster are in the same location
