@@ -1,5 +1,5 @@
-
-(define (problem problem_jump_grab)
+; The aim of this problem is to kill the monster and proceed to the next location
+(define (problem problem_kill_monster)
 (:domain maze)
 (:objects
  j1 j2 j3 - Junction
