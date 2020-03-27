@@ -1,4 +1,3 @@
-
 (define (domain maze)
 
     (:requirements :typing :fluents :equality :negative-preconditions :conditional-effects)
@@ -11,9 +10,7 @@
 
         Player Monster - Living
 
-        Sword Shield  Food Gold - Item
-
-    
+        Sword Shield  Food Gold - Item 
     )
 
     (:predicates
@@ -34,7 +31,7 @@
         (isInInventory ?x - Item ?i - Inventory)
 
         (carryItem ?p - Player ?item - Item)
-        
+
         (canCarry ?p - Player )
 
         ;player is on the floor
@@ -47,9 +44,7 @@
         (onBox ?p - Player ?b - Box)
 
          ;player has key
-        (hasKey ?p - player ?key - Key) 
-    
-    
+        (hasKey ?p - player ?key - Key)
     )
 
     (:functions
@@ -123,7 +118,7 @@
       :parameters (?p - player ?b - box ?j - Junction)
       :precondition (and (onFloor ?p) (atLocation ?p ?j) (atLocation ?b ?j) (isClear ?b))     
       :effect (and (onBox ?p ?b) (not (isClear ?b)) (not (onFloor ?p))) 
-     )
+      )
 
      ; this action makes player able to push an item given that item and the player is in the same location and player and item is on the floor 
      ; @parameter player {Living}: the player of the game
@@ -133,5 +128,6 @@
      (:action grab
       :parameters (?p - Player ?b - Box ?k - Key ?j - Junction)
       :precondition (and (onBox ?p ?b) (atLocation ?p ?j)(atLocation ?b ?j) (atLocation ?k ?j))
-      :effect (and (hasKey ?p ?k)))   
+      :effect (and (hasKey ?p ?k))
+      )   
 )
