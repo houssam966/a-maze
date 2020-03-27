@@ -4,7 +4,7 @@
  j1 j2 j3 - Junction
  p - Player
  m - Monster
- i - Item 
+ key - Item 
  in - Inventory
  s - Shield
  banana - Food
@@ -16,10 +16,10 @@
     (isConnected j3 j2)
     (canCarry p )
     (atLocation p j1)
-    (atLocation i j1)
+    (atLocation key j1)
 )
 
 (:goal (and (atLocation p j3)
-    (atLocation i j3))
+    (atLocation key j3))
     
 ))

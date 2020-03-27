@@ -5,7 +5,7 @@
  j1 j2 j3 - Junction
  p - Player
  m - Monster
- i  - Item 
+ key  - Item 
  box - Box
  in - Inventory
  s - Shield
@@ -20,13 +20,13 @@
     (isClear box)
     (canCarry p)
     (atLocation p j1)
-    (atLocation i j3)
+    (atLocation key j3)
     (atLocation box j2)
 )
 
 (:goal (and (atLocation p j3)
     (atLocation box j3)
-    (atLocation i j2)
+    (atLocation key j2)
      )
     
 ))
