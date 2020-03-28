@@ -7,8 +7,7 @@
 
         Locatable Junction Inventory - object
 
-
-        Living Item Box Key - Locatable
+        Living Item Box - Locatable
 
         Player Monster - Living
 
