@@ -12,7 +12,7 @@
 
         Player Monster - Living
 
-        Weapon Shield Food Gold - Item
+        Key Weapon Shield Food Gold - Item
 
         Sword Knife - Weapon
     )

@@ -1,0 +1,10 @@
+;;!domain: maze
+;;!problem: pickup_drop
+
+(pickup p i j1)
+(goto p j1 j2)
+(goto p j2 j3)
+(drop p i j3)
+
+; Makespan: NaN
+; Cost: 0

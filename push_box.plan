@@ -1,0 +1,12 @@
+;;!domain: maze
+;;!problem: push_box
+
+(goto p j1 j2)
+(push p box j2 j3)
+(pickup p key j3)
+(goto p j3 j2)
+(drop p key j2)
+(goto p j2 j3)
+
+; Makespan: NaN
+; Cost: 0

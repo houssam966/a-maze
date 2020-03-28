@@ -1,4 +1,4 @@
-(define (problem simple_problem)
+(define (problem pickup_drop)
 (:domain maze)
 (:objects
  j1 j2 j3 - Junction
@@ -7,24 +7,22 @@
  i - Item
  in - Inventory
  s - Shield
- k - Key
- b - Box
  banana - Food
  w - Weapon
+ b - Box
 )
 (:init
     (isConnected j1 j2)
     (isConnected j2 j1)
     (isConnected j2 j3)
     (isConnected j3 j2)
-    (isPlayerAlive p)
+    (canCarry p )
     (atLocation p j1)
-    (=(weaponDamage w) 10)
-    (=(monsterHealth m) 10)
-    (=(monsterStrength m) 10)
-    (=(playerHealth) 100)
+    (atLocation i j1)
+    (isPlayerAlive p)
 )
 
-(:goal
-    (atLocation p j3)
-))
+(:goal  (and (atLocation p j3) (atLocation i j3))
+)
+
+)

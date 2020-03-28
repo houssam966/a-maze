@@ -1,5 +1,5 @@
 ; The aim of this problem is to get to the end point, j10
-; This is a visual representation of the map of the maze:
+; This is a visual representation of the map of the maze (arrows denote one way):
 ;
 ;       j11
 ;         ^

@@ -11,6 +11,7 @@
  in - Inventory
  s - Shield
  banana - Food
+ w - Weapon
 )
 (:init
     (onFloor p)
@@ -24,12 +25,16 @@
     (atLocation i j3)
     (atLocation k j2)
     (atLocation box j1)
+    (isPlayerAlive p)
+    (not(hasKey p k)) ; This line causes segmentation fault
+
+
 )
 
 (:goal (and (atLocation p j3)
-    (atLocation box j3)
-    (atLocation i j2)
-    (hasKey p k)
+            (atLocation box j3)
+            (atLocation i j2)
+            (hasKey p k)
      )
 
 ))

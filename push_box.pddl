@@ -1,15 +1,16 @@
 
-(define (problem problem_push) 
+(define (problem push_box)
 (:domain maze)
-(:objects 
+(:objects
  j1 j2 j3 - Junction
  p - Player
  m - Monster
- key  - Item 
+ key  - Key
  box - Box
  in - Inventory
  s - Shield
  banana - Food
+ w - Weapon
 )
 (:init
     (onFloor p)
@@ -22,11 +23,12 @@
     (atLocation p j1)
     (atLocation key j3)
     (atLocation box j2)
+    (isPlayerAlive p)
 )
 
 (:goal (and (atLocation p j3)
     (atLocation box j3)
     (atLocation key j2)
      )
-    
+
 ))
