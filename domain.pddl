@@ -7,8 +7,7 @@
 
         Locatable Junction Inventory - object
 
-
-        Living Item Box Key - Locatable
+        Living Item Box - Locatable
 
         Player Monster - Living
 
@@ -48,8 +47,9 @@
         ;there is a player on the box
         (onBox ?p - Player ?b - Box)
 
-         ;player has key
-        (hasKey ?p - player ?key - Key)
+         (onBoxItem ?item - Item )
+
+      
     )
 
     (:functions
@@ -93,9 +93,10 @@
      ; @parameter player {Living}: the player of the game
      ; @parameter item {Item}: the items (Box Sword Shield Key Food Gold) of the game
      ; @parameter j {junction}: current location of the  player and item
-     (:action pickUp
-      :parameters (?p - player ?i - Item ?j - Junction)
-      :precondition (and (atLocation ?p ?j) (atLocation ?i ?j) (canCarry ?p) (isPlayerAlive ?p))
+    (:action pickUp
+      :parameters (?p - player ?i - Item  ?j - Junction)
+      :precondition (and (atLocation ?p ?j) (atLocation ?i ?j) (canCarry ?p) (isPlayerAlive ?p) (not(onBoxItem ?i))
+      (not(carryItem ?p ?i)))
       :effect (and (carryItem ?p ?i) (not(atLocation ?i ?j)) (not (canCarry ?p)))
      )
 
@@ -134,9 +135,9 @@
      ; @parameter key {Item}: the key item
      ; @parameter j {junction}: current location of the  player and item
      (:action grab
-      :parameters (?p - Player ?b - Box ?k - Key ?j - Junction)
-      :precondition (and (onBox ?p ?b) (atLocation ?p ?j) (atLocation ?b ?j) (atLocation ?k ?j) (isPlayerAlive ?p))
-      :effect (and (hasKey ?p ?k))
+      :parameters (?p - Player ?b - Box ?k -Item ?j - Junction)
+      :precondition (and (onBox?p ?b) (atLocation ?p ?j) (atLocation ?b ?j) (atLocation ?k ?j) (isPlayerAlive ?p) (onBoxItem ?k ) (not(carryItem ?p ?k)))
+      :effect (and (carryItem ?p ?k)(not(onBoxItem ?k )))
      )
 
      ; this action makes player able to attack the monster given that the player and the monster are in the same location

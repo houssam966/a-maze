@@ -14,6 +14,7 @@
 )
 (:init
     (onFloor p)
+      (onBoxItem key)
     (isConnected j1 j2)
     (isConnected j2 j1)
     (isConnected j2 j3)
@@ -28,7 +29,7 @@
 
 (:goal (and (atLocation p j3)
     (atLocation box j3)
-    (atLocation key j2)
+    (carryItem p key)
      )
 
 ))
