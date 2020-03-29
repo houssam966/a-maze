@@ -45,8 +45,7 @@
         ;there is a player on the box
         (onBox ?p - Player ?b - Box)
 
-         ;player has key
-        (hasKey ?p - player ?key - Key) 
+        (onBoxItem ?item - Item )
   
     )
 
@@ -93,8 +92,9 @@
      ; @parameter from {junction}: current location of the  player and item
      ; @parameter to {junction}: next location of the player and item
      (:action pickUp
-      :parameters (?p - player ?i - Item ?j - Junction)
-      :precondition (and (atLocation ?p ?j) (atLocation ?i ?j) (canCarry ?p) (isPlayerAlive ?p))
+      :parameters (?p - player ?i - Item  ?j - Junction)
+      :precondition (and (atLocation ?p ?j) (atLocation ?i ?j) (canCarry ?p) (isPlayerAlive ?p) (not (onBoxItem ?i))
+                    (not (carryItem ?p ?i)))
       ; need to check if inventory is full before saying (not (canCarry))
       :effect (and (carryItem ?p ?i) (not (atLocation ?i ?j)) (not (canCarry ?p)))
      )
@@ -134,9 +134,10 @@
      ; @parameter key {Item}: the key item
      ; @parameter j {junction}: current location of the  player and item
      (:action grab
-      :parameters (?p - Player ?b - Box ?k - Key ?j - Junction)
-      :precondition (and (onBox ?p ?b) (atLocation ?p ?j) (atLocation ?b ?j) (atLocation ?k ?j) (isPlayerAlive ?p))
-      :effect (and (hasKey ?p ?k))
+      :parameters (?p - Player ?b - Box ?k - Item ?j - Junction)
+      :precondition (and (onBox ?p ?b) (atLocation ?p ?j) (atLocation ?b ?j) (atLocation ?k ?j) (isPlayerAlive ?p)
+                    (onBoxItem ?k) (not (carryItem ?p ?k)))
+      :effect (and (carryItem ?p ?k) (not (onBoxItem ?k)))
      )
 
      ; this action makes player able to attack the monster given that the player and the monster are in the same location
@@ -152,12 +153,11 @@
                     (not (isMonsterDead ?m)) (< (weaponDamage ?w) (monsterHealth ?m)) (isPlayerAlive ?p))
       :effect (and (decrease (monsterHealth ?m) (weaponDamage ?w)) (decrease (playerHealth) (monsterStrength ?m))
       
-            ; update player state
-            (when(< (playerHealth) 0 )
-                (not(isPlayerAlive ?p)))
-            
+                ; update player state
+                ; (when(< (playerHealth) 0 )
+                ;     (not(isPlayerAlive ?p)))
             )
-        )
+     )
 
      ; this action makes player able to kill the monster given that the player and the monster are in the same location
      ; and the player has a weapon stronger that the monster's current health
