@@ -6,11 +6,11 @@
 
         Locatable Junction Inventory - object
 
-        Living Item Box Key - Locatable
+        Living Item Box - Locatable
 
         Player Monster - Living
 
-        Weapon Shield Food Gold - Item
+        Key Weapon Shield Food Gold - Item
 
         Sword Knife - Weapon 
     )
@@ -30,7 +30,7 @@
         (isPlayerAlive ?p - Player)
 
         ;inventory
-        (isInInventory ?x - Item ?i - Inventory)
+        ; (isInInventory ?x - Item ?i - Inventory)
 
         (carryItem ?p - Player ?item - Item)
         
@@ -52,7 +52,7 @@
 
     (:functions
         (playerHealth) - number
-        (playerHunger) - number
+        ; (playerHunger) - number
         (playerWealth) - number
         (monstersSlain) - number
 
@@ -95,14 +95,15 @@
      (:action pickUp
       :parameters (?p - player ?i - Item ?j - Junction)
       :precondition (and (atLocation ?p ?j) (atLocation ?i ?j) (canCarry ?p) (isPlayerAlive ?p))
-      :effect (and (carryItem ?p ?i) (not(atLocation ?i ?j)) (not (canCarry ?p)))
+      ; need to check if inventory is full before saying (not (canCarry))
+      :effect (and (carryItem ?p ?i) (not (atLocation ?i ?j)) (not (canCarry ?p)))
      )
 
-    ;  ; this action makes player able to pick up an item given that item and the player is in the same location and player is free
-    ;   ; @parameter player {Living}: the player of the game
-    ;  ; @parameter item {Item}: the items (Box Sword Shield Key Food Gold) of the game
-    ;  ; @parameter from {junction}: current location of the  player and item
-    ;  ; @parameter to {junction}: next location of the player and item
+     ; this action makes player able to pick up an item given that item and the player is in the same location and player is free
+     ; @parameter player {Living}: the player of the game
+     ; @parameter item {Item}: the items (Box Sword Shield Key Food Gold) of the game
+     ; @parameter from {junction}: current location of the  player and item
+     ; @parameter to {junction}: next location of the player and item
      (:action drop
       :parameters (?p - player ?i - Item ?j - Junction)
       :precondition (and (atLocation ?p ?j) (not (canCarry ?p)) (carryItem ?p ?i) (isPlayerAlive ?p))
@@ -181,8 +182,7 @@
      (:action eatFood
       :parameters (?p - Player ?f - Food ?j - Junction)
       :precondition (and (atLocation ?p ?j) (atLocation ?f ?j) (isPlayerAlive ?p))
-
-      :effect (and (not (atLocation ?f ?j)) (increase(playerHunger) (foodValue ?f)))
+      :effect (and (not (atLocation ?f ?j)) (increase (playerHealth) (foodValue ?f)))
      )
 
 
@@ -192,10 +192,9 @@
     ; @parameter gold{Gold}: the gold the player can pick up
     ; @parameter j{junction}: the current location of the player and the gold
      (:action pickUpGold
-     :parameters (?p - Player ?g - Gold ?j - Junction)
-     :precondition (and (atLocation ?p ?j) (atLocation ?g ?j) (isPlayerAlive ?p))
-
-     :effect(and (not (atLocation ?g ?j)) (increase (playerWealth) 1))
+      :parameters (?p - Player ?g - Gold ?j - Junction)
+      :precondition (and (atLocation ?p ?j) (atLocation ?g ?j) (isPlayerAlive ?p))
+      :effect (and (not (atLocation ?g ?j)) (increase (playerWealth) 1))
      )
      
         
