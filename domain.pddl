@@ -96,7 +96,7 @@
       :precondition (and (atLocation ?p ?j) (atLocation ?i ?j) (canCarry ?p) (isPlayerAlive ?p) (not (onBoxItem ?i))
                     (not (carryItem ?p ?i)))
       ; need to check if inventory is full before saying (not (canCarry))
-      :effect (and (carryItem ?p ?i) (not (atLocation ?i ?j)) (not (canCarry ?p)))
+      :effect (and (carryItem ?p ?i) (not (atLocation ?i ?j)) (not (canCarry ?p)) (increase (inventoryCount) 1))
      )
 
      ; this action makes player able to pick up an item given that item and the player is in the same location and player is free
@@ -106,8 +106,9 @@
      ; @parameter to {junction}: next location of the player and item
      (:action drop
       :parameters (?p - player ?i - Item ?j - Junction)
+      ; maybe we don't need the (not (canCarry)) in precondition as it depends on the inventory
       :precondition (and (atLocation ?p ?j) (not (canCarry ?p)) (carryItem ?p ?i) (isPlayerAlive ?p))
-      :effect  (and (atLocation ?i ?j) (canCarry ?p) (not (carryItem ?p ?i)))
+      :effect  (and (atLocation ?i ?j) (canCarry ?p) (not (carryItem ?p ?i)) (decrease (inventoryCount) 1))
      )
 
      ; this action makes player able to push an item given that item and the player is in the same location and player and item is on the floor
