@@ -45,9 +45,9 @@
         (isClear ?b - Box)
 
         ;there is a player on the box
-        (onBox ?l - Locatable ?b - Box)
+        (onBox ?p - Player ?b - Box)
 
-        ; (onBoxItem ?l - Locatable )
+        (onCeiling ?l - Locatable)
 
       
     )
@@ -96,8 +96,8 @@
      ; @parameter to {junction}: next location of the player and item
    (:action pickUp
       :parameters (?p - player ?i - Item ?b - Box ?j - Junction)
-      :precondition (or(and (atLocation ?p ?j) (atLocation ?i ?j) (canCarry ?p ) (isPlayerAlive ?p) (not(onBox ?i ?b)) (onFloor ?p) (not(carryItem ?p ?i)))  (and(onBox ?p ?b) (atLocation ?p ?j) (atLocation ?b ?j) (atLocation ?i ?j) (isPlayerAlive ?p) (onBox ?i ?b) (not(carryItem ?p ?i))) )
-      :effect (and (carryItem ?p ?i) (not(atLocation ?i ?j)) (not(onBox ?i ?b)) 
+      :precondition (or(and (atLocation ?p ?j) (atLocation ?i ?j) (canCarry ?p ) (isPlayerAlive ?p) (not(onCeiling ?i)) (onFloor ?p) (not(carryItem ?p ?i)))  (and(onBox ?p ?b) (atLocation ?p ?j) (atLocation ?b ?j) (atLocation ?i ?j) (isPlayerAlive ?p) (onCeiling ?i) (not(carryItem ?p ?i))) )
+      :effect (and (carryItem ?p ?i) (not(atLocation ?i ?j)) (not(onCeiling ?i)) 
      
      ))
      ; this action makes player able to drop an item 
@@ -135,7 +135,7 @@
      ; @parameter to {junction}: next location of the player and item
     (:action jump
        :parameters (?p - player ?b - box ?i - Item ?j - Junction)
-       :precondition (and (onFloor ?p) (onBox ?i ?b) (atLocation ?p ?j) (atLocation ?b ?j)  (atLocation ?i ?j)  (isPlayerAlive ?p)  (not(carryItem ?p ?i)))
+       :precondition (and (onFloor ?p) (onCeiling ?i ) (atLocation ?p ?j) (atLocation ?b ?j)  (atLocation ?i ?j)  (isPlayerAlive ?p)  (not(carryItem ?p ?i)))
        :effect (and (onBox ?p ?b)  (not (onFloor ?p)))
       )
 
@@ -146,7 +146,7 @@
      ; @parameter to {junction}: next location of the player and item
      (:action comeDown
       :parameters (?p - player ?b - box ?i - Item ?j - Junction)
-      :precondition (and  (onBox ?p ?b)  (isPlayerAlive ?p)  (not(atLocation ?i ?j))  (not(onBox ?i ?b))  (carryItem ?p ?i) )
+      :precondition (and  (onBox ?p ?b)  (isPlayerAlive ?p)  (not(atLocation ?i ?j))  (not(onCeiling ?i ))  (carryItem ?p ?i) )
       :effect  (and (onFloor ?p) (not (onBox ?p ?b )) )
       )
       

@@ -14,12 +14,12 @@
 )
 (:init
     (onFloor p)
-    (onBox key box)
+    (onCeiling key)
     (isConnected j1 j2)
     (isConnected j2 j1)
     (isConnected j2 j3)
     (isConnected j3 j2)
-    (isClear box)
+   
     (canCarry p)
     (atLocation p j1)
     (atLocation key j3)
