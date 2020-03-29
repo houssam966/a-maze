@@ -14,7 +14,7 @@
 )
 (:init
     (onFloor p)
-      (onBoxItem key)
+    (onBox key box)
     (isConnected j1 j2)
     (isConnected j2 j1)
     (isConnected j2 j3)

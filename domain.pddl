@@ -45,9 +45,9 @@
         (isClear ?b - Box)
 
         ;there is a player on the box
-        (onBox ?p - Player ?b - Box)
+        (onBox ?l - Locatable ?b - Box)
 
-         (onBoxItem ?item - Item )
+        ; (onBoxItem ?l - Locatable )
 
       
     )
@@ -89,56 +89,69 @@
       :effect (and (atLocation ?p ?to) (not (atLocation ?p ?from)))
      )
 
-     ; this action makes player able to pick up an item given that player is free
+    ; this action makes player able to pick up an item given that item and the player is in the same location and player is free
      ; @parameter player {Living}: the player of the game
      ; @parameter item {Item}: the items (Box Sword Shield Key Food Gold) of the game
-     ; @parameter j {junction}: current location of the  player and item
-    (:action pickUp
-      :parameters (?p - player ?i - Item  ?j - Junction)
-      :precondition (and (atLocation ?p ?j) (atLocation ?i ?j) (canCarry ?p) (isPlayerAlive ?p) (not(onBoxItem ?i))
-      (not(carryItem ?p ?i)))
-      :effect (and (carryItem ?p ?i) (not(atLocation ?i ?j)) (not (canCarry ?p)))
-     )
-
-     ; this action makes player able to pick up an item given that item and the player is in the same location and player is free
-     ; @parameter player {Living}: the player of the game
-     ; @parameter item {Ittem}: the items (Box Sword Shield Key Food Gold) of the game
      ; @parameter from {junction}: current location of the  player and item
      ; @parameter to {junction}: next location of the player and item
-     (:action drop
+   (:action pickUp
+      :parameters (?p - player ?i - Item ?b - Box ?j - Junction)
+      :precondition (or(and (atLocation ?p ?j) (atLocation ?i ?j) (canCarry ?p ) (isPlayerAlive ?p) (not(onBox ?i ?b)) (onFloor ?p) (not(carryItem ?p ?i)))  (and(onBox ?p ?b) (atLocation ?p ?j) (atLocation ?b ?j) (atLocation ?i ?j) (isPlayerAlive ?p) (onBox ?i ?b) (not(carryItem ?p ?i))) )
+      :effect (and (carryItem ?p ?i) (not(atLocation ?i ?j)) (not(onBox ?i ?b)) 
+     
+     ))
+     ; this action makes player able to drop an item 
+     ; @parameter player {Living}: the player of the game
+     ; @parameter item {Item}: the items (Box Sword Shield Key Food Gold) of the game
+     ; @parameter from {junction}: current location of the  player and item
+     ; @parameter to {junction}: next location of the player and item
+    (:action drop
       :parameters (?p - player ?i - Item ?j - Junction)
-      :precondition (and (atLocation ?p ?j) (not (canCarry ?p)) (carryItem ?p ?i) (isPlayerAlive ?p))
-      :effect  (and (atLocation ?i ?j) (canCarry ?p) (not (carryItem ?p ?i)))
+      :precondition (and (atLocation ?p ?j)  (carryItem ?p ?i) (isPlayerAlive ?p))
+      :effect  (and (atLocation ?i ?j)  (not (carryItem ?p ?i)) )
      )
+    ;  (:action drop
+    ;   :parameters (?p - player ?i - Item ?j - Junction)
+    ;   :precondition (and (atLocation ?p ?j) (not (canCarry ?p)) (carryItem ?p ?i) (isPlayerAlive ?p))
+    ;   :effect  (and (atLocation ?i ?j) (canCarry ?p) (not (carryItem ?p ?i)))
+    ;  )
 
      ; this action makes player able to push an item given that item and the player is in the same location and player and item is on the floor
      ; @parameter player {Living}: the player of the game
      ; @parameter item {Item}: the items (Box Sword Shield Key Food Gold) of the game
      ; @parameter from {junction}: current location of the  player and item
      ; @parameter to {junction}: next location of the player and item
-      (:action push
+     (:action push
        :parameters (?p - player ?b - Box ?from ?to - Junction)
-       :precondition (and (atLocation ?p ?from) (atLocation ?b ?from) (isConnected ?from ?to) (isPlayerAlive ?p))
+       :precondition (and (atLocation ?p ?from) (atLocation ?b ?from) (isConnected ?from ?to) (isPlayerAlive ?p) (onFloor ?p))
        :effect (and (atLocation ?p ?to) (atLocation ?b ?to) (not(atLocation ?p ?from))
                (not (atLocation ?b ?from)))
       )
 
-      (:action jump
-       :parameters (?p - player ?b - box ?j - Junction)
-       :precondition (and (onFloor ?p) (atLocation ?p ?j) (atLocation ?b ?j) (isClear ?b) (isPlayerAlive ?p))
-       :effect (and (onBox ?p ?b) (not (isClear ?b)) (not (onFloor ?p)))
+      ; this action makes player able to jump on the box  given that box and the player is in the same location and player and item is on the floor
+     ; @parameter player {Living}: the player of the game
+     ; @parameter item {Item}: the items (Box Sword Shield Key Food Gold) of the game
+     ; @parameter from {junction}: current location of the  player and item
+     ; @parameter to {junction}: next location of the player and item
+    (:action jump
+       :parameters (?p - player ?b - box ?i - Item ?j - Junction)
+       :precondition (and (onFloor ?p) (onBox ?i ?b) (atLocation ?p ?j) (atLocation ?b ?j)  (atLocation ?i ?j)  (isPlayerAlive ?p)  (not(carryItem ?p ?i)))
+       :effect (and (onBox ?p ?b)  (not (onFloor ?p)))
       )
 
-     ; this action makes player able to push an item given that item and the player is in the same location and player and item is on the floor
+    ; this action makes player able to go down from thhe box 
      ; @parameter player {Living}: the player of the game
-     ; @parameter box {Item}: the box item
-     ; @parameter key {Item}: the key item
-     ; @parameter j {junction}: current location of the  player and item
-     (:action grab
-      :parameters (?p - Player ?b - Box ?k -Item ?j - Junction)
-      :precondition (and (onBox?p ?b) (atLocation ?p ?j) (atLocation ?b ?j) (atLocation ?k ?j) (isPlayerAlive ?p) (onBoxItem ?k ) (not(carryItem ?p ?k)))
-      :effect (and (carryItem ?p ?k)(not(onBoxItem ?k )))
-     )
+     ; @parameter item {Item}: the items (Box Sword Shield Key Food Gold) of the game
+     ; @parameter from {junction}: current location of the  player and item
+     ; @parameter to {junction}: next location of the player and item
+     (:action comeDown
+      :parameters (?p - player ?b - box ?i - Item ?j - Junction)
+      :precondition (and  (onBox ?p ?b)  (isPlayerAlive ?p)  (not(atLocation ?i ?j))  (not(onBox ?i ?b))  (carryItem ?p ?i) )
+      :effect  (and (onFloor ?p) (not (onBox ?p ?b )) )
+      )
+      
+
+     
 
      ; this action makes player able to attack the monster given that the player and the monster are in the same location
      ; and the player has the weapon to attack the monster
