@@ -26,12 +26,6 @@
         ;monster
         (isMonsterDead ?m - Monster)
 
-        ;player
-        ;(isPlayerAlive ?p - Player)
-
-        ;inventory
-        ; (isInInventory ?x - Item ?i - Inventory)
-
         (carryItem ?p - Player ?item - Item)
         
         (canCarry ?p - Player )
@@ -51,7 +45,6 @@
 
     (:functions
         (playerHealth) - number
-        ; (playerHunger) - number
         (playerWealth) - number
         (monstersSlain) - number
 
@@ -152,12 +145,7 @@
       :parameters (?p - Player ?m - Monster ?w - Weapon ?j - Junction)
       :precondition (and (atLocation ?p ?j) (atLocation ?m ?j) (carryItem ?p ?w)
                     (not (isMonsterDead ?m)) (< (weaponDamage ?w) (monsterHealth ?m)) (> (playerHealth) 0))
-      :effect (and (decrease (monsterHealth ?m) (weaponDamage ?w)) (decrease (playerHealth) (monsterStrength ?m))
-      
-                ; update player state
-                ; (when(< (playerHealth) 0 )
-                ;     (not(isPlayerAlive ?p)))
-            )
+      :effect (and (decrease (monsterHealth ?m) (weaponDamage ?w)) (decrease (playerHealth) (monsterStrength ?m)))
      )
 
      ; this action makes player able to kill the monster given that the player and the monster are in the same location
