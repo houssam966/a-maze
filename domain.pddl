@@ -37,9 +37,7 @@
         (isClear ?b - Box) 
 
         ;there is a player on the box
-        (onBox ?p - Player ?b - Box)
-
-        (onBoxItem ?item - Item )
+        (onBox ?l - Locatable ?b - Box)
   
     )
 
@@ -85,8 +83,8 @@
      ; @parameter from {junction}: current location of the  player and item
      ; @parameter to {junction}: next location of the player and item
      (:action pickUp
-      :parameters (?p - player ?i - Item  ?j - Junction)
-      :precondition (and (atLocation ?p ?j) (atLocation ?i ?j) (canCarry ?p) (> (playerHealth) 0) (not (onBoxItem ?i))
+      :parameters (?p - player ?i - Item ?b - Box ?j - Junction)
+      :precondition (and (atLocation ?p ?j) (atLocation ?i ?j) (canCarry ?p) (> (playerHealth) 0) (not (onBox ?i ?b))
                     (not (carryItem ?p ?i)))
       ; need to check if inventory is full before saying (not (canCarry))
       :effect (and (carryItem ?p ?i) (not (atLocation ?i ?j)) (not (canCarry ?p)) (increase (inventoryCount) 1))
@@ -117,7 +115,7 @@
       )
 
       (:action jump
-       :parameters (?p - player ?b - box ?j - Junction)
+       :parameters (?p - player ?b - Box ?j - Junction)
        :precondition (and (onFloor ?p) (atLocation ?p ?j) (atLocation ?b ?j) (isClear ?b) (> (playerHealth) 0))     
        :effect (and (onBox ?p ?b) (not (isClear ?b)) (not (onFloor ?p))) 
       )
@@ -130,8 +128,8 @@
      (:action grab
       :parameters (?p - Player ?b - Box ?k - Item ?j - Junction)
       :precondition (and (onBox ?p ?b) (atLocation ?p ?j) (atLocation ?b ?j) (atLocation ?k ?j) (> (playerHealth) 0)
-                    (onBoxItem ?k) (not (carryItem ?p ?k)))
-      :effect (and (carryItem ?p ?k) (not (onBoxItem ?k)))
+                    (onBox ?k ?b) (not (carryItem ?p ?k)))
+      :effect (and (carryItem ?p ?k) (not (onBox ?k ?b)))
      )
 
      ; this action makes player able to attack the monster given that the player and the monster are in the same location
