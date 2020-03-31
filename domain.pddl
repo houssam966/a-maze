@@ -27,7 +27,7 @@
         (isMonsterDead ?m - Monster)
 
         ;player
-        (isPlayerAlive ?p - Player)
+        ;(isPlayerAlive ?p - Player)
 
         ;inventory
         ; (isInInventory ?x - Item ?i - Inventory)
@@ -82,7 +82,7 @@
      ; @parameter to {junction}: next location of the player
      (:action goTo
       :parameters (?p - player ?from ?to - Junction)
-      :precondition (and (atLocation ?p ?from ) (isConnected ?from ?to) (not (isLocked ?from ?to)) (isPlayerAlive ?p))
+      :precondition (and (atLocation ?p ?from ) (isConnected ?from ?to) (not (isLocked ?from ?to)) (> (playerHealth) 0))
       :effect (and (atLocation ?p ?to) (not (atLocation ?p ?from)))
      )
 
@@ -93,7 +93,7 @@
      ; @parameter to {junction}: next location of the player and item
      (:action pickUp
       :parameters (?p - player ?i - Item  ?j - Junction)
-      :precondition (and (atLocation ?p ?j) (atLocation ?i ?j) (canCarry ?p) (isPlayerAlive ?p) (not (onBoxItem ?i))
+      :precondition (and (atLocation ?p ?j) (atLocation ?i ?j) (canCarry ?p) (> (playerHealth) 0) (not (onBoxItem ?i))
                     (not (carryItem ?p ?i)))
       ; need to check if inventory is full before saying (not (canCarry))
       :effect (and (carryItem ?p ?i) (not (atLocation ?i ?j)) (not (canCarry ?p)) (increase (inventoryCount) 1))
@@ -107,7 +107,7 @@
      (:action drop
       :parameters (?p - player ?i - Item ?j - Junction)
       ; maybe we don't need the (not (canCarry)) in precondition as it depends on the inventory
-      :precondition (and (atLocation ?p ?j) (not (canCarry ?p)) (carryItem ?p ?i) (isPlayerAlive ?p))
+      :precondition (and (atLocation ?p ?j) (not (canCarry ?p)) (carryItem ?p ?i) (> (playerHealth) 0))
       :effect  (and (atLocation ?i ?j) (canCarry ?p) (not (carryItem ?p ?i)) (decrease (inventoryCount) 1))
      )
 
@@ -118,14 +118,14 @@
      ; @parameter to {junction}: next location of the player and item
       (:action push
        :parameters (?p - player ?b - Box ?from ?to - Junction)
-       :precondition (and (atLocation ?p ?from) (atLocation ?b ?from) (isConnected ?from ?to) (isPlayerAlive ?p))
+       :precondition (and (atLocation ?p ?from) (atLocation ?b ?from) (isConnected ?from ?to) (> (playerHealth) 0))
        :effect (and (atLocation ?p ?to) (atLocation ?b ?to) (not(atLocation ?p ?from))
                (not (atLocation ?b ?from)))
       )
 
       (:action jump
        :parameters (?p - player ?b - box ?j - Junction)
-       :precondition (and (onFloor ?p) (atLocation ?p ?j) (atLocation ?b ?j) (isClear ?b) (isPlayerAlive ?p))     
+       :precondition (and (onFloor ?p) (atLocation ?p ?j) (atLocation ?b ?j) (isClear ?b) (> (playerHealth) 0))     
        :effect (and (onBox ?p ?b) (not (isClear ?b)) (not (onFloor ?p))) 
       )
 
@@ -136,7 +136,7 @@
      ; @parameter j {junction}: current location of the  player and item
      (:action grab
       :parameters (?p - Player ?b - Box ?k - Item ?j - Junction)
-      :precondition (and (onBox ?p ?b) (atLocation ?p ?j) (atLocation ?b ?j) (atLocation ?k ?j) (isPlayerAlive ?p)
+      :precondition (and (onBox ?p ?b) (atLocation ?p ?j) (atLocation ?b ?j) (atLocation ?k ?j) (> (playerHealth) 0)
                     (onBoxItem ?k) (not (carryItem ?p ?k)))
       :effect (and (carryItem ?p ?k) (not (onBoxItem ?k)))
      )
@@ -151,7 +151,7 @@
      (:action attack
       :parameters (?p - Player ?m - Monster ?w - Weapon ?j - Junction)
       :precondition (and (atLocation ?p ?j) (atLocation ?m ?j) (carryItem ?p ?w)
-                    (not (isMonsterDead ?m)) (< (weaponDamage ?w) (monsterHealth ?m)) (isPlayerAlive ?p))
+                    (not (isMonsterDead ?m)) (< (weaponDamage ?w) (monsterHealth ?m)) (> (playerHealth) 0))
       :effect (and (decrease (monsterHealth ?m) (weaponDamage ?w)) (decrease (playerHealth) (monsterStrength ?m))
       
                 ; update player state
@@ -169,7 +169,7 @@
      (:action finalAttack
       :parameters (?p - Player ?m - Monster ?w - Weapon ?j - Junction)
       :precondition (and (atLocation ?p ?j) (atLocation ?m ?j) (carryItem ?p ?w)
-                    (not (isMonsterDead ?m)) (>= (weaponDamage ?w) (monsterHealth ?m)) (isPlayerAlive ?p))
+                    (not (isMonsterDead ?m)) (>= (weaponDamage ?w) (monsterHealth ?m)) (> (playerHealth) 0))
       :effect (and (not (atLocation ?m ?j)) (isMonsterDead ?m) (increase (monstersSlain) 1))
      )
 
@@ -182,7 +182,7 @@
     ; @parameter j {junction}: the current location of the player and the food
      (:action eatFood
       :parameters (?p - Player ?f - Food ?j - Junction)
-      :precondition (and (atLocation ?p ?j) (atLocation ?f ?j) (isPlayerAlive ?p))
+      :precondition (and (atLocation ?p ?j) (atLocation ?f ?j) (> (playerHealth) 0))
       :effect (and (not (atLocation ?f ?j)) (increase (playerHealth) (foodValue ?f)))
      )
 
@@ -194,7 +194,7 @@
     ; @parameter j{junction}: the current location of the player and the gold
      (:action pickUpGold
       :parameters (?p - Player ?g - Gold ?j - Junction)
-      :precondition (and (atLocation ?p ?j) (atLocation ?g ?j) (isPlayerAlive ?p))
+      :precondition (and (atLocation ?p ?j) (atLocation ?g ?j) (> (playerHealth) 0))
       :effect (and (not (atLocation ?g ?j)) (increase (playerWealth) 1))
      )
      
