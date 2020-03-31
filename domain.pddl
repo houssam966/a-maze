@@ -106,8 +106,8 @@
      ; @parameter to {junction}: next location of the player and item
      (:action drop
       :parameters (?p - player ?i - Item ?j - Junction)
-      ; maybe we don't need the (not (canCarry)) in precondition as it depends on the inventory
-      :precondition (and (atLocation ?p ?j) (not (canCarry ?p)) (carryItem ?p ?i) (> (playerHealth) 0))
+      ; we don't need the (not (canCarry)) in precondition as it depends on the inventory
+      :precondition (and (atLocation ?p ?j) (carryItem ?p ?i) (> (playerHealth) 0))
       :effect  (and (atLocation ?i ?j) (canCarry ?p) (not (carryItem ?p ?i)) (decrease (inventoryCount) 1))
      )
 
@@ -170,7 +170,7 @@
       :parameters (?p - Player ?m - Monster ?w - Weapon ?j - Junction)
       :precondition (and (atLocation ?p ?j) (atLocation ?m ?j) (carryItem ?p ?w)
                     (not (isMonsterDead ?m)) (>= (weaponDamage ?w) (monsterHealth ?m)) (> (playerHealth) 0))
-      :effect (and (not (atLocation ?m ?j)) (isMonsterDead ?m) (increase (monstersSlain) 1))
+      :effect (and (not (atLocation ?m ?j)) (isMonsterDead ?m) (not (carryItem ?p ?w)) (increase (monstersSlain) 1))
      )
 
 
