@@ -38,6 +38,9 @@
 
         ;there is a player on the box
         (onBox ?l - Locatable ?b - Box)
+
+        ;check if the item is Gold
+        (isGold ?g - Gold)
   
     )
 
@@ -87,7 +90,10 @@
       :precondition (and (atLocation ?p ?j) (atLocation ?i ?j) (canCarry ?p) (> (playerHealth) 0) (not (onBox ?i ?b))
                     (not (carryItem ?p ?i)))
       ; need to check if inventory is full before saying (not (canCarry))
-      :effect (and (carryItem ?p ?i) (not (atLocation ?i ?j)) (not (canCarry ?p)) (increase (inventoryCount) 1))
+      :effect (and (carryItem ?p ?i) (not (atLocation ?i ?j)) (not (canCarry ?p)) (increase (inventoryCount) 1)
+                ; update player wealth
+                (when (isGold ?i)
+                    (increase (playerWealth) 1)))
      )
 
      ; this action makes player able to pick up an item given that item and the player is in the same location and player is free
@@ -171,18 +177,5 @@
       :precondition (and (atLocation ?p ?j) (atLocation ?f ?j) (> (playerHealth) 0))
       :effect (and (not (atLocation ?f ?j)) (increase (playerHealth) (foodValue ?f)))
      )
-
-
-    ; if the player is at a location that has gold, then pick up the gold
-    ; remove the gold from the room, and increase player wealth by 1
-    ; @parameter player{Living}: the player of the game
-    ; @parameter gold{Gold}: the gold the player can pick up
-    ; @parameter j{junction}: the current location of the player and the gold
-     (:action pickUpGold
-      :parameters (?p - Player ?g - Gold ?j - Junction)
-      :precondition (and (atLocation ?p ?j) (atLocation ?g ?j) (> (playerHealth) 0))
-      :effect (and (not (atLocation ?g ?j)) (increase (playerWealth) 1))
-     )
-     
         
 )
