@@ -1,3 +1,4 @@
+
 (define (domain maze)
 
     (:requirements :typing :fluents :equality :negative-preconditions :conditional-effects)
@@ -27,7 +28,7 @@
         (isMonsterDead ?m - Monster)
 
         (carryItem ?p - Player ?item - Item)
-        
+
         (canCarry ?p - Player )
 
         ;player is on the floor
@@ -41,7 +42,6 @@
 
         ;check if the item is Gold
         (isGold ?g - Gold)
-  
     )
 
     (:functions
@@ -68,8 +68,8 @@
 
         ;this could affect how quickly the player gets hungry
         (distanceBetweenJunctions ?j1 ?j2 - Junction) - number
-
     )
+
      ; this action moves player from location from to location to given that the player is at location from and locations from and to are connected
      ; @parameter player {Living}: the player of the game
      ; @parameter from {junction}: current location of the player
@@ -125,6 +125,7 @@
        :precondition (and (onFloor ?p) (atLocation ?p ?j) (atLocation ?b ?j) (isClear ?b) (> (playerHealth) 0))     
        :effect (and (onBox ?p ?b) (not (isClear ?b)) (not (onFloor ?p))) 
       )
+
 
      ; this action makes player able to push an item given that item and the player is in the same location and player and item is on the floor 
      ; @parameter player {Living}: the player of the game
