@@ -7,13 +7,13 @@
 
         Locatable Junction Inventory - object
 
-
-        Living Item Box Key - Locatable
+        Living Item Box - Locatable
 
         Player Monster - Living
 
-        Sword Shield  Food Gold - Item 
+        Key Weapon Shield Food Gold - Item
 
+        Sword Knife - Weapon 
     )
 
     (:predicates
@@ -27,13 +27,6 @@
         ;monster
         (isMonsterDead ?m - Monster)
 
-        ;player
-        (isPlayerAlive ?p - Player)
-
-        ;inventory
-        (isInInventory ?x - Item ?i - Inventory)
-
-        ;player is carrying an item
         (carryItem ?p - Player ?item - Item)
 
         (canCarry ?p - Player )
@@ -45,15 +38,14 @@
         (isClear ?b - Box) 
 
         ;there is a player on the box
-        (onBox ?p - Player ?b - Box)
+        (onBox ?l - Locatable ?b - Box)
 
-         ;player has key
-        (hasKey ?p - player ?key - Key)
+        ;check if the item is Gold
+        (isGold ?g - Gold)
     )
 
     (:functions
         (playerHealth) - number
-        (playerHunger) - number
         (playerWealth) - number
         (monstersSlain) - number
 
@@ -68,6 +60,11 @@
 
         ;how much damage the monster can deal to the player/shield
         (monsterStrength ?m - Monster) - number
+        ;monster health bar
+        (monsterHealth ?m - Monster)         - number
+
+        ;how much damage the weapon can deal to the monster
+        (weaponDamage ?w - Weapon)               - number
 
         ;this could affect how quickly the player gets hungry
         (distanceBetweenJunctions ?j1 ?j2 - Junction) - number
@@ -79,49 +76,54 @@
      ; @parameter to {junction}: next location of the player
      (:action goTo
       :parameters (?p - player ?from ?to - Junction)
-      :precondition (and (atLocation ?p ?from) (isConnected ?from ?to) (not (isLocked ?from ?to)))
+      :precondition (and (atLocation ?p ?from ) (isConnected ?from ?to) (not (isLocked ?from ?to)) (> (playerHealth) 0))
       :effect (and (atLocation ?p ?to) (not (atLocation ?p ?from)))
      )
 
      ; this action makes player able to pick up an item given that player is free
      ; @parameter player {Living}: the player of the game
-     ; @parameter item {Ittem}: the items (Box Sword Shield Key Food Gold) of the game
-     ; @parameter j {junction}: current location of the  player and item
+     ; @parameter item {Item}: the items (Box Sword Shield Key Food Gold) of the game
+     ; @parameter from {junction}: current location of the  player and item
+     ; @parameter to {junction}: next location of the player and item
      (:action pickUp
-      :parameters (?p - player ?i - Item ?j - Junction)
-      :precondition (and (atLocation ?p ?j) (atLocation ?i ?j) (canCarry ?p))
-      :effect (and (carryItem ?p ?i) (not(atLocation ?i ?j)) (not (canCarry ?p)))
+      :parameters (?p - player ?i - Item ?b - Box ?j - Junction)
+      :precondition (and (atLocation ?p ?j) (atLocation ?i ?j) (canCarry ?p) (> (playerHealth) 0) (not (onBox ?i ?b))
+                    (not (carryItem ?p ?i)))
+      ; need to check if inventory is full before saying (not (canCarry))
+      :effect (and (carryItem ?p ?i) (not (atLocation ?i ?j)) (not (canCarry ?p)) (increase (inventoryCount) 1)
+                ; update player wealth
+                (when (isGold ?i)
+                    (increase (playerWealth) 1)))
      )
 
-    ;  ; this action makes player able to pick up an item given that item and the player is in the same location and player is free
-    ;   ; @parameter player {Living}: the player of the game
-    ;  ; @parameter item {Ittem}: the items (Box Sword Shield Key Food Gold) of the game
-    ;  ; @parameter from {junction}: current location of the  player and item
-    ;  ; @parameter to {junction}: next location of the player and item
+     ; this action makes player able to pick up an item given that item and the player is in the same location and player is free
+     ; @parameter player {Living}: the player of the game
+     ; @parameter item {Item}: the items (Box Sword Shield Key Food Gold) of the game
+     ; @parameter from {junction}: current location of the  player and item
+     ; @parameter to {junction}: next location of the player and item
      (:action drop
       :parameters (?p - player ?i - Item ?j - Junction)
-      :precondition (and  (atLocation ?p ?j) (not(canCarry ?p)))
-      :effect  (and (atLocation ?i ?j) (canCarry ?p) (not (atLocation ?i ?j) )
-     )
+      ; we don't need the (not (canCarry)) in precondition as it depends on the inventory
+      :precondition (and (atLocation ?p ?j) (carryItem ?p ?i) (> (playerHealth) 0))
+      :effect  (and (atLocation ?i ?j) (canCarry ?p) (not (carryItem ?p ?i)) (decrease (inventoryCount) 1))
      )
 
      ; this action makes player able to push an item given that item and the player is in the same location and player and item is on the floor
-      ; @parameter player {Living}: the player of the game
-     ; @parameter item {Ittem}: the items (Box Sword Shield Key Food Gold) of the game
+     ; @parameter player {Living}: the player of the game
+     ; @parameter item {Item}: the items (Box Sword Shield Key Food Gold) of the game
      ; @parameter from {junction}: current location of the  player and item
      ; @parameter to {junction}: next location of the player and item
       (:action push
        :parameters (?p - player ?b - Box ?from ?to - Junction)
-       :precondition (and (atLocation ?p ?from) (atLocation ?b ?from)(isConnected ?from ?to))
+       :precondition (and (atLocation ?p ?from) (atLocation ?b ?from) (isConnected ?from ?to) (> (playerHealth) 0))
        :effect (and (atLocation ?p ?to) (atLocation ?b ?to) (not(atLocation ?p ?from))
                (not (atLocation ?b ?from)))
       )
 
       (:action jump
-      :parameters (?p - player ?b - box ?j - Junction)
-      :precondition (and (onFloor ?p) (atLocation ?p ?j) (atLocation ?b ?j) (isClear ?b))     
-      :effect (and (onBox ?p ?b) (not (isClear ?b)) (not (onFloor ?p))) 
-
+       :parameters (?p - player ?b - Box ?j - Junction)
+       :precondition (and (onFloor ?p) (atLocation ?p ?j) (atLocation ?b ?j) (isClear ?b) (> (playerHealth) 0))     
+       :effect (and (onBox ?p ?b) (not (isClear ?b)) (not (onFloor ?p))) 
       )
 
 
@@ -131,10 +133,50 @@
      ; @parameter key {Item}: the key item
      ; @parameter j {junction}: current location of the  player and item
      (:action grab
+      :parameters (?p - Player ?b - Box ?k - Item ?j - Junction)
+      :precondition (and (onBox ?p ?b) (atLocation ?p ?j) (atLocation ?b ?j) (atLocation ?k ?j) (> (playerHealth) 0)
+                    (onBox ?k ?b) (not (carryItem ?p ?k)))
+      :effect (and (carryItem ?p ?k) (not (onBox ?k ?b)))
+     )
 
-      :parameters (?p - Player ?b - Box ?k - Key ?j - Junction)
-      :precondition (and (onBox ?p ?b) (atLocation ?p ?j)(atLocation ?b ?j) (atLocation ?k ?j))
-      :effect (and (hasKey ?p ?k))
-      )   
+     ; this action makes player able to attack the monster given that the player and the monster are in the same location
+     ; and the player has the weapon to attack the monster
+     ; this action does not kill the monster but just damage him
+     ; @parameter player {Living}: the player of the game
+     ; @parameter monster {Living}: the monster in the room
+     ; @parameter weapon {Item}: the weapon item
+     ; @parameter j {junction}: current location of the  player and the monster
+     (:action attack
+      :parameters (?p - Player ?m - Monster ?w - Weapon ?j - Junction)
+      :precondition (and (atLocation ?p ?j) (atLocation ?m ?j) (carryItem ?p ?w)
+                    (not (isMonsterDead ?m)) (< (weaponDamage ?w) (monsterHealth ?m)) (> (playerHealth) 0))
+      :effect (and (decrease (monsterHealth ?m) (weaponDamage ?w)) (decrease (playerHealth) (monsterStrength ?m)))
+     )
+
+     ; this action makes player able to kill the monster given that the player and the monster are in the same location
+     ; and the player has a weapon stronger that the monster's current health
+     ; @parameter player {Living}: the player of the game
+     ; @parameter monster {Living}: the monster in the room
+     ; @parameter weapon {Item}: the weapon item
+     ; @parameter j {junction}: current location of the  player and the monster
+     (:action finalAttack
+      :parameters (?p - Player ?m - Monster ?w - Weapon ?j - Junction)
+      :precondition (and (atLocation ?p ?j) (atLocation ?m ?j) (carryItem ?p ?w)
+                    (not (isMonsterDead ?m)) (>= (weaponDamage ?w) (monsterHealth ?m)) (> (playerHealth) 0))
+      :effect (and (not (atLocation ?m ?j)) (isMonsterDead ?m) (not (carryItem ?p ?w)) (increase (monstersSlain) 1))
+     )
+
+
+
+    ; if the player is at a location that has food, then eat the food
+    ; remove the food from the room, and increase hunger by the food's value
+    ; @parameter player {Living}: the player of the game
+    ; @parameter food {Food}: the food the player can eat
+    ; @parameter j {junction}: the current location of the player and the food
+     (:action eatFood
+      :parameters (?p - Player ?f - Food ?j - Junction)
+      :precondition (and (atLocation ?p ?j) (atLocation ?f ?j) (> (playerHealth) 0))
+      :effect (and (not (atLocation ?f ?j)) (increase (playerHealth) (foodValue ?f)))
+     )
+        
 )
-
