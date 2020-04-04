@@ -24,11 +24,10 @@
  m - Monster
  i - Inventory
  shield - Shield
- box - Box
  key - Key
  banana - Food
- sword  - Sword
- knife - Knife
+ w - Weapon
+ f - Floor
 )
 (:init
 
@@ -69,11 +68,10 @@
     (isConnected j13 j7)
     (isConnected j14 j8)
 
-    ;Locations
-    (atLocation p j1)
-
     ;Player
-    (isPlayerAlive p)
+    (=(playerHealth) 100)
+    (atLocation p j1)
+    (on p f) ;player on the floor initially so they can move between the junctions
 )
 
 (:goal  (atLocation p j10))

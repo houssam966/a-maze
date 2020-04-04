@@ -1,15 +1,15 @@
 ;;!domain: maze
 ;;!problem: problem_big_maze
 
-(goto p j1 j2)
-(goto p j2 j3)
-(goto p j3 j4)
-(goto p j4 j5)
-(goto p j5 j6)
-(goto p j6 j7)
-(goto p j7 j8)
-(goto p j8 j9)
-(goto p j9 j10)
+(goto p j1 j2 f)
+(goto p j2 j3 f)
+(goto p j3 j4 f)
+(goto p j4 j5 f)
+(goto p j5 j6 f)
+(goto p j6 j7 f)
+(goto p j7 j8 f)
+(goto p j8 j9 f)
+(goto p j9 j10 f)
 
 ; Makespan: NaN
 ; Cost: 0
