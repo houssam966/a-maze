@@ -8,23 +8,26 @@
  in - Inventory
  s - Shield
  banana - Food
+ f - Floor
  w - Weapon
  b - Box
  g - Gold
 )
 (:init
-    (onFloor p)
     (isConnected j1 j2)
     (isConnected j2 j1)
     (isConnected j2 j3)
-    (isConnected j3 j2)
-    (canCarry p )
     (atLocation p j1)
     (atLocation k j2)
-    (isPlayerAlive p)
+    (atLocation w j2)
+    (on p f) ;player initially on the floor
+    (on k f) ;key on the floor
+    (on w f) ;weapon on the floor
+    (=(playerHealth) 100)
+    (=(inventoryCount) 0)
+    (=(maxInventorySize) 2)
 )
 
-(:goal  (and (atLocation p j3) (atLocation k j3))
-)
+(:goal (and (atLocation p j3) (atLocation k j3) (atLocation w j3)))
 
 )

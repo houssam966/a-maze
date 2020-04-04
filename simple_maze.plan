@@ -1,8 +1,8 @@
 ;;!domain: maze
 ;;!problem: simple_maze
 
-(goto p j1 j2)
-(goto p j2 j3)
+(goto p j1 j2 f)
+(goto p j2 j3 f)
 
 ; Makespan: NaN
 ; Cost: 0

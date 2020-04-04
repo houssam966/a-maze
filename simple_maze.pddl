@@ -9,11 +9,13 @@
  s - Shield
  k - Key
  b - Box
+ f - Floor
  g -Gold
  banana - Food
  w - Weapon
 )
 (:init
+    (on p f)
     (isConnected j1 j2)
     (isConnected j2 j1)
     (isConnected j2 j3)
