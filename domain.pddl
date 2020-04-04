@@ -1,7 +1,7 @@
 
 (define (domain maze)
 
-    (:requirements :typing :fluents :equality :negative-preconditions :conditional-effects)
+    (:requirements :typing :fluents :equality :negative-preconditions :conditional-effects :action-costs)
 
     (:types
 
@@ -177,6 +177,14 @@
       :parameters (?p - Player ?f - Food ?j - Junction)
       :precondition (and (atLocation ?p ?j) (atLocation ?f ?j) (> (playerHealth) 0))
       :effect (and (not (atLocation ?f ?j)) (increase (playerHealth) (foodValue ?f)))
+     )
+
+    ;if the player is at a junction(j1) that has a locked path to another junction(j2),
+    ;and the player has a key, then use the key to unlock the route
+     (:action unlockRoute
+      :parameters (?p - Player ?k - Key ?j1 - Junction ?j2 - Junction)
+      :precondition (and(atLocation ?p ?j1) (carryItem ?p ?k) (isLocked ?j1 ?j2))
+      :effect (and (not (carryItem ?p ?k)) (not (isLocked ?j1 ?j2)) (isConnected ?j1 ?j2))
      )
         
 )
