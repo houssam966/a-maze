@@ -9,6 +9,7 @@
  s - Shield
  k - Key
  b - Box
+ g -Gold
  banana - Food
  w - Weapon
 )
@@ -17,7 +18,7 @@
     (isConnected j2 j1)
     (isConnected j2 j3)
     (isConnected j3 j2)
-    (isPlayerAlive p)
+    (=(playerHealth) 100)
     (atLocation p j1)
 )
 
