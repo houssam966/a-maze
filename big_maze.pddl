@@ -16,7 +16,7 @@
 ;
 ;
 
-(define (problem problem_big_maze)
+(define (problem big_maze)
 (:domain maze)
 (:objects
  j1 j2 j3 j4 j5 j6 j7 j8 j9 j10 j11 j12 j13 j14 j15 - Junction

@@ -9,7 +9,7 @@
 
         Platform Living Item - Locatable
 
-        Box Cieling Floor - Platform
+        Box Floor - Platform
 
         Player Monster - Living
 
@@ -33,7 +33,6 @@
 
         (on ?l - Locatable ?p - Platform )
 
-        (isClimbable ?p - Platform)
         ;check if the item is Gold
         (isGold ?g - Gold)
     )
@@ -46,10 +45,13 @@
         (maxInventorySize) - number
         (inventoryCount) - number
 
+
         ;how much the food replenishes the hunger bar
         (foodValue ?f - Food) - number
 
         (shieldStrength ?s - Shield) - number
+
+        (platformLevel ?p - Platform) - number
 
         ;how much damage the monster can deal to the player/shield
         (monsterStrength ?m - Monster) - number
@@ -101,8 +103,8 @@
      ; @parameter from {junction}: current location of the  player and item
      ; @parameter to {junction}: next location of the player and item
      (:action push
-       :parameters (?p - player ?b - Box ?from ?to - Junction)
-       :precondition (and (atLocation ?p ?from) (atLocation ?b ?from) (isConnected ?from ?to) (> (playerHealth) 0))
+       :parameters (?p - player ?b - Box ?from ?to - Junction ?f - Floor)
+       :precondition (and (atLocation ?p ?from) (atLocation ?b ?from) (isConnected ?from ?to) (> (playerHealth) 0) (on ?p ?f) (on ?b ?f) )
        :effect (and (atLocation ?p ?to) (atLocation ?b ?to) (not(atLocation ?p ?from))
                (not (atLocation ?b ?from)))
       )
@@ -114,7 +116,7 @@
      ; @parameter to {junction}: next location of the player and item
     (:action climb
        :parameters (?p - player ?from - Platform  ?to - Platform ?j - Junction)
-       :precondition (and (atLocation ?p ?j) (atLocation ?to ?j) (> (playerHealth) 0) (isClimbable ?to) )
+       :precondition (and (atLocation ?p ?j) (atLocation ?to ?j) (on ?p ?from ) (= (-(platformLevel ?to) (platformLevel ?from)) 1) (> (playerHealth) 0))
        :effect (and (on ?p ?to)  (not (on ?p ?from)))
       )
 
@@ -125,19 +127,19 @@
      ; @parameter to {junction}: next location of the player and item
      (:action descend
       :parameters (?p - player ?from - Platform ?to - Platform ?j - Junction)
-      :precondition (and (atLocation ?p ?j) (atLocation ?to ?j) (on ?p ?from) (> (playerHealth) 0)  (not(isClimbable ?to))  )
+      :precondition (and (atLocation ?p ?j) (on ?p ?from) (= (-(platformLevel ?from) (platformLevel ?to)) 1) (> (playerHealth) 0))
       :effect (and (on ?p ?to)  (not (on ?p ?from)))
       )
 
-;      ; @parameter box {Item}: the box item
-;      ; @parameter key {Item}: the key item
-;      ; @parameter j {junction}: current location of the  player and item
-;      (:action grab
-;       :parameters (?p - Player ?b - Box ?i - Item ?j - Junction)
-;       :precondition (and (on ?p ?b) (atLocation ?p ?j) (atLocation ?b ?j) (atLocation ?i ?j) (> (playerHealth) 0)
-;                     (onBox ?k ?b) (not (carryItem ?p ?k)))
-;       :effect (and (carryItem ?p ?k) (not (onBox ?k ?b)))
-;      )
+     ; @parameter box {Item}: the box item
+     ; @parameter key {Item}: the key item
+     ; @parameter j {junction}: current location of the  player and item
+     (:action grab
+      :parameters (?p - Player ?from - Platform ?current - Platform ?i - Item ?j - Junction)
+       :precondition (and (atLocation ?p ?j) (on ?p ?current) (on ?i ?from) (atLocation ?from ?j)
+        (= (-(platformLevel ?from) (platformLevel ?current)) 1) (> (playerHealth) 0))
+      :effect (and (carryItem ?p ?i) (not (atLocation ?i ?j)) (not(on ?i ?from)) (increase (inventoryCount) 1))
+     )
 
      ; this action makes player able to attack the monster given that the player and the monster are in the same location
      ; and the player has the weapon to attack the monster

@@ -1,5 +1,5 @@
 ;;!domain: maze
-;;!problem: problem_big_maze
+;;!problem: big_maze
 
 (goto p j1 j2 f)
 (goto p j2 j3 f)
