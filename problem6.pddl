@@ -11,11 +11,11 @@
 ;
 
 (:objects 
-    j1 j2 j3 j4 j5 j6 j7 j8 j9 j10 j11 j12 j13 j14 j15 j16 j17 j18 j19 j20 j21- Junction
+    j1 j2 j3 j4 j5 j6 j7 j8 j9 j10 j11 j12 j13 j14 j15 j16 j17 j18 j19 j20 j21 - Junction
 
     hagger - Player
 
-    twoP1 twoP2 twoP3 dug1 dug2 dug3 billBull1 bullBull2 bred andoreJr axl1 axl2 hollywood elGado poison slash simons jake andore belger - Monster
+    twoP1 twoP2 twoP3 dug1 dug2 dug3 billBull1 billBull2 bred andoreJr axl1 axl2 hollywood elGado poison slash simons jake andore belger - Monster
 
     apple pizza barbecue - Food
     in - Inventory
@@ -32,28 +32,28 @@
     (= monstersSlain 0)
     (= inventoryCount 0)
 
-    (onFloor ?p)
+    (onFloor hagger)
 
-    (isConnected ?j1 ?j2)
-    (isConnected ?j2 ?j3)
-    (isConnected ?j3 ?j4)
-    (isConnected ?j4 ?j5)
-    (isConnected ?j5 ?j6)
-    (isConnected ?j6 ?j7)
-    (isConnected ?j7 ?j8)
-    (isConnected ?j8 ?j9)
-    (isConnected ?j9 ?j10)
-    (isConnected ?j10 ?j11)
-    (isConnected ?j11 ?j12)
-    (isConnected ?j12 ?j13)
-    (isConnected ?j13 ?j14)
-    (isConnected ?j14 ?j15)
-    (isConnected ?j15 ?j16)
-    (isConnected ?j16 ?j17)
-    (isConnected ?j17 ?j18)
-    (isConnected ?j18 ?j19)
-    (isConnected ?j19 ?j20)
-    (isConnected ?j20 ?j21)
+    (isConnected j1 j2)
+    (isConnected j2 j3)
+    (isConnected j3 j4)
+    (isConnected j4 j5)
+    (isConnected j5 j6)
+    (isConnected j6 j7)
+    (isConnected j7 j8)
+    (isConnected j8 j9)
+    (isConnected j9 j10)
+    (isConnected j10 j11)
+    (isConnected j11 j12)
+    (isConnected j12 j13)
+    (isConnected j13 j14)
+    (isConnected j14 j15)
+    (isConnected j15 j16)
+    (isConnected j16 j17)
+    (isConnected j17 j18)
+    (isConnected j18 j19)
+    (isConnected j19 j20)
+    (isConnected j20 j21)
 
     (canCarry hagger)
 
@@ -85,7 +85,7 @@
     (= (monsterHealth billBull1) 20)
     (= (monsterHealth billBull2) 20)
     (= (monsterStrength billBull1) 20)
-    (= (monsterStrength billBill2) 20)
+    (= (monsterStrength billBull2) 20)
 
     (= (monsterHealth bred) 15)
     (= (monsterStrength bred) 15)
@@ -155,7 +155,7 @@
 
 ;hagger must beat up every gang member and reach the end of the room
 (:goal (and 
-    (atLocation p j21)
+    (atLocation hagger j21)
     (isMonsterDead twoP1)
     (isMonsterDead twoP2)
     (isMonsterDead twoP3)

@@ -8,8 +8,17 @@
  in - Inventory
  s - Shield
  banana - Food
+ w - Weapon
+ b - Box
 )
 (:init
+    (= playerHealth 1)
+    (= playerWealth 0)
+    (= monstersSlain 0)
+    (= inventoryCount 0)
+
+    (onFloor p)
+
     (isConnected j1 j2)
     (isConnected j2 j1)
     (isConnected j2 j3)

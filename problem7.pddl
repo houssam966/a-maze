@@ -5,19 +5,19 @@
 
 ;map
 
-;          j0
-;    DK    |
-;    j1----j2----j3
-;          :     |
-;    j4-j5-j6----j7
-;    |  |        :
-;    j8-j9--j10--j11
-;       :   |    |
-;  j12-j13-j14--j15
-;   |   |
-;  j16-j17------j18
-;       :        |
-;  j19-j20------j21
+;             j0
+;    DK       |
+;    j1-------j2-------j3
+;             :        |
+;    j4----j5-j6-------j7
+;    |     |           :
+;    j8----j9--j10-----j11
+;          :   |       |
+;  j12----j13-j14-----j15
+;   |      |
+;  j16----j17---------j18
+;          :           |
+;  j19----j20---------j21
 
 
 (:objects 
@@ -41,7 +41,7 @@
     (= monstersSlain 0)
     (= inventoryCount 0)
 
-    (onFloor ?mario)
+    (onFloor mario)
 
     ;ladder junctions are 1-way
     (isConnected j19 j20)

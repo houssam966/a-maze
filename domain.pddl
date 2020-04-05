@@ -1,7 +1,7 @@
 
 (define (domain maze)
 
-    (:requirements :typing :fluents :equality :negative-preconditions :conditional-effects :action-costs)
+    (:requirements :strips :typing :fluents :equality :negative-preconditions :conditional-effects :action-costs)
 
     (:types
 
@@ -75,7 +75,7 @@
      ; @parameter from {junction}: current location of the player
      ; @parameter to {junction}: next location of the player
      (:action goTo
-      :parameters (?p - player ?from ?to - Junction)
+      :parameters (?p - Player ?from ?to - Junction)
       :precondition (and (atLocation ?p ?from ) (isConnected ?from ?to) (not (isLocked ?from ?to)) (> (playerHealth) 0))
       :effect (and (atLocation ?p ?to) (not (atLocation ?p ?from)))
      )
@@ -86,7 +86,7 @@
      ; @parameter from {junction}: current location of the  player and item
      ; @parameter to {junction}: next location of the player and item
      (:action pickUp
-      :parameters (?p - player ?i - Item ?b - Box ?j - Junction)
+      :parameters (?p - Player ?i - Item ?b - Box ?j - Junction)
       :precondition (and (atLocation ?p ?j) (atLocation ?i ?j) (canCarry ?p) (> (playerHealth) 0) (not (onBox ?i ?b))
                     (not (carryItem ?p ?i)))
       ; need to check if inventory is full before saying (not (canCarry))
@@ -102,7 +102,7 @@
      ; @parameter from {junction}: current location of the  player and item
      ; @parameter to {junction}: next location of the player and item
      (:action drop
-      :parameters (?p - player ?i - Item ?j - Junction)
+      :parameters (?p - Player ?i - Item ?j - Junction)
       ; we don't need the (not (canCarry)) in precondition as it depends on the inventory
       :precondition (and (atLocation ?p ?j) (carryItem ?p ?i) (> (playerHealth) 0))
       :effect  (and (atLocation ?i ?j) (canCarry ?p) (not (carryItem ?p ?i)) (decrease (inventoryCount) 1))
@@ -114,14 +114,14 @@
      ; @parameter from {junction}: current location of the  player and item
      ; @parameter to {junction}: next location of the player and item
       (:action push
-       :parameters (?p - player ?b - Box ?from ?to - Junction)
+       :parameters (?p - Player ?b - Box ?from ?to - Junction)
        :precondition (and (atLocation ?p ?from) (atLocation ?b ?from) (isConnected ?from ?to) (> (playerHealth) 0))
        :effect (and (atLocation ?p ?to) (atLocation ?b ?to) (not(atLocation ?p ?from))
                (not (atLocation ?b ?from)))
       )
 
       (:action jump
-       :parameters (?p - player ?b - Box ?j - Junction)
+       :parameters (?p - Player ?b - Box ?j - Junction)
        :precondition (and (onFloor ?p) (atLocation ?p ?j) (atLocation ?b ?j) (isClear ?b) (> (playerHealth) 0))     
        :effect (and (onBox ?p ?b) (not (isClear ?b)) (not (onFloor ?p))) 
       )
