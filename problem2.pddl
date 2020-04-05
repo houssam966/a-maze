@@ -1,15 +1,18 @@
-(define (problem problem_pickup_drop) 
+(define (problem pick_up_drop)
 (:domain maze)
-(:objects 
+(:objects
  j1 j2 j3 - Junction
  p - Player
  m - Monster
- key - Item 
+ i - Item
  in - Inventory
  s - Shield
+ k - Key
+ b - Box
+ f - Floor
+ g -Gold
  banana - Food
  w - Weapon
- b - Box
 )
 (:init
     (= playerHealth 1)
@@ -17,18 +20,18 @@
     (= monstersSlain 0)
     (= inventoryCount 0)
 
-    (onFloor p)
 
     (isConnected j1 j2)
     (isConnected j2 j1)
     (isConnected j2 j3)
     (isConnected j3 j2)
-    (canCarry p )
     (atLocation p j1)
-    (atLocation key j1)
+    (atLocation k j3)
+    (on p f)
+    (on k f)
 )
 
-(:goal (and (atLocation p j3)
-    (atLocation key j3))
-    
+(:goal
+    (and(atLocation p j3)
+    (atLocation k j3))
 ))

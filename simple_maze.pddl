@@ -20,14 +20,10 @@
     (= monstersSlain 0)
     (= inventoryCount 0)
 
-    (onFloor p)
-    (canCarry p)
-
     (isConnected j1 j2)
     (isConnected j2 j1)
     (isConnected j2 j3)
     (isConnected j3 j2)
-    (=(playerHealth) 100)
     (atLocation p j1)
     (on p f)
 )
