@@ -23,9 +23,14 @@
     j1 j2 j3 j4 j5 j6 j7 j8 j9 j10 j11 j12 j13 j14 j15 - Junction
     p - Player
     m1 m2 m3 - Monster
+    i - Item
     in - Inventory
+    s - Shield
     sting - Sword
     k - Key
+    b - Box
+    f - Floor
+    g -Gold
     apple banana - Food
 )
 
@@ -35,8 +40,16 @@
     (= playerWealth 0)
     (= monstersSlain 0)
     (= inventoryCount 0)
+    (= maxInventorySize 5)
 
-    (onFloor p)
+    (on p f)
+    (on k f)
+    (on sting f)
+    (on apple f)
+    (on banana f)
+    (on m1 f)
+    (on m2 f)
+    (on m3 f)
 
     ;map
     (isConnected j1 j2)
@@ -98,8 +111,6 @@
 
     (isLocked j14 j15)
 
-    (canCarry p)
-
     (atLocation p j6)
 
     ;sword
@@ -122,10 +133,10 @@
 
     ;food
     (atLocation apple j5)
-    (= (foodValue apple) 1)
+    (= (foodValue apple) 3)
 
     (atLocation banana j13)
-    (= (foodValue banana) 2)
+    (= (foodValue banana) 5)
 
     ;key
     (atLocation k j2)

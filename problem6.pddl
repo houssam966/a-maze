@@ -7,33 +7,66 @@
 ;  - = connection
 ;this map is linear
 ;
-; j1-j2-j3-j4-j5-j6-j7-j8-j9-j10-j11-j12-j13-j14-j15-j16-j17-j18-j19-j20-j21
+; j0-j1-j2-j3-j4-j5-j6-j7-j8-j9-j10-j11-j12-j13-j14-j15-j16-j17-j18-j19-j20-j21
 ;
 
 (:objects 
-    j1 j2 j3 j4 j5 j6 j7 j8 j9 j10 j11 j12 j13 j14 j15 j16 j17 j18 j19 j20 j21 - Junction
+    j0 j1 j2 j3 j4 j5 j6 j7 j8 j9 j10 j11 j12 j13 j14 j15 j16 j17 j18 j19 j20 j21 - Junction
 
     hagger - Player
 
     twoP1 twoP2 twoP3 dug1 dug2 dug3 billBull1 billBull2 bred andoreJr axl1 axl2 hollywood elGado poison slash simons jake andore belger - Monster
-
+    i - Item
+    s - Shield
     apple pizza barbecue - Food
     in - Inventory
     diamond watch - Gold
-
+    k - Key
+    b - Box
+    f - Floor
     leadPipe - Weapon
 
 )
 
 (:init
 
-    (= playerHealth 100)
+    (= playerHealth 10000)
     (= playerWealth 0)
     (= monstersSlain 0)
     (= inventoryCount 0)
+    (= maxInventorySize 5)
 
-    (onFloor hagger)
+    (on hagger f)
+    (on leadPipe f)
+    (on apple f)
+    (on pizza f)
+    (on barbecue f)
+    (on diamond f)
+    (on watch f)
 
+    (on twoP1 f)
+    (on twoP2 f)
+    (on twoP3 f)
+    (on dug1 f)
+    (on dug2 f)
+    (on dug3 f)
+    (on billBull1 f)
+    (on billBull2 f)
+    (on bred f)
+    (on andoreJr f)
+    (on axl1 f)
+    (on axl2 f)
+    (on hollywood f)
+    (on elGado f)
+    (on poison f)
+    (on slash f)
+    (on simons f)
+    (on jake f)
+    (on andore f)
+    (on belger f)
+
+
+    (isConnected j0 j1)
     (isConnected j1 j2)
     (isConnected j2 j3)
     (isConnected j3 j4)
@@ -55,13 +88,11 @@
     (isConnected j19 j20)
     (isConnected j20 j21)
 
-    (canCarry hagger)
-
-    (atLocation hagger j1)
+    (atLocation hagger j0)
 
     ;weapon
     (= (weaponDamage leadPipe) 30)
-    (atLocation leadPipe j1)
+    (atLocation leadPipe j0)
 
 
     ;enemies

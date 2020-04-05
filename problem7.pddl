@@ -25,11 +25,14 @@
     j0 j1 j2 j3 j4 j5 j6 j7 j8 j9 j10 j11 j12 j13 j14 j15 j16 j17 j18 j19 j20 j21 - Junction
 
     barrel1 barrel2 barrel3 flame1 flame2 DK - Monster
-
+    i - Item
     k1 k2 k3 - Key
     in - Inventory
-
+    s - Shield
     mallet - Weapon
+    b - Box
+    f - Floor
+    g -Gold
 
     mushroom1 mushroom2 - Food
 )
@@ -40,8 +43,18 @@
     (= playerWealth 0)
     (= monstersSlain 0)
     (= inventoryCount 0)
+    (= maxInventorySize 5)
 
-    (onFloor mario)
+    (on mario f)
+    (on mallet f)
+    (on mushroom1 f)
+    (on mushroom2 f)
+    (on barrel1 f)
+    (on barrel2 f)
+    (on barrel3 f)
+    (on flame1 f)
+    (on flame2 f)
+    (on DK f)
 
     ;ladder junctions are 1-way
     (isConnected j19 j20)
@@ -163,7 +176,10 @@
 )
 
 ;the player must reach j0 with the highest health possible
-(:goal (atLocation mario j0)
+(:goal (and
+    (atLocation mario j0)
+    (isMonsterDead DK)
+    )
 )
 
 (:metric maximize (playerHealth))
