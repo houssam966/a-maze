@@ -28,6 +28,8 @@
  banana - Food
  w - Weapon
  f - Floor
+ g - Gold
+ b - Box
 )
 (:init
 
