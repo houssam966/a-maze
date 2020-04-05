@@ -56,10 +56,10 @@
         ;how much damage the monster can deal to the player/shield
         (monsterStrength ?m - Monster) - number
         ;monster health bar
-        (monsterHealth ?m - Monster)         - number
+        (monsterHealth ?m - Monster) - number
 
         ;how much damage the weapon can deal to the monster
-        (weaponDamage ?w - Weapon)               - number
+        (weaponDamage ?w - Weapon) - number
 
         ;this could affect how quickly the player gets hungry
         (distanceBetweenJunctions ?j1 ?j2 - Junction) - number
@@ -151,7 +151,7 @@
      (:action attack
       :parameters (?p - Player ?m - Monster ?w - Weapon ?j - Junction)
       :precondition (and (atLocation ?p ?j) (atLocation ?m ?j) (carryItem ?p ?w)
-                    (not (isMonsterDead ?m)) (< (weaponDamage ?w) (monsterHealth ?m)) (> (playerHealth) 0))
+                    (not (isMonsterDead ?m)) (>= (weaponDamage ?w) (monsterHealth ?m)) (> (playerHealth) 0))
       :effect (and (decrease (monsterHealth ?m) (weaponDamage ?w)) (decrease (playerHealth) (monsterStrength ?m)))
      )
 
@@ -165,8 +165,9 @@
       :parameters (?p - Player ?m - Monster ?w - Weapon ?j - Junction)
       :precondition (and (atLocation ?p ?j) (atLocation ?m ?j) (carryItem ?p ?w)
                     (not (isMonsterDead ?m)) (>= (weaponDamage ?w) (monsterHealth ?m)) (> (playerHealth) 0))
-      :effect (and (not (atLocation ?m ?j)) (isMonsterDead ?m) (not (carryItem ?p ?w)) (increase (monstersSlain) 1))
+      :effect (and (not (atLocation ?m ?j)) (isMonsterDead ?m) (not (carryItem ?p ?w)) (decrease (playerHealth) (monsterStrength ?m)) (increase (monstersSlain) 1))
      )
+
 
     ; if the player is at a location that has food, then eat the food
     ; remove the food from the room, and increase hunger by the food's value

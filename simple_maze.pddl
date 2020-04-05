@@ -10,7 +10,7 @@
  k - Key
  b - Box
  f - Floor
- g -Gold
+ g - Gold
  banana - Food
  w - Weapon
 )

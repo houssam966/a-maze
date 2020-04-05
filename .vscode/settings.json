@@ -1,0 +1,4 @@
+{
+    "pddlParser.executableOrService": "/Users/houssammahlous/Applications/parser-osx",
+    "pddlParser.executableOptions": "$(parser) -o $(domain) -f $(problem)"
+}
