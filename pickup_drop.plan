@@ -1,0 +1,12 @@
+;;!domain: maze
+;;!problem: pickup_drop
+
+(goto p j1 j2 f)
+(pickup p k j2 f)
+(pickup p w j2 f)
+(goto p j2 j3 f)
+(drop p w j3 f)
+(drop p k j3 f)
+
+; Makespan: NaN
+; Cost: 0

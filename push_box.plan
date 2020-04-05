@@ -1,0 +1,8 @@
+;;!domain: maze
+;;!problem: push_box
+
+(goto p j1 j2 f)
+(push p box j2 j3 f)
+
+; Makespan: NaN
+; Cost: 0

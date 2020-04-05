@@ -1,4 +1,4 @@
-(define (problem simple_problem)
+(define (problem simple_maze)
 (:domain maze)
 (:objects
  j1 j2 j3 - Junction
@@ -7,8 +7,12 @@
  i - Item
  in - Inventory
  s - Shield
- w - Weapon
+ k - Key
+ b - Box
+ f - Floor
+ g -Gold
  banana - Food
+ w - Weapon
 )
 (:init
     (= playerHealth 1)
@@ -23,7 +27,9 @@
     (isConnected j2 j1)
     (isConnected j2 j3)
     (isConnected j3 j2)
+    (=(playerHealth) 100)
     (atLocation p j1)
+    (on p f)
 )
 
 (:goal
