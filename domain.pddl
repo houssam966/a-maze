@@ -5,58 +5,58 @@
 
     (:types
 
-    Locatable Junction Inventory - object
+        Locatable Junction Inventory - object
 
-    Platform Living Item - Locatable
+        Platform Living Item - Locatable
 
-    Box Floor - Platform    ;Floor is needed as a platform in every problem
+        Box Floor - Platform    ;Floor is needed as a platform in every problem
 
-    Player Monster - Living
+        Player Monster - Living
 
-    Key Weapon Shield Food Gold - Item
+        Key Weapon Shield Food Gold - Item
 
-    Sword Knife - Weapon
+        Sword Knife - Weapon
     )
 
     (:predicates
-    ;localisation
-    (atLocation ?x - Locatable ?j - Junction)
-    (on ?l - Locatable ?p - Platform )  ;used place any locatable object on top of a platform
-    ;maze
-    (isConnected ?j1 ?j2 - Junction)
-    (isLocked ?j1 ?j2 - Junction)   ;if the route is connected, but needs a key to open
-    ;monster
-    (isMonsterDead ?m - Monster)
-    ;player
-    (carryItem ?p - Player ?item - Item)
-    ;check if the item is Gold
-    (isGold ?g - Gold)
+        ;localisation
+        (atLocation ?x - Locatable ?j - Junction)
+        (on ?l - Locatable ?p - Platform )  ;used place any locatable object on top of a platform
+        ;maze
+        (isConnected ?j1 ?j2 - Junction)
+        (isLocked ?j1 ?j2 - Junction)   ;if the route is connected, but needs a key to open
+        ;monster
+        (isMonsterDead ?m - Monster)
+        ;player
+        (carryItem ?p - Player ?item - Item)
+        ;check if the item is Gold
+        (isGold ?g - Gold)
     )
 
     (:functions
-    ;player
-    (playerHealth) - number
-    (playerWealth) - number
-    (monstersSlain) - number
-    ;inventory
-    (maxInventorySize) - number
-    (inventoryCount) - number
-    ;amount of health replenished by food
-    (foodValue ?f - Food) - number
-    ;how much damage the weapon can deal to the monster
-    (weaponDamage ?w - Weapon) - number
-    (shieldStrength ?s - Shield) - number
+        ;player
+        (playerHealth) - number
+        (playerWealth) - number
+        (monstersSlain) - number
+        ;inventory
+        (maxInventorySize) - number
+        (inventoryCount) - number
+        ;amount of health replenished by food
+        (foodValue ?f - Food) - number
+        ;how much damage the weapon can deal to the monster
+        (weaponDamage ?w - Weapon) - number
+        (shieldStrength ?s - Shield) - number
 
-    ;monster
-    ;how much damage the monster can deal to the player/shield
-    (monsterStrength ?m - Monster) - number
-    ;monster health bar
-    (monsterHealth ?m - Monster) - number
+        ;monster
+        ;how much damage the monster can deal to the player/shield
+        (monsterStrength ?m - Monster) - number
+        ;monster health bar
+        (monsterHealth ?m - Monster) - number
 
-    ;how high is a platform. This affects climbability of a platform.
-    (platformLevel ?p - Platform) - number
-    ;this could affect how quickly the player gets hungry
-    (distanceBetweenJunctions ?j1 ?j2 - Junction) - number
+        ;how high is a platform. This affects climbability of a platform.
+        (platformLevel ?p - Platform) - number
+        ;this could affect how quickly the player gets hungry
+        (distanceBetweenJunctions ?j1 ?j2 - Junction) - number
     )
 
     ; Used to move player between unlocked and connected junctions. Player can only move if they are on a Floor Platform.
