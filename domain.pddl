@@ -38,31 +38,31 @@
     )
 
     (:functions
-        (playerHealth) - number
-        (playerWealth) - number
-        (monstersSlain) - number
+        (playerHealth)
+        (playerWealth)
+        (monstersSlain)
 
-        (maxInventorySize) - number
-        (inventoryCount) - number
+        (maxInventorySize)
+        (inventoryCount)
 
 
         ;how much the food replenishes the hunger bar
-        (foodValue ?f - Food) - number
+        (foodValue ?f - Food)
 
-        (shieldStrength ?s - Shield) - number
+        (shieldStrength ?s - Shield)
 
-        (platformLevel ?p - Platform) - number
+        (platformLevel ?p - Platform)
 
         ;how much damage the monster can deal to the player/shield
-        (monsterStrength ?m - Monster) - number
+        (monsterStrength ?m - Monster)
         ;monster health bar
-        (monsterHealth ?m - Monster)         - number
+        (monsterHealth ?m - Monster)
 
         ;how much damage the weapon can deal to the monster
-        (weaponDamage ?w - Weapon)               - number
+        (weaponDamage ?w - Weapon)
 
         ;this could affect how quickly the player gets hungry
-        (distanceBetweenJunctions ?j1 ?j2 - Junction) - number
+        (distanceBetweenJunctions ?j1 ?j2 - Junction)
     )
 
      ; this action moves player from location from to location to given that the player is at location from and locations from and to are connected
@@ -151,21 +151,9 @@
      (:action attack
       :parameters (?p - Player ?m - Monster ?w - Weapon ?j - Junction)
       :precondition (and (atLocation ?p ?j) (atLocation ?m ?j) (carryItem ?p ?w)
-                    (not (isMonsterDead ?m)) (< (weaponDamage ?w) (monsterHealth ?m)) (> (playerHealth) 0))
-      :effect (and (decrease (monsterHealth ?m) (weaponDamage ?w)) (decrease (playerHealth) (monsterStrength ?m)))
-     )
-
-     ; this action makes player able to kill the monster given that the player and the monster are in the same location
-     ; and the player has a weapon stronger that the monster's current health
-     ; @parameter player {Living}: the player of the game
-     ; @parameter monster {Living}: the monster in the room
-     ; @parameter weapon {Item}: the weapon item
-     ; @parameter j {junction}: current location of the  player and the monster
-     (:action finalAttack
-      :parameters (?p - Player ?m - Monster ?w - Weapon ?j - Junction)
-      :precondition (and (atLocation ?p ?j) (atLocation ?m ?j) (carryItem ?p ?w)
-                    (not (isMonsterDead ?m)) (>= (weaponDamage ?w) (monsterHealth ?m)) (> (playerHealth) 0))
-      :effect (and (not (atLocation ?m ?j)) (isMonsterDead ?m) (not (carryItem ?p ?w)) (increase (monstersSlain) 1))
+                    (not (isMonsterDead ?m)) (> (playerHealth) 0))
+      :effect (and (decrease (monsterHealth ?m) (weaponDamage ?w)) (decrease (playerHealth) (monsterStrength ?m))
+              (when(< (monsterHealth ?m) 0) (isMonsterDead ?m)))
      )
 
     ; if the player is at a location that has food, then eat the food
