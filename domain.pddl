@@ -11,7 +11,7 @@
 
         Box Floor - Platform    ;Floor is needed as a platform in every problem
 
-        Player Monster - Living
+        Player Vendor Monster - Living
 
         Key Weapon Shield Food Gold - Item
 
@@ -29,8 +29,8 @@
         (isMonsterDead ?m - Monster)
         ;player
         (carryItem ?p - Player ?item - Item)
-        ;check if the item is Gold
-        (isGold ?g - Gold)
+        ;vendor
+        (sellItem ?v - Vendor ?item - Item)
     )
 
     (:functions
@@ -154,6 +154,19 @@
     :effect (and (carryItem ?p ?i) (not (atLocation ?i ?j)) (not(on ?i ?from)) (increase (inventoryCount) 1))
     )
 
+    ; This action is used to trade gold for food from a vendor
+    ; Arguments:
+    ; ?player {Living}: the player of the game
+    ; ?vendor {Living}: the vendor to trade with
+    ; ?j {Junction}: current location of player and vendor
+    ; ?gold {Gold}: gold to buy item
+    ; ?item {Item}: item traded with gold 
+    (:action trade
+    :parameters (?p - Player ?v - Vendor ?j - Junction ?g - Gold ?i - Item)
+    :precondition (and (atLocation ?p ?j) (atLocation ?v ?j) (carryItem ?p ?g) (sellItem ?v ?i) (> (playerHealth) 0))
+    :effect (and (not (carryItem ?p ?g)) (carryItem ?p ?i) (not (sellItem ?v ?i)))
+    )
+    
     ; This action enables player to attack a monster in the same junction using a weapon.
     ; This action does not kill the monster, just damages it. So monsters health should be more than the weapon's damage.
     ; Arguments:
