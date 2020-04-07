@@ -55,11 +55,12 @@
 
         ;how high is a platform. This affects climbability of a platform.
         (platformLevel ?p - Platform) - number
-        ;this could affect how quickly the player gets hungry
+        ;this affects how quickly the player health decreases
         (distanceBetweenJunctions ?j1 ?j2 - Junction) - number
     )
 
     ; Used to move player between unlocked and connected junctions. Player can only move if they are on a Floor Platform.
+    ; Player health decreases by the ditance he travelled
     ; Arguments:
     ; ?player {Living}: the player of the game
     ; ?from {Junction}: current location of the player
@@ -67,9 +68,9 @@
     ; ?f {Floor}: should be the current platform the player is on
     (:action goTo
     :parameters (?p - player ?from ?to - Junction ?f - Floor)
-    :precondition (and (> (playerHealth) 0) (on ?p ?f)(atLocation ?p ?from)
+    :precondition (and (> (playerHealth) 0) (on ?p ?f) (atLocation ?p ?from)
             (isConnected ?from ?to) (not (isLocked ?from ?to)))
-    :effect (and (atLocation ?p ?to) (not (atLocation ?p ?from)))
+    :effect (and (atLocation ?p ?to) (not (atLocation ?p ?from)) (decrease (playerHealth) (distanceBetweenJunctions ?from ?to)))
     )
 
     ; Used to pick up items from any platform as long as there is inventory space and player is on the same platform.
@@ -83,8 +84,8 @@
     :precondition (and (> (playerHealth) 0)
             (atLocation ?p ?j) (atLocation ?i ?j)
             (on ?p ?platform) (on ?i ?platform)
-            (<(inventoryCount) (maxInventorySize))(not (carryItem ?p ?i)))
-    :effect (and (carryItem ?p ?i) (not (atLocation ?i ?j)) (not(on ?i ?platform)) (increase (inventoryCount) 1))
+            (< (inventoryCount) (maxInventorySize)) (not (carryItem ?p ?i)))
+    :effect (and (carryItem ?p ?i) (not (atLocation ?i ?j)) (not (on ?i ?platform)) (increase (inventoryCount) 1))
     )
 
     ; Used to drop an item from the inventory on a platform at a location.
