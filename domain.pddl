@@ -173,12 +173,14 @@
     ; ?player {Living}: the player of the game
     ; ?monster {Living}: the monster in the same location
     ; ?weapon {Weapon}: the weapon to be used
+    ; ?key {Key}: the key to unlock the path
     ; ?j {junction}: current location of the  player and the monster
     (:action finalAttack
-    :parameters (?p - Player ?m - Monster ?w - Weapon ?j - Junction)
+    :parameters (?p - Player ?m - Monster ?w - Weapon ?k - Key ?j - Junction)
     :precondition (and (atLocation ?p ?j) (atLocation ?m ?j) (carryItem ?p ?w)
             (not (isMonsterDead ?m)) (>= (weaponDamage ?w) (monsterHealth ?m)) (> (playerHealth) 0))
-    :effect (and (not (atLocation ?m ?j)) (isMonsterDead ?m) (not (carryItem ?p ?w)) (increase (monstersSlain) 1))
+    :effect (and (not (atLocation ?m ?j)) (isMonsterDead ?m) (not (carryItem ?p ?w))
+            (carryItem ?p ?k) (increase (monstersSlain) 1))
     )
 
     ; if the player is at a location that has food, then eat the food
