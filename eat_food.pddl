@@ -40,7 +40,7 @@
     (= (monsterHealth m) 15)
 
     (on p f) ;player initially on the floor  
-     (= (playerHealth ) 0)
+     (= (playerHealth ) 20)
      (= (playerWealth ) 0)
      (= (monstersSlain ) 0)
      (= (inventoryCount ) 0)
