@@ -27,34 +27,40 @@
     (isConnected j3 j2)
 
     ;Player
-    (=(playerHealth) 50)
+    (=(playerHealth) 0)
     (atLocation p j1)
     (on p f) ;player on the floor initially so they can move between the junctions
     (=(inventoryCount) 0)
     (=(maxInventorySize) 2)
+
+    (not(isMonsterDead m2))
+    (=(monsterHealth m2) 20)
+    (=(monsterStrength m2) 20)
+    (atLocation m2 j2)
 
     ;Monster
     (not(isMonsterDead m))
     (=(monstersSlain) 0)    ;without this it doesnt work
     (=(monsterHealth m) 20)
     (=(monsterStrength m) 20)
-    (atLocation m2 j2)
-    (not(isMonsterDead m2))
-    (=(monsterHealth m2) 20)
-    (=(monsterStrength m2) 20)
-    (atLocation m2 j2)    
-;BUG
+    (atLocation m j2)
+    ;BUG
     ;For some reason, weapons should do more damage than the monster's health
     ;and am guessing because the attack action doesnt work, just the final attack works
+
 
     ;Weapons
     (=(weaponDamage sword) 20)
     (atLocation sword j1)
-    (on sword2 f) ;sword on the floor so player can picku
+    (atLocation banana j1)
+
+    (=(foodValue banana) 20)
+    (on sword f) ;sword on the floor so player can pickup
     (=(weaponDamage sword2) 20)
     (atLocation sword2 j1)
-    (on sword2 f) ;sword on the floor so player can pickupp
+    (on sword2 f) ;sword on the floor so player can pickup
+    ;(not(ateBanana))
 )
 
-(:goal(and (isMonsterDead m2) (isMonsterDead m) (atLocation p j3)))
+(:goal  (and  (isMonsterDead m) (isMonsterDead m2)  (atLocation p j3)))
 )

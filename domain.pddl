@@ -21,7 +21,7 @@
     (:predicates
         ;localisation...
         (atLocation ?x - Locatable ?j - Junction)
-
+        (ateBanana)
         ;maze
         (isConnected ?j1 ?j2 - Junction)
         (isLocked ?j1 ?j2 - Junction);if the route is connected, but needs a key to open
@@ -50,6 +50,7 @@
         ;how much damage the weapon can deal to the monster
         (weaponDamage ?w - Weapon)
         (shieldStrength ?s - Shield)
+
         ;how much damage the monster can deal to the player/shield
         (monsterStrength ?m - Monster)
         ;monster health bar
@@ -159,9 +160,9 @@
      ; @parameter j {junction}: current location of the  player and the monster
      (:action finalAttack
       :parameters (?p - Player ?m - Monster ?w - Weapon ?j - Junction)
-      :precondition (and (atLocation ?p ?j) (atLocation ?m ?j) (carryItem ?p ?w)
-                    (not (isMonsterDead ?m)) (>= (weaponDamage ?w) (monsterHealth ?m)) (> (playerHealth) 0))
-      :effect (and (not (atLocation ?m ?j)) (isMonsterDead ?m) (not (carryItem ?p ?w)) (decrease (playerHealth) (monsterStrength ?m)) (increase (monstersSlain) 1))
+      :precondition (and (> (playerHealth) 0) (atLocation ?p ?j) (atLocation ?m ?j) (carryItem ?p ?w)
+                    (not (isMonsterDead ?m)) (>= (weaponDamage ?w) (monsterHealth ?m)) )
+      :effect (and (not (atLocation ?m ?j)) (isMonsterDead ?m) (not (carryItem ?p ?w)) (increase (monstersSlain) 1)(decrease (playerHealth) (monsterStrength ?m)))
      )
 
 
@@ -171,9 +172,9 @@
     ; @parameter food {Food}: the food the player can eat
     ; @parameter j {junction}: the current location of the player and the food
      (:action eatFood
-      :parameters (?p - Player ?f - Food ?j - Junction)
-      :precondition (and (atLocation ?p ?j) (atLocation ?f ?j) (> (playerHealth) 0))
-      :effect (and (not (atLocation ?f ?j)) (increase (playerHealth) (foodValue ?f)))
+      :parameters (?p - Player ?f - Food )
+      :precondition (and(> (playerHealth) 0))
+      :effect (and (increase (playerHealth) (foodValue ?f)) (ateBanana))
      )
 
 )

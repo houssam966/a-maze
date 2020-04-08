@@ -1,0 +1,15 @@
+;;!domain: maze
+;;!problem: problem_kill_monster
+
+0.00100: (eatfood p banana)
+0.00200: (pickup p sword j1 f)
+0.00300: (goto p j1 j2 f)
+0.00400: (finalattack p m sword j2)
+0.00500: (goto p j2 j1 f)
+0.00600: (pickup p sword2 j1 f)
+0.00700: (goto p j1 j2 f)
+0.00800: (finalattack p m2 sword2 j2)
+0.00900: (goto p j2 j3 f)
+
+; Makespan: 0.009000000000000001
+; Cost: 0.009000000000000001
