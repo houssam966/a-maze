@@ -1,0 +1,43 @@
+
+
+NUMERIC_THREATS_MODE: 0
+
+; Command line: ./metric-lpg -o /home/k1889983/Documents/a-maze/domain.pddl -f /home/k1889983/Documents/a-maze/simple_maze.pddl -n 1   
+
+
+Parsing domain file:  domain 'MAZE' defined ... done.
+Parsing problem file:  problem 'SIMPLE_MAZE' defined ... done.
+
+
+
+Modality: Incremental Planner
+
+Number of actions             :      16
+Number of conditional actions :       0
+Number of facts               :       5
+
+
+Analyzing Planning Problem:
+	Temporal Planning Problem: NO
+	Numeric Planning Problem: YES
+	Problem with Timed Initial Literals: NO
+	Problem with Derived Predicates: NO
+
+Evaluation function weights:
+     Action duration 0.00; Action cost 1.00
+
+
+Computing mutex... done
+
+Preprocessing total time: 0.00 seconds
+
+Searching ('.' = every 50 search steps):
+ solution found: 
+
+
+Error opening output file: plan_/home/k1889983/Documents/a-maze/simple_maze.pddl_1.SOL
+ERROR in file LpgOutput.c:3073 ; 
+Cannot open file! 
+ Please check the write permission
+ 
+
