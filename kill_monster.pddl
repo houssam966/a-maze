@@ -27,7 +27,7 @@
     (isConnected j3 j2)
 
     ;Player
-    (=(playerHealth) 30)
+    (=(playerHealth) 70)
     (atLocation p j1)
     (on p f) ;player on the floor initially so they can move between the junctions
     (=(inventoryCount) 0)
@@ -50,13 +50,13 @@
 
 
     ;Weapons
-    (=(weaponDamage sword) 20)
+    (=(weaponDamage sword) 10)
     (atLocation sword j1)
     (atLocation banana j1)
 
     (=(foodValue banana) 20)
     (on sword f) ;sword on the floor so player can pickup
-    (=(weaponDamage sword2) 20)
+    (=(weaponDamage sword2) 10)
     (atLocation sword2 j1)
     (on sword2 f) ;sword on the floor so player can pickup
     ;(not(ateBanana))

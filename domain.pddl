@@ -1,7 +1,7 @@
 
 (define (domain maze)
 
-    (:requirements :typing :fluents :equality :negative-preconditions :conditional-effects)
+    (:requirements :strips :typing :fluents :equality :negative-preconditions :conditional-effects :action-costs)
 
     (:types
 
@@ -146,24 +146,12 @@
      ; @parameter weapon {Item}: the weapon item
      ; @parameter j {junction}: current location of the  player and the monster
      (:action attack
-      :parameters (?p - Player ?m - Monster ?w - Weapon ?j - Junction)
-      :precondition (and (atLocation ?p ?j) (atLocation ?m ?j) (carryItem ?p ?w)
-                    (not (isMonsterDead ?m)) (>= (weaponDamage ?w) (monsterHealth ?m)) (> (playerHealth) 0))
-      :effect (and (decrease (monsterHealth ?m) (weaponDamage ?w)) (decrease (playerHealth) (monsterStrength ?m)))
-     )
-
-     ; this action makes player able to kill the monster given that the player and the monster are in the same location
-     ; and the player has a weapon stronger that the monster's current health
-     ; @parameter player {Living}: the player of the game
-     ; @parameter monster {Living}: the monster in the room
-     ; @parameter weapon {Item}: the weapon item
-     ; @parameter j {junction}: current location of the  player and the monster
-     (:action finalAttack
-      :parameters (?p - Player ?m - Monster ?w - Weapon ?j - Junction)
-      :precondition (and (> (playerHealth) 0) (atLocation ?p ?j) (atLocation ?m ?j) (carryItem ?p ?w)
-                    (not (isMonsterDead ?m)) (>= (weaponDamage ?w) (monsterHealth ?m)) )
-      :effect (and (not (atLocation ?m ?j)) (isMonsterDead ?m) (not (carryItem ?p ?w)) (increase (monstersSlain) 1)(decrease (playerHealth) (monsterStrength ?m)))
-     )
+       :parameters (?p - Player ?m - Monster ?w - Weapon ?j - Junction)
+       :precondition (and (atLocation ?p ?j) (atLocation ?m ?j) (carryItem ?p ?w)
+                     (not (isMonsterDead ?m)) (> (playerHealth) 0))
+       :effect (and (decrease (monsterHealth ?m) (weaponDamage ?w)) (decrease (playerHealth) (monsterStrength ?m))
+               (when(< (monsterHealth ?m) 0) (isMonsterDead ?m)))
+      )
 
 
     ; if the player is at a location that has food, then eat the food
