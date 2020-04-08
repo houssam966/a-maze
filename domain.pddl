@@ -21,7 +21,7 @@
     (:predicates
         ;localisation...
         (atLocation ?x - Locatable ?j - Junction)
-
+        (ateBanana)
         ;maze
         (isConnected ?j1 ?j2 - Junction)
         (isLocked ?j1 ?j2 - Junction);if the route is connected, but needs a key to open
@@ -38,31 +38,31 @@
     )
 
     (:functions
-        (playerHealth) - number
-        (playerWealth) - number
-        (monstersSlain) - number
+        (playerHealth)
+        (playerWealth)
+        (monstersSlain)
 
-        (maxInventorySize) - number
-        (inventoryCount) - number
+        (maxInventorySize)
+        (inventoryCount)
 
 
         ;how much the food replenishes the hunger bar
-        (foodValue ?f - Food) - number
+        (foodValue ?f - Food)
 
-        (shieldStrength ?s - Shield) - number
+        (shieldStrength ?s - Shield)
 
-        (platformLevel ?p - Platform) - number
+        (platformLevel ?p - Platform)
 
         ;how much damage the monster can deal to the player/shield
-        (monsterStrength ?m - Monster) - number
+        (monsterStrength ?m - Monster)
         ;monster health bar
-        (monsterHealth ?m - Monster) - number
+        (monsterHealth ?m - Monster)
 
         ;how much damage the weapon can deal to the monster
-        (weaponDamage ?w - Weapon) - number
+        (weaponDamage ?w - Weapon)
 
         ;this could affect how quickly the player gets hungry
-        (distanceBetweenJunctions ?j1 ?j2 - Junction) - number
+        (distanceBetweenJunctions ?j1 ?j2 - Junction)
     )
 
      ; this action moves player from location from to location to given that the player is at location from and locations from and to are connected
@@ -163,9 +163,9 @@
      ; @parameter j {junction}: current location of the  player and the monster
      (:action finalAttack
       :parameters (?p - Player ?m - Monster ?w - Weapon ?j - Junction)
-      :precondition (and (atLocation ?p ?j) (atLocation ?m ?j) (carryItem ?p ?w)
-                    (not (isMonsterDead ?m)) (>= (weaponDamage ?w) (monsterHealth ?m)) (> (playerHealth) 0))
-      :effect (and (not (atLocation ?m ?j)) (isMonsterDead ?m) (not (carryItem ?p ?w)) (decrease (playerHealth) (monsterStrength ?m)) (increase (monstersSlain) 1))
+      :precondition (and (> (playerHealth) 0) (atLocation ?p ?j) (atLocation ?m ?j) (carryItem ?p ?w)
+                    (not (isMonsterDead ?m)) (>= (weaponDamage ?w) (monsterHealth ?m)) )
+      :effect (and (not (atLocation ?m ?j)) (isMonsterDead ?m) (not (carryItem ?p ?w)) (increase (monstersSlain) 1)(decrease (playerHealth) (monsterStrength ?m)))
      )
 
 
@@ -175,9 +175,9 @@
     ; @parameter food {Food}: the food the player can eat
     ; @parameter j {junction}: the current location of the player and the food
      (:action eatFood
-      :parameters (?p - Player ?f - Food ?j - Junction)
-      :precondition (and (atLocation ?p ?j) (atLocation ?f ?j) (> (playerHealth) 0))
-      :effect (and (not (atLocation ?f ?j)) (increase (playerHealth) (foodValue ?f)))
+      :parameters (?p - Player ?f - Food )
+      :precondition (and(> (playerHealth) 0))
+      :effect (and (increase (playerHealth) (foodValue ?f)) (ateBanana))
      )
 
 )

@@ -1,24 +1,24 @@
 ;;!domain: maze
 ;;!problem: pick_up_all
 
-(goto p j1 j2 f)
-(grab p box f key j2)
-(climb p f box j2)
-(grab p tree box banana j2)
-(descend p box f j2)
-(goto p j2 j3 f)
-(goto p j3 j4 f)
-(pickup p w j4 f)
-(goto p j4 j3 f)
-(pickup p s j3 f)
-(goto p j3 j2 f)
-(drop p s j2 f)
-(goto p j2 j1 f)
-(pickup p g j1 f)
-(goto p j1 j2 f)
-(goto p j2 j3 f)
-(drop p g j3 f)
-(goto p j3 j4 f)
+0.00100: (goto p j1 j2 f)
+0.00200: (grab p box f key j2)
+0.00300: (climb p f box j2)
+0.00400: (grab p tree box banana j2)
+0.00500: (descend p box f j2)
+0.00600: (goto p j2 j3 f)
+0.00700: (goto p j3 j4 f)
+0.00800: (pickup p w j4 f)
+0.00900: (goto p j4 j3 f)
+0.01000: (pickup p s j3 f)
+0.01100: (goto p j3 j2 f)
+0.01200: (drop p s j2 f)
+0.01300: (push p box j2 j1 f)
+0.01400: (pickup p g j1 f)
+0.01500: (goto p j1 j2 f)
+0.01600: (goto p j2 j3 f)
+0.01700: (drop p g j3 f)
+0.01800: (goto p j3 j4 f)
 
-; Makespan: NaN
-; Cost: 0
+; Makespan: 0.018000000000000002
+; Cost: 0.018000000000000002

@@ -25,6 +25,7 @@
     (isConnected j3 j4)
     (isConnected j4 j3)
 
+
     ;Platform Levels
     (=(platformLevel f) 0)
     (=(platformLevel box) 1)
@@ -37,6 +38,7 @@
     (atLocation tree j2)
     ;Key
     (atLocation key j2)
+    
     (on key box)
     ;Banana
     (atLocation banana j2)
@@ -52,7 +54,7 @@
     (on g f)
 
     ;Player
-    (=(playerHealth) 100)
+    (=(playerHealth) -10)
     (atLocation p j1)
     (on p f) ;player on the floor initially so they can move between the junctions
     (=(inventoryCount) 0)
