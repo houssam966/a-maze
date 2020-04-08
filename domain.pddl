@@ -174,10 +174,15 @@
     ; @parameter player {Living}: the player of the game
     ; @parameter food {Food}: the food the player can eat
     ; @parameter j {junction}: the current location of the player and the food
+    ;  (:action eatFood
+    ;   :parameters (?p - Player ?f - Food )
+    ;   :precondition (and(> (playerHealth) 0))
+    ;   :effect (and (increase (playerHealth) (foodValue ?f)) (ateBanana))
+    ;  )
      (:action eatFood
-      :parameters (?p - Player ?f - Food )
-      :precondition (and(> (playerHealth) 0))
-      :effect (and (increase (playerHealth) (foodValue ?f)) (ateBanana))
-     )
+    :parameters (?p - Player ?f - Food ?j - Junction)
+    :precondition (and ( >(playerHealth ?p) 0) (carryItem ?p ?f))
+    :effect (and (not (carryItem ?p ?f)) (increase (playerHealth ?p) (foodValue ?f)))
+    )
 
 )
