@@ -17,6 +17,7 @@
  banana - Food
  sword  - Sword
  sword2  - Sword
+ sword3  - Sword
  knife - Knife
 )
 (:init
@@ -27,11 +28,11 @@
     (isConnected j3 j2)
 
     ;Player
-    (=(playerHealth) 70)
+    (=(playerHealth) 30)
     (atLocation p j1)
     (on p f) ;player on the floor initially so they can move between the junctions
     (=(inventoryCount) 0)
-    (=(maxInventorySize) 2)
+    (=(maxInventorySize) 5)
 
     (not(isMonsterDead m2))
     (=(monsterHealth m2) 20)
@@ -50,16 +51,20 @@
 
 
     ;Weapons
-    (=(weaponDamage sword) 10)
+    (=(weaponDamage sword) 20)
     (atLocation sword j1)
     (atLocation banana j1)
 
     (=(foodValue banana) 20)
+   
     (on sword f) ;sword on the floor so player can pickup
-    (=(weaponDamage sword2) 10)
+    (=(weaponDamage sword2) 20)
     (atLocation sword2 j1)
-    (on sword2 f) ;sword on the floor so player can pickup
-    ;(not(ateBanana))
+   
+    (on sword3 f) ;sword on the floor so player can pickup
+    (=(weaponDamage sword3) 20)
+    (atLocation sword3 j1)
+    (on sword3 f) ;sword on the floor so player can pickup
 )
 
 (:goal  (and  (isMonsterDead m) (isMonsterDead m2)  (atLocation p j3)))

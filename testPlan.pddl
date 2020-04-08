@@ -29,43 +29,52 @@ Evaluation function weights:
 
 Computing mutex... done
 
-Preprocessing total time: 0.01 seconds
+Preprocessing total time: 0.00 seconds
 
 Searching ('.' = every 50 search steps):
 ......... Restart.
+ Restart.
+.......... search limit exceeded. Restart.
+........... search limit exceeded. Restart.
+............. search limit exceeded. Restart.
+... Restart.
+........... search limit exceeded. Restart.
+.. search limit exceeded. Restart.
+.. search limit exceeded.
+
+Searching ('.' = every 50 search steps):
+........... search limit exceeded. Restart.
+.......... search limit exceeded. Restart.
+... search limit exceeded. Restart.
+........... search limit exceeded. Restart.
+.. search limit exceeded. Restart.
+... search limit exceeded. Restart.
+........... search limit exceeded. Restart.
+..... search limit exceeded. Restart.
+.......... search limit exceeded.
+
+Searching ('.' = every 50 search steps):
 ........... search limit exceeded. Restart.
 ............. search limit exceeded. Restart.
 ............... search limit exceeded. Restart.
 .................. search limit exceeded. Restart.
 ..................... search limit exceeded. Restart.
-........................ search limit exceeded. Restart.
-........... Restart.
-
-
-Searching ('.' = every 50 search steps):
-........... search limit exceeded. Restart.
-............. search limit exceeded. Restart.
-.. search limit exceeded. Restart.
-........... search limit exceeded. Restart.
-............. search limit exceeded. Restart.
-.......... search limit exceeded. Restart.
-........... search limit exceeded. Restart.
-............
+..........
 
 Plan computed:
    Time: (ACTION) [action Duration; action Cost]
  0.0003: (EATFOOD P BANANA) [D:1.0000; C:1.0000]
- 1.0005: (PICKUP P SWORD J1 F) [D:1.0000; C:1.0000]
- 2.0008: (PICKUP P SWORD2 J1 F) [D:1.0000; C:1.0000]
+ 1.0005: (PICKUP P SWORD3 J1 F) [D:1.0000; C:1.0000]
+ 2.0008: (PICKUP P SWORD J1 F) [D:1.0000; C:1.0000]
  3.0010: (GOTO P J1 J2 F) [D:1.0000; C:1.0000]
- 4.0012: (FINALATTACK P M2 SWORD2 J2) [D:1.0000; C:1.0000]
- 5.0015: (FINALATTACK P M SWORD J2) [D:1.0000; C:1.0000]
+ 4.0012: (FINALATTACK P M SWORD J2) [D:1.0000; C:1.0000]
+ 5.0015: (FINALATTACK P M2 SWORD3 J2) [D:1.0000; C:1.0000]
  6.0017: (GOTO P J2 J3 F) [D:1.0000; C:1.0000]
 
 
 Solution found:
 Total time:      1.51
-Search time:     0.75
+Search time:     0.23
 Actions:         7
 Execution cost:  7.00
 Duration:        7.000
