@@ -32,15 +32,16 @@
     ; weapon
      (atLocation w j2)
      (on w f) ;weapon on the floor
-    (= (weaponDamage w) 30)
+    (= (weaponDamage w) 20)
     ; monster 1
     (atLocation m j3)
     (on m f) 
-    (= (monsterStrength m) 30)
-    (= (monsterHealth m) 15)
+    (not(isMonsterDead m))
+    (= (monsterStrength m) 20)
+    (= (monsterHealth m) 20)
 
     (on p f) ;player initially on the floor  
-     (= (playerHealth ) 20)
+     (= (playerHealth ) 15)
      (= (playerWealth ) 0)
      (= (monstersSlain ) 0)
      (= (inventoryCount ) 0)
