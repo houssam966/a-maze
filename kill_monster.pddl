@@ -27,7 +27,7 @@
     (isConnected j3 j2)
 
     ;Player
-    (=(playerHealth) 0)
+    (=(playerHealth) 30)
     (atLocation p j1)
     (on p f) ;player on the floor initially so they can move between the junctions
     (=(inventoryCount) 0)
