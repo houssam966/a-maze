@@ -9,7 +9,7 @@
  s - Shield
  banana - Food
  f - Floor
- w - Weapon
+ sword knife - Weapon
  box - Box
  g - Gold
  tree - Platform
@@ -31,9 +31,14 @@
     ; (atLocation box j2)
     ; (on box f) 
     ; weapon
-     (atLocation w j2)
-     (on w f) ;weapon on the floor
-    (= (weaponDamage w) 30)
+     (atLocation sword j2)
+     (on sword f) ;weapon on the floor
+    (= (weaponDamage sword) 30)
+
+       ; weapon
+     (atLocation knife j3)
+     (on knife f) ;weapon on the floor
+    (= (weaponDamage knife) 30)
     ; monster 1
     (atLocation m j3)
     (on m f) 
