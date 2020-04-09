@@ -1,0 +1,13 @@
+;;!domain: maze
+;;!problem: trade_item
+
+0.00100: (pickup p g j1 f)
+0.00200: (goto p j1 j2 f)
+0.00300: (trade p v j2 g w)
+0.00400: (goto p j2 j3 f)
+0.00500: (pickup p s j3 f)
+0.00600: (goto p j3 j4 f)
+0.00700: (pickup p banana j4 f)
+
+; Makespan: 0.007
+; Cost: 0.007

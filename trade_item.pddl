@@ -10,7 +10,7 @@
  f - Floor
  i - Inventory
  s - Shield
- k - Key
+ key - Key
  box - Box
  banana - Food
  w - Weapon
@@ -20,10 +20,13 @@
 (:init
     (isConnected j1 j2)
     (isConnected j2 j1)
+    (= (distanceBetweenJunctions j1 j2) 1)
     (isConnected j2 j3)
     (isConnected j3 j2)
+    (= (distanceBetweenJunctions j2 j3) 1)
     (isConnected j3 j4)
     (isConnected j4 j3)
+    (= (distanceBetweenJunctions j3 j4) 1)
 
     ;Platform Levels
     (= (platformLevel f) 0)
