@@ -1,13 +1,12 @@
 ; The aim of this problem is to kill the monster at j2 and proceed to the final location, j3
-
 ; using the weapons available at j1
 (define (problem problem_kill_monster)
 (:domain maze)
 (:objects
  j1 j2 j3 - Junction
- p - Player
- m - Monster
- m2 - Monster
+ tyrion - Player
+ dragon - Monster
+ basilisk - Monster
  i - Inventory
  shield - Shield
  b - Box
@@ -16,8 +15,8 @@
  key - Key
  banana - Food
  sword  - Sword
- sword2  - Sword
- sword3  - Sword
+ knife  - Sword
+ axe  - Sword
  knife - Knife
 )
 (:init
@@ -29,43 +28,42 @@
 
     ;Player
     (=(playerHealth) 30)
-    (atLocation p j1)
-    (on p f) ;player on the floor initially so they can move between the junctions
+    (atLocation tyrion j1)
+    (on tyrion f) ;player on the floor initially so they can move between the junctions
     (=(inventoryCount) 0)
     (=(maxInventorySize) 5)
 
-    (not(isMonsterDead m2))
-    (=(monsterHealth m2) 20)
-    (=(monsterStrength m2) 20)
-    (atLocation m2 j2)
 
-    ;Monster
-    (not(isMonsterDead m))
+
+    ;Monsters
+    (not(isMonsterDead dragon))
     (=(monstersSlain) 0)    ;without this it doesnt work
-    (=(monsterHealth m) 20)
-    (=(monsterStrength m) 20)
-    (atLocation m j2)
-    ;BUG
-    ;For some reason, weapons should do more damage than the monster's health
-    ;and am guessing because the attack action doesnt work, just the final attack works
+    (=(monsterHealth dragon) 20)
+    (=(monsterStrength dragon) 20)
+    (atLocation dragon j2)
 
+    (not(isMonsterDead basilisk))
+    (=(monsterHealth basilisk) 20)
+    (=(monsterStrength basilisk) 20)
+    (atLocation basilisk j2)
 
     ;Weapons
-    (=(weaponDamage sword) 20)
+    (=(weaponDamage sword) 30)
     (atLocation sword j1)
     (atLocation banana j1)
 
+    (on knife f) ;sword on the floor so player can pickup
+    (=(weaponDamage knife) 10)
+    (atLocation knife j1)
+
+    (on axe f) ;sword on the floor so player can pickup
+    (=(weaponDamage axe) 20)
+    (atLocation axe j1)
+    (on axe f) ;sword on the floor so player can pickup
+
+    ;food
     (=(foodValue banana) 20)
-   
-    (on sword f) ;sword on the floor so player can pickup
-    (=(weaponDamage sword2) 20)
-    (atLocation sword2 j1)
-   
-    (on sword3 f) ;sword on the floor so player can pickup
-    (=(weaponDamage sword3) 20)
-    (atLocation sword3 j1)
-    (on sword3 f) ;sword on the floor so player can pickup
 )
 
-(:goal  (and  (isMonsterDead m) (isMonsterDead m2)  (atLocation p j3)))
+(:goal  (and (isMonsterDead dragon) (isMonsterDead basilisk) (atLocation tyrion j3)))
 )

@@ -23,13 +23,13 @@
     (isConnected j2 j3)
     (isConnected j3 j4)
     (atLocation p j1)
-   
+
     (atLocation banana j2)
-    (on banana f) 
+    (on banana f)
     (=(foodValue banana) 30)
     ; (atLocation tree j2)
     ; (atLocation box j2)
-    ; (on box f) 
+    ; (on box f)
     ; weapon
      (atLocation sword j2)
      (on sword f) ;weapon on the floor
@@ -41,28 +41,27 @@
     (= (weaponDamage knife) 30)
     ; monster 1
     (atLocation m j3)
-    (on m f) 
+    (on m f)
      (not(isMonsterDead m))
     (= (monsterStrength m) 30)
     (= (monsterHealth m) 15)
     ; monster 1
     (atLocation m1 j4)
-    (on m1 f) 
+    (on m1 f)
      (not(isMonsterDead m1))
     (= (monsterStrength m1) 30)
     (= (monsterHealth m1) 15)
 
-    (on p f) ;player initially on the floor  
+    (on p f) ;player initially on the floor
      (= (playerHealth ) 30)
      (= (playerWealth ) 0)
      (= (monstersSlain ) 0)
      (= (inventoryCount ) 0)
      (= (maxInventorySize ) 5)
-    ;  (= (foodValue banana) 50)
 )
 
-(:goal (and 
-(atLocation p j4)  
+(:goal (and
+(atLocation p j4)
 (isMonsterDead m)
 (isMonsterDead m1)
 
