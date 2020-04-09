@@ -1,0 +1,16 @@
+;;!domain: maze
+;;!problem: problem_kill_monster
+
+0.00100: (pickup tyrion banana j1 f)
+0.00200: (eatfood tyrion banana)
+0.00300: (pickup tyrion sword j1 f)
+0.00400: (goto tyrion j1 j2 f)
+0.00500: (finalattack tyrion dragon sword j2)
+0.00600: (goto tyrion j2 j1 f)
+0.00700: (pickup tyrion axe j1 f)
+0.00800: (goto tyrion j1 j2 f)
+0.00900: (finalattack tyrion basilisk axe j2)
+0.01000: (goto tyrion j2 j3 f)
+
+; Makespan: 0.01
+; Cost: 0.01

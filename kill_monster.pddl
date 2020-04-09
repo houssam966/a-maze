@@ -14,10 +14,8 @@
  g - Gold
  key - Key
  banana - Food
- sword  - Sword
- knife  - Sword
- axe  - Sword
- knife - Knife
+ sword  - Weapon
+ axe  - Weapon
 )
 (:init
 
@@ -50,20 +48,20 @@
     ;Weapons
     (=(weaponDamage sword) 30)
     (atLocation sword j1)
-    (atLocation banana j1)
+    (on sword f) ;sword on the floor so player can pickup
 
-    (on knife f) ;sword on the floor so player can pickup
-    (=(weaponDamage knife) 10)
-    (atLocation knife j1)
-
-    (on axe f) ;sword on the floor so player can pickup
     (=(weaponDamage axe) 20)
     (atLocation axe j1)
-    (on axe f) ;sword on the floor so player can pickup
+    (on axe f)
 
     ;food
+    (atLocation banana j1)
     (=(foodValue banana) 20)
+    (on banana f )
 )
 
-(:goal  (and (isMonsterDead dragon) (isMonsterDead basilisk) (atLocation tyrion j3)))
+(:goal  (and (not(carryItem tyrion banana))
+    (not(atLocation banana j1))
+    (isMonsterDead dragon) (isMonsterDead basilisk)
+    (atLocation tyrion j3)))
 )

@@ -14,8 +14,6 @@
         Player Monster - Living
 
         Key Weapon Shield Food Gold - Item
-
-        Sword Knife - Weapon
     )
 
     (:predicates
