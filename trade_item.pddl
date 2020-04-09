@@ -1,3 +1,4 @@
+; This problem tests the ability to exchange gold for an item
 (define (problem trade_item)
 (:domain maze)
 
@@ -9,7 +10,7 @@
  f - Floor
  i - Inventory
  s - Shield
- key- Key
+ k - Key
  box - Box
  banana - Food
  w - Weapon
@@ -36,6 +37,8 @@
     ;gold
     (atLocation g j1)
     (on g f)
+    ;weapon
+    (= (weaponDamage w) 30)
 
     ;Player
     (= (playerHealth) 100)
@@ -44,6 +47,7 @@
     (on p f) ;player on the floor initially so they can move between the junctions
     (= (inventoryCount) 0)
     (= (maxInventorySize) 10)
+    (= (monstersSlain) 0)
 
     ;Vendor
     (atLocation v j2)
