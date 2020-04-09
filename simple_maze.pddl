@@ -24,6 +24,5 @@
     (on p f)
 )
 
-(:goal
-    (atLocation p j3)
-))
+(:goal (atLocation p j3))
+)
