@@ -53,7 +53,7 @@
 (:goal (and 
 (atLocation p j4)  
 (isMonsterDead m)
-(ateBanana)
+
 
 ))
 )
