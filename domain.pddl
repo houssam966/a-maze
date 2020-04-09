@@ -176,8 +176,8 @@
     ; @parameter j {junction}: the current location of the player and the food
      (:action eatFood
       :parameters (?p - Player ?f - Food )
-      :precondition (and(> (playerHealth) 0))
-      :effect (and (increase (playerHealth) (foodValue ?f)) (ateBanana))
+      :precondition (and(> (playerHealth) 0) (carryItem ?p ?f))
+      :effect (and (increase (playerHealth) (foodValue ?f)) (not (carryItem ?p ?f)) )
      )
     ;  (:action eatFood
     ; :parameters (?p - Player ?f - Food ?j - Junction)
