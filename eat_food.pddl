@@ -47,9 +47,8 @@
 
     ;Weapons
     (=(weaponDamage sword) 20)
-    (atLocation sword j1)
+    (atLocation sword j2)
     (atLocation banana j1)
-
     (=(foodValue banana) 20)
    
     
