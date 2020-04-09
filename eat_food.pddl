@@ -1,7 +1,7 @@
 (define (problem problem_eat)
 (:domain maze)
 (:objects
- j1 j2 j3 j4 j5 - Junction
+ j1 j2 j3 j4 - Junction
  p - Player
  m m1 - Monster
  k - Key
@@ -22,44 +22,42 @@
     (isConnected j2 j1)
     (isConnected j2 j3)
     (isConnected j3 j4)
-    (isConnected j4 j5)
     (atLocation p j1)
    
     (atLocation banana j2)
     (on banana f) 
-    ; (=(foodValue banana) 20)
+    (=(foodValue banana) 30)
     ; (atLocation tree j2)
     ; (atLocation box j2)
     ; (on box f) 
     ; weapon
      (atLocation w j2)
      (on w f) ;weapon on the floor
-    (= (weaponDamage w) 50)
+    (= (weaponDamage w) 30)
     ; monster 1
     (atLocation m j3)
     (on m f) 
      (not(isMonsterDead m))
-    (= (monsterStrength m) 50)
+    (= (monsterStrength m) 30)
     (= (monsterHealth m) 15)
-
-    ; monster 2
+    ; monster 1
     (atLocation m1 j4)
     (on m1 f) 
      (not(isMonsterDead m1))
-    (= (monsterStrength m1) 50)
+    (= (monsterStrength m1) 30)
     (= (monsterHealth m1) 15)
 
     (on p f) ;player initially on the floor  
-     (= (playerHealth ) 50)
+     (= (playerHealth ) 30)
      (= (playerWealth ) 0)
      (= (monstersSlain ) 0)
      (= (inventoryCount ) 0)
      (= (maxInventorySize ) 5)
-     (= (foodValue banana) 70)
+    ;  (= (foodValue banana) 50)
 )
 
 (:goal (and 
-(atLocation p j5)  
+(atLocation p j4)  
 (isMonsterDead m)
 (isMonsterDead m1)
 
