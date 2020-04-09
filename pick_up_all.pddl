@@ -25,7 +25,6 @@
     (isConnected j3 j4)
     (isConnected j4 j3)
 
-
     ;Platform Levels
     (=(platformLevel f) 0)
     (=(platformLevel box) 1)
