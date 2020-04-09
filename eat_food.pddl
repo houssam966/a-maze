@@ -1,4 +1,4 @@
-(define (problem pickup_drop)
+(define (problem problem_eat)
 (:domain maze)
 (:objects
  j1 j2 j3 j4 - Junction
@@ -26,6 +26,7 @@
    
     (atLocation banana j2)
     (on banana f) 
+    (=(foodValue banana) 20)
     ; (atLocation tree j2)
     ; (atLocation box j2)
     ; (on box f) 
@@ -52,7 +53,7 @@
 (:goal (and 
 (atLocation p j4)  
 (isMonsterDead m)
-
+(ateBanana)
 
 ))
 )
