@@ -177,7 +177,7 @@
      (:action eatFood
       :parameters (?p - Player ?f - Food )
       :precondition (and(> (playerHealth) 0) (carryItem ?p ?f))
-      :effect (and (increase (playerHealth) (foodValue ?f)) (not (carryItem ?p ?f)) (ateBanana) )
+      :effect (and (increase (playerHealth) (foodValue ?f)) (not (carryItem ?p ?f)) )
      )
     ;  (:action eatFood
     ; :parameters (?p - Player ?f - Food ?j - Junction)
