@@ -43,7 +43,6 @@
         (maxInventorySize)
         (inventoryCount)
 
-
         ;how much the food replenishes the hunger bar
         (foodValue ?f - Food)
 
@@ -107,7 +106,7 @@
                (not (atLocation ?b ?from)))
       )
 
-      ; this action makes player able to jump on the box  given that box and the player is in the same location and player and item is on the floor
+     ; this action makes player able to jump on the box  given that box and the player is in the same location and player and item is on the floor
      ; @parameter player {Living}: the player of the game
      ; @parameter item {Item}: the items (Box Sword Shield Key Food Gold) of the game
      ; @parameter from {junction}: current location of the  player and item
@@ -118,7 +117,7 @@
        :effect (and (on ?p ?to)  (not (on ?p ?from)))
       )
 
-    ; this action makes player able to go down from the box
+     ; this action makes player able to go down from the box
      ; @parameter player {Living}: the player of the game
      ; @parameter item {Item}: the items (Box Sword Shield Key Food Gold) of the game
      ; @parameter from {junction}: current location of the  player and item
@@ -166,7 +165,6 @@
       :effect (and (not (atLocation ?m ?j)) (isMonsterDead ?m) (not (carryItem ?p ?w)) (increase (monstersSlain) 1)(decrease (playerHealth) (monsterStrength ?m)))
      )
 
-
     ; if the player is at a location that has food, then eat the food
     ; remove the food from the room, and increase hunger by the food's value
     ; @parameter player {Living}: the player of the game
@@ -177,10 +175,5 @@
       :precondition (and(> (playerHealth) 0) (carryItem ?p ?f))
       :effect (and (increase (playerHealth) (foodValue ?f)) (not (carryItem ?p ?f)) )
      )
-    ;  (:action eatFood
-    ; :parameters (?p - Player ?f - Food ?j - Junction)
-    ; :precondition (and ( >(playerHealth ?p) 0) (carryItem ?p ?f))
-    ; :effect (and (not (carryItem ?p ?f)) (increase (playerHealth ?p) (foodValue ?f)))
-    ; )
 
 )

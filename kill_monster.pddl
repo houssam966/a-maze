@@ -31,8 +31,6 @@
     (=(inventoryCount) 0)
     (=(maxInventorySize) 5)
 
-
-
     ;Monsters
     (not(isMonsterDead dragon))
     (=(monstersSlain) 0)    ;without this it doesnt work
