@@ -175,8 +175,8 @@
     ; @parameter food {Food}: the food the player can eat
     ; @parameter j {junction}: the current location of the player and the food
      (:action eatFood
-      :parameters (?p - Player ?f - Food )
-      :precondition (and(> (playerHealth) 0) (carryItem ?p ?f))
+      :parameters (?p - Player ?f - Food ?m - Monster)
+      :precondition (and(> (playerHealth) 0) (carryItem ?p ?f) (< (playerHealth) (monsterStrength ?m)))
       :effect (and (increase (playerHealth) (foodValue ?f)) (not (carryItem ?p ?f)) )
      )
     ;  (:action eatFood
