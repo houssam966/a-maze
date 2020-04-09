@@ -179,12 +179,11 @@
             (not (carryItem ?p ?w)) (decrease (playerHealth) (monsterStrength ?m)))
     )
 
-    ; if the player is at a location that has food, then eat the food
-    ; remove the food from the room, and increase hunger by the food's value
+    ; if the player has food, then eat the food before attack
+    ; increase hunger by the food's value
     ; Arguments
     ; ?player {Living}: the player of the game
     ; ?food {Food}: the food the player can eat
-    ; ?j {junction}: the current location of the player and the food
      (:action eatFood
       :parameters (?p - Player ?f - Food )
       :precondition (and(> (playerHealth) 0) (carryItem ?p ?f))
