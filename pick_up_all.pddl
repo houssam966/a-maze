@@ -37,6 +37,7 @@
     (atLocation tree j2)
     ;Key
     (atLocation key j2)
+
     (on key box)
     ;Banana
     (atLocation banana j2)
