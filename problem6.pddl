@@ -208,6 +208,7 @@
     (isMonsterDead andore)
     (isMonsterDead belger)
     )    
+    
 )
 
 )
