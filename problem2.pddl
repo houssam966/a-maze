@@ -1,4 +1,4 @@
-(define (problem simple_maze)
+(define (problem pick_up_drop)
 (:domain maze)
 (:objects
  j1 j2 j3 - Junction
@@ -10,7 +10,7 @@
  k - Key
  b - Box
  f - Floor
- g - Gold
+ g -Gold
  banana - Food
  w - Weapon
 )
@@ -20,13 +20,18 @@
     (= monstersSlain 0)
     (= inventoryCount 0)
 
+
     (isConnected j1 j2)
     (isConnected j2 j1)
     (isConnected j2 j3)
     (isConnected j3 j2)
     (atLocation p j1)
+    (atLocation k j3)
     (on p f)
+    (on k f)
 )
 
-(:goal (atLocation p j3))
-)
+(:goal
+    (and(atLocation p j3)
+    (atLocation k j3))
+))
