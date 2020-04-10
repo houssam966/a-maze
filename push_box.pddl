@@ -4,6 +4,7 @@
 (:objects
  j1 j2 j3 - Junction
  p - Player
+ v - Vendor
  m - Monster
  key  - Key
  box - Box
@@ -17,8 +18,10 @@
 (:init
     (isConnected j1 j2)
     (isConnected j2 j1)
+    (= (distanceBetweenJunctions j1 j2) 2)
     (isConnected j2 j3)
     (isConnected j3 j2)
+    (= (distanceBetweenJunctions j2 j3) 2)
 
     ;Platform Levels
     (=(platformLevel f) 0)
