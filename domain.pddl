@@ -9,7 +9,7 @@
 
         Platform Living Item - Locatable
 
-        Box Floor - Platform
+        Box Floor - Platform    ;Floor is needed as a platform in every problem
 
         Player Monster - Living
 
@@ -19,48 +19,42 @@
     )
 
     (:predicates
-        ;localisation...
+        ;localisation
         (atLocation ?x - Locatable ?j - Junction)
-
+        (on ?l - Locatable ?p - Platform )  ;used place any locatable object on top of a platform
         ;maze
         (isConnected ?j1 ?j2 - Junction)
-        (isLocked ?j1 ?j2 - Junction);if the route is connected, but needs a key to open
-
+        (isLocked ?j1 ?j2 - Junction)   ;if the route is connected, but needs a key to open
         ;monster
         (isMonsterDead ?m - Monster)
-
+        ;player
         (carryItem ?p - Player ?item - Item)
-
-        (on ?l - Locatable ?p - Platform )
-
         ;check if the item is Gold
         (isGold ?g - Gold)
     )
 
     (:functions
-        (playerHealth)
-        (playerWealth)
-        (monstersSlain)
+        ;player
+        (playerHealth) - number
+        (playerWealth) - number
+        (monstersSlain) - number
+        ;inventory
+        (maxInventorySize) - number
+        (inventoryCount) - number
+        ;amount of health replenished by food
+        (foodValue ?f - Food) - number
+        ;how much damage the weapon can deal to the monster
+        (weaponDamage ?w - Weapon) - number
+        (shieldStrength ?s - Shield) - number
 
-        (maxInventorySize)
-        (inventoryCount)
-
-
-        ;how much the food replenishes the hunger bar
-        (foodValue ?f - Food)
-
-        (shieldStrength ?s - Shield)
-
-        (platformLevel ?p - Platform)
-
+        ;monster
         ;how much damage the monster can deal to the player/shield
         (monsterStrength ?m - Monster)
         ;monster health bar
-        (monsterHealth ?m - Monster)
+        (monsterHealth ?m - Monster) - number
 
-        ;how much damage the weapon can deal to the monster
-        (weaponDamage ?w - Weapon)
-
+        ;how high is a platform. This affects climbability of a platform.
+        (platformLevel ?p - Platform) - number
         ;this could affect how quickly the player gets hungry
         (distanceBetweenJunctions ?j1 ?j2 - Junction)
     )
