@@ -6,6 +6,7 @@
 0.00300: (climb p f box j2)
 0.00400: (grab p tree box banana j2)
 0.00500: (descend p box f j2)
+<<<<<<< HEAD
 0.00600: (push p box j2 j3 f)
 0.00700: (push p box j3 j4 f)
 0.00800: (pickup p w j4 f)
@@ -22,3 +23,21 @@
 
 ; Makespan: 0.018000000000000002
 ; Cost: 0.018000000000000002
+=======
+0.00600: (goto p j2 j3 f)
+0.00700: (goto p j3 j4 f)
+0.00800: (pickup p w j4 f)
+0.00900: (goto p j4 j3 f)
+0.01000: (pickup p s j3 f)
+0.01100: (goto p j3 j2 f)
+0.01200: (drop p s j2 f)
+0.01300: (push p box j2 j1 f)
+0.01400: (pickup p g j1 f)
+0.01500: (goto p j1 j2 f)
+0.01600: (goto p j2 j3 f)
+0.01700: (drop p g j3 f)
+0.01800: (goto p j3 j4 f)
+
+; Makespan: 0.018000000000000002
+; Cost: 0.018000000000000002
+>>>>>>> 1d84e33ed10b975ed406578de36be1c6c79c4abb
