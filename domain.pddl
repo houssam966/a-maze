@@ -35,26 +35,26 @@
 
     (:functions
         ;player
-        (playerHealth) - number
-        (playerWealth) - number
-        (monstersSlain) - number
+        (playerHealth)
+        (playerWealth)
+        (monstersSlain)
         ;inventory
-        (maxInventorySize) - number
-        (inventoryCount) - number
+        (maxInventorySize)
+        (inventoryCount)
         ;amount of health replenished by food
-        (foodValue ?f - Food) - number
+        (foodValue ?f - Food)
         ;how much damage the weapon can deal to the monster
-        (weaponDamage ?w - Weapon) - number
-        (shieldStrength ?s - Shield) - number
+        (weaponDamage ?w - Weapon)
+        (shieldStrength ?s - Shield)
 
         ;monster
         ;how much damage the monster can deal to the player/shield
         (monsterStrength ?m - Monster)
         ;monster health bar
-        (monsterHealth ?m - Monster) - number
+        (monsterHealth ?m - Monster)
 
         ;how high is a platform. This affects climbability of a platform.
-        (platformLevel ?p - Platform) - number
+        (platformLevel ?p - Platform)
         ;this could affect how quickly the player gets hungry
         (distanceBetweenJunctions ?j1 ?j2 - Junction)
     )
