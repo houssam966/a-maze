@@ -14,8 +14,6 @@
         Player Monster - Living
 
         Key Weapon Shield Food Gold - Item
-
-        Sword Knife - Weapon
     )
 
     (:predicates
@@ -143,24 +141,37 @@
     ; @parameter weapon {Item}: the weapon item
     ; @parameter j {junction}: current location of the  player and the monster
     (:action attack
-        :parameters (?p - Player ?m - Monster ?w - Weapon ?j - Junction)
-        :precondition (and (atLocation ?p ?j) (atLocation ?m ?j) (carryItem ?p ?w)
-                    (not (isMonsterDead ?m)) (> (playerHealth) 0))
-        :effect (and (decrease (monsterHealth ?m) (weaponDamage ?w)) (decrease (playerHealth) (monsterStrength ?m))
-                (when(< (monsterHealth ?m) 0) (isMonsterDead ?m)))
+    :parameters (?p - Player ?m - Monster ?w - Weapon ?j - Junction)
+    :precondition (and (atLocation ?p ?j) (atLocation ?m ?j) (carryItem ?p ?w)
+            (not (isMonsterDead ?m)) (< (weaponDamage ?w) (monsterHealth ?m)) (> (playerHealth) 0))
+    :effect (and (decrease (monsterHealth ?m) (weaponDamage ?w)) (decrease (playerHealth) (monsterStrength ?m)))
     )
 
-    ; if the player is at a location that has food, then eat the food
-    ; remove the food from the room, and increase hunger by the food's value
-    ; @parameter player {Living}: the player of the game
-    ; @parameter food {Food}: the food the player can eat
-    ; @parameter j {junction}: the current location of the player and the food
-    (:action eatFood
-        :parameters (?p - Player ?f - Food ?j - Junction)
-        :precondition (and (atLocation ?p ?j) (atLocation ?f ?j) (> (playerHealth) 0))
-        :effect (and (not (atLocation ?f ?j)) (increase (playerHealth) (foodValue ?f)))
+    ; This action enables player to kill a monster in the same junction using a weapon stronger than the monster's current health
+    ; Arguments:
+    ; ?player {Living}: the player of the game
+    ; ?monster {Living}: the monster in the same location
+    ; ?weapon {Weapon}: the weapon to be used
+    ; ?j {junction}: current location of the  player and the monster
+    (:action finalAttack
+    :parameters (?p - Player ?m - Monster ?w - Weapon ?j - Junction)
+    :precondition (and (atLocation ?p ?j) (atLocation ?m ?j) (carryItem ?p ?w)
+            (not (isMonsterDead ?m)) (>= (weaponDamage ?w) (monsterHealth ?m)) (> (playerHealth) 0))
+    :effect (and (not (atLocation ?m ?j)) (isMonsterDead ?m) (increase (monstersSlain) 1)
+            (not (carryItem ?p ?w)) (decrease (playerHealth) (monsterStrength ?m)))
     )
 
+    ; if the player has food, then eat the food before attack
+    ; increase hunger by the food's value
+    ; Arguments
+    ; ?player {Living}: the player of the game
+    ; ?food {Food}: the food the player can eat
+     (:action eatFood
+      :parameters (?p - Player ?f - Food )
+      :precondition (and(> (playerHealth) 0) (carryItem ?p ?f))
+      :effect (and (increase (playerHealth) (foodValue ?f)) (not (carryItem ?p ?f)) )
+     )
+    
     ; if the player is at a junction(j1) that has a locked path to another junction(j2),
     ; and the player has a key, then use the key to unlock the route
     ; @parameter player {Living}: the player of the game
@@ -170,6 +181,4 @@
         :parameters (?p - Player ?k - Key ?j1 - Junction ?j2 - Junction)
         :precondition (and(atLocation ?p ?j1) (carryItem ?p ?k) (isLocked ?j1 ?j2))
         :effect (and (not (carryItem ?p ?k)) (not (isLocked ?j1 ?j2)) (isConnected ?j1 ?j2))
-    )
-        
 )

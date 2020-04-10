@@ -10,7 +10,7 @@
  k - Key
  b - Box
  f - Floor
- g -Gold
+ g - Gold
  banana - Food
  w - Weapon
 )
@@ -28,6 +28,5 @@
     (on p f)
 )
 
-(:goal
-    (atLocation p j3)
-))
+(:goal (atLocation p j3))
+)
