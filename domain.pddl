@@ -29,6 +29,14 @@
         (carryItem ?p - Player ?item - Item)
         ;check if the item is Gold
         (isGold ?g - Gold)
+
+        ;check if the box is open
+        (isUnlocked ?b - Box)
+
+        ;check if there is an item in the box
+        (inBox ?b - Box ?i-Item)
+
+        (canTake ?i)
     )
 
     (:functions
@@ -96,7 +104,7 @@
     ; @parameter to {junction}: next location of the player and item
     (:action push
         :parameters (?p - player ?b - Box ?from ?to - Junction ?f - Floor)
-        :precondition (and (atLocation ?p ?from) (atLocation ?b ?from) (isConnected ?from ?to) (> (playerHealth) 0) (on ?p ?f) (on ?b ?f) )
+        :precondition (and (atLocation ?p ?from) (atLocation ?b ?from) (isConnected ?from ?to) (> (playerHealth) 0) (on ?p ?f) (on ?b ?f))
         :effect (and (atLocation ?p ?to) (atLocation ?b ?to) (not(atLocation ?p ?from))
             (not (atLocation ?b ?from)))
     )
@@ -168,7 +176,7 @@
     ; ?food {Food}: the food the player can eat
      (:action eatFood
       :parameters (?p - Player ?f - Food )
-      :precondition (and(> (playerHealth) 0) (carryItem ?p ?f))
+      :precondition (and (> (playerHealth) 0) (carryItem ?p ?f))
       :effect (and (increase (playerHealth) (foodValue ?f)) (not (carryItem ?p ?f)) )
      )
     
@@ -181,4 +189,30 @@
         :parameters (?p - Player ?k - Key ?j1 - Junction ?j2 - Junction)
         :precondition (and(atLocation ?p ?j1) (carryItem ?p ?k) (isLocked ?j1 ?j2))
         :effect (and (not (carryItem ?p ?k)) (not (isLocked ?j1 ?j2)) (isConnected ?j1 ?j2))
+    )
+
+    
+    ; if there is a locked box and player has a key, then use the key to unlock the route
+    ; @parameter player {Living}: the player of the game
+    ; @parameter k {Key}: the key that can be used to unlock a route
+    ; @parameter j1, j1 {Junction}: the 2 junctions that have a locked route 
+    (:action unlockBox
+        :parameters (?p - Player ?k - Key ?b - Box ?j - Junction ?platform - Platform ?i - Item)
+        :precondition (and (carryItem ?p ?k) (not(isUnlocked ?b)) (atLocation ?p ?j) (atLocation ?b ?j) (on ?p ?platform) (on ?b ?platform) (> (playerHealth) 0) (not(canTake ?i)))
+        :effect (and (not (carryItem ?p ?k)) (isUnlocked ?b))
+    )
+    
+
+
+    ; this action makes player able to pick up an item given that item and the player is in the same location and player is free
+    ; @parameter player {Living}: the player of the game
+    ; @parameter item {Item}: the items (Box Sword Shield Key Food Gold) of the game
+    ; @parameter from {junction}: current location of the  player and item
+    ; @parameter to {junction}: next location of the player and item
+    (:action take
+        :parameters (?p - player ?i - Item ?j - Junction ?platform - Platform ?b - Box)
+        :precondition (and (atLocation ?p ?j) (atLocation ?b ?j) (atLocation ?i ?j) (on ?p ?platform) (on ?b ?platform) (isUnlocked ?b) (canTake ?i)
+                      (inBox ?b ?i) (<(inventoryCount) (maxInventorySize)) (> (playerHealth) 0) (not (carryItem ?p ?i)))
+        :effect (and (carryItem ?p ?i) (not (inBox ?b ?i)) (increase (inventoryCount) 1) (not(canTake ?i)))
+    )  
 )
