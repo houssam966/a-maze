@@ -209,7 +209,7 @@
         :parameters (?p - Player ?k - Key ?b - Box ?j - Junction ?platform - Platform)
         :precondition (and (atLocation ?p ?j) (atLocation ?b ?j)  (on ?p ?platform) (on ?b ?platform)
                       (carryItem ?p ?k) (not(isUnlocked ?b)) (> (playerHealth) 0))
-        :effect (and  (isUnlocked ?b))
+        :effect (and  (isUnlocked ?b))  
     )
     
 
