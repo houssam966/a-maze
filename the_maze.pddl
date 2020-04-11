@@ -47,7 +47,7 @@ v v2 v3 - Vendor
     (=(platformLevel floor) 0)
     (=(platformLevel box) 1)
     (=(platformLevel tree) 2)
-    (=(platformLevel tree2) 2)
+    
 ;normal direction
     (isConnected j1 j2) 
     (= (distanceBetweenJunctions j1 j2) 1)
