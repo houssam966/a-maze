@@ -36,7 +36,7 @@ key - Key
 banana apple cake - Food
 sword axe knife - Weapon
 diamond - Item
-v v2 v3- Vendor
+v v2 v3 - Vendor
 
 )
 
