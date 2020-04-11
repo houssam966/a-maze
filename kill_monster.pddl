@@ -19,11 +19,12 @@
 )
 (:init
 
-    (isConnected j1 j2)
-    (isConnected j2 j1)
-    (isConnected j2 j3)
-    (isConnected j3 j2)
-
+   (isConnected j1 j2)
+         (= (distanceBetweenJunctions j1 j2) 1)
+        (isConnected j2 j1)
+        (isConnected j2 j3)
+         (= (distanceBetweenJunctions j2 j3) 1)
+        
     ;Player
     (=(playerHealth) 30)
     (atLocation tyrion j1)
@@ -34,13 +35,13 @@
     ;Monsters
     (not(isMonsterDead dragon))
     (=(monstersSlain) 0)    ;without this it doesnt work
-    (=(monsterHealth dragon) 20)
-    (=(monsterStrength dragon) 20)
+    (=(monsterHealth dragon) 30)
+    (=(monsterStrength dragon) 15)
     (atLocation dragon j2)
 
     (not(isMonsterDead basilisk))
-    (=(monsterHealth basilisk) 20)
-    (=(monsterStrength basilisk) 20)
+    (=(monsterHealth basilisk) 30)
+    (=(monsterStrength basilisk) 15)
     (atLocation basilisk j2)
 
     ;Weapons
