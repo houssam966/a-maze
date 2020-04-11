@@ -151,7 +151,7 @@ v - Vendor
     (=(monsterHealth dragon) 20)
     (=(monsterStrength dragon) 50)
     (atLocation dragon j16)
-    monster2
+    ;monster2
     (not(isMonsterDead giant))
     (=(monsterHealth giant) 20)
     (=(monsterStrength giant) 50)
