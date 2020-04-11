@@ -8,7 +8,7 @@
  b - Box
  f - Floor
  tree - Platform
- i - Inventory
+ in - Inventory
  s - Shield
  banana - Food
  w - Weapon
@@ -19,14 +19,15 @@
     (isConnected j1 j2)
     (on p f)
     (on b f)
-    (not (canTake i))
-    (carryItem p k)  
+    (not(canTake p w))
+    (carryItem p k) 
     (atLocation p j1) 
     (atLocation b j1)
+    (atLocation w j1)
     (not (isUnlocked b))
     (=(playerHealth) 100)
 )
 
-(:goal  (and (not (carryItem p k)) (isUnlocked b))
+(:goal  (and (not (carryItem p k)) (isUnlocked b) (canTake p w) (inBox b w))
 )
 )

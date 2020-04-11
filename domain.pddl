@@ -23,10 +23,13 @@
         ;maze
         (isConnected ?j1 ?j2 - Junction)
         (isLocked ?j1 ?j2 - Junction)   ;if the route is connected, but needs a key to open
+        
         ;monster
         (isMonsterDead ?m - Monster)
+        
         ;player
         (carryItem ?p - Player ?item - Item)
+        
         ;check if the item is Gold
         (isGold ?g - Gold)
 
@@ -36,7 +39,7 @@
         ;check if there is an item in the box
         (inBox ?b - Box ?i-Item)
 
-        (canTake ?i)
+        (canTake ?p - Player ?i-Item)
     )
 
     (:functions
@@ -198,8 +201,9 @@
     ; @parameter j1, j1 {Junction}: the 2 junctions that have a locked route 
     (:action unlockBox
         :parameters (?p - Player ?k - Key ?b - Box ?j - Junction ?platform - Platform ?i - Item)
-        :precondition (and (carryItem ?p ?k) (not(isUnlocked ?b)) (atLocation ?p ?j) (atLocation ?b ?j) (on ?p ?platform) (on ?b ?platform) (> (playerHealth) 0) (not(canTake ?i)))
-        :effect (and (not (carryItem ?p ?k)) (isUnlocked ?b))
+        :precondition (and (carryItem ?p ?k) (not(isUnlocked ?b)) (atLocation ?p ?j) (atLocation ?b ?j) (atLocation ?i ?j) (on ?p ?platform) (on ?b ?platform) 
+        (> (playerHealth) 0) (not(canTake ?p ?i )))
+        :effect (and (not (carryItem ?p ?k)) (isUnlocked ?b) (inBox ?b ?i)(canTake ?p ?i))
     )
     
 
@@ -211,8 +215,8 @@
     ; @parameter to {junction}: next location of the player and item
     (:action take
         :parameters (?p - player ?i - Item ?j - Junction ?platform - Platform ?b - Box)
-        :precondition (and (atLocation ?p ?j) (atLocation ?b ?j) (atLocation ?i ?j) (on ?p ?platform) (on ?b ?platform) (isUnlocked ?b) (canTake ?i)
+        :precondition (and (atLocation ?p ?j) (atLocation ?b ?j) (atLocation ?i ?j) (on ?p ?platform) (on ?b ?platform) (isUnlocked ?b) (canTake ?p ?i)
                       (inBox ?b ?i) (<(inventoryCount) (maxInventorySize)) (> (playerHealth) 0) (not (carryItem ?p ?i)))
-        :effect (and (carryItem ?p ?i) (not (inBox ?b ?i)) (increase (inventoryCount) 1) (not(canTake ?i)))
+        :effect (and (carryItem ?p ?i) (not (inBox ?b ?i)) (increase (inventoryCount) 1) (not(canTake ?p ?i)))
     )  
 )
