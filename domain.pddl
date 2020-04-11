@@ -52,9 +52,9 @@
         (monsterHealth ?m - Monster)
 
         ;how high is a platform. This affects climbability of a platform.
-        (platformLevel ?p - Platform) - number
+        (platformLevel ?p - Platform) 
         ;this affects how quickly the player health decreases
-        (distanceBetweenJunctions ?j1 ?j2 - Junction) - number
+        (distanceBetweenJunctions ?j1 ?j2 - Junction) 
     )
 
     ; Used to move player between unlocked and connected junctions. Player can only move if they are on a Floor Platform.
@@ -214,4 +214,5 @@
         :parameters (?p - Player ?k - Key ?j1 - Junction ?j2 - Junction)
         :precondition (and(atLocation ?p ?j1) (carryItem ?p ?k) (isLocked ?j1 ?j2))
         :effect (and (not (carryItem ?p ?k)) (not (isLocked ?j1 ?j2)) (isConnected ?j1 ?j2))
+)
 )
