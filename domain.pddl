@@ -164,20 +164,7 @@
     :precondition (and (atLocation ?p ?j) (atLocation ?v ?j) (carryItem ?p ?g) (sellItem ?v ?i) (> (playerHealth) 0))
     :effect (and (not (carryItem ?p ?g)) (carryItem ?p ?i) (not (sellItem ?v ?i)))
     )
-    
-    ; This action enables player to attack a monster in the same junction using a weapon.
-    ; This action does not kill the monster, just damages it. So monsters health should be more than the weapon's damage.
-    ; Arguments:
-    ; ?player {Living}: the player of the game
-    ; ?monster {Living}: the monster in the same location
-    ; ?weapon {Weapon}: the weapon to be used
-    ; ?j {junction}: current location of the  player and the monster
-    ; (:action attack
-    ;  :parameters (?p - Player ?m - Monster ?w - Weapon ?j - Junction ?k - Key)
-    ;  :precondition (and (atLocation ?p ?j) (atLocation ?m ?j) (carryItem ?p ?w)
-    ;          (not (isMonsterDead ?m)) (< (weaponDamage ?w) (monsterHealth ?m)) (> (playerHealth) 0))
-    ;  :effect (and (decrease (monsterHealth ?m) (weaponDamage ?w)) (decrease (playerHealth) (monsterStrength ?m)))
-    ;  )
+ 
 
     ; This action enables player to kill a monster in the same junction using a weapon stronger than the monster's current health
     ; Arguments:
@@ -186,7 +173,7 @@
     ; ?weapon {Weapon}: the weapon to be used
     ; ?key {Key}: the key to unlock the path
     ; ?j {junction}: current location of the  player and the monster
-    (:action finalAttack
+    (:action attack
     :parameters (?p - Player ?m - Monster ?w - Weapon ?k - Key ?j - Junction)
     :precondition (and (atLocation ?p ?j) (atLocation ?m ?j) (carryItem ?p ?w)
             (not (isMonsterDead ?m)) (>= (weaponDamage ?w) (monsterHealth ?m)) (> (playerHealth) 0))
