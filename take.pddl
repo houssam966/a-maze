@@ -1,4 +1,4 @@
-(define (problem unlockBox)
+(define (problem take)
 (:domain maze)
 (:objects
  j1 j2 j3 j4 - Junction
