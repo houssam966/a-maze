@@ -30,8 +30,8 @@ i - Inventory
 shield - Shield
 box - Box
 floor - Floor
-tree tree2 - Platform
-g1 - Gold
+tree - Platform
+g1 g2 g3- Gold
 key - Key
 banana apple cake - Food
 sword axe knife - Weapon
