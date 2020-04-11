@@ -1,9 +1,13 @@
-; The aim of this problem is to get to the end point, j500
-; This is a visual representation of the map of the maze:
-;
-; j1 --- j2 --- j3 -- j4 ......... j499 -- j500
-;
-;
+; This problem has 3 main monsters: creeper wither enderdragon
+; routes are locked at each of the monster's locations so the only way to
+; get past is by killing them.
+; To kill the creeper, player must find gold and trade it for an axe
+; to kill the wither you need a bow
+; Ender dragon is on a mountain so to kill it you have to climb to the mountain
+; to climb the mountain you need to climb the tree
+; to climb the tree you need to climb a box first
+; a box if present at a previous location so it has to be pushed to the tree
+; Aim is to reach the endpoint
 
 (define (problem minecraft)
 (:domain maze)
@@ -14,15 +18,16 @@ j61 j62 j63 j64 j65 j66 j67 j68 j69 j70 j71 j72 j73 j74 j75 j76 j77 j78 j79 j80 
 j91 j92 j93 j94 j95 j96 j97 j98 j99 j100 - Junction
  p - Player
  v - Vendor
- enderDragon wither - Monster
+ enderDragon wither creeper - Monster
  i - Inventory
  shield - Shield
  key - Key
  chicken - Food
- diamondSword bow - Weapon
+ axe diamondSword bow - Weapon
  f - Floor
  g - Gold
- b - Box
+ box - Box
+ temple tree mountain - Platform
 )
 
 (:init
@@ -430,27 +435,41 @@ j91 j92 j93 j94 j95 j96 j97 j98 j99 j100 - Junction
     (= (distanceBetweenJunctions j100 j99) 2)
 
     ;locked junctions
+    (isLocked j25 j26)
     (isLocked j50 j51)
     (isLocked j99 j100)
 
     ;Player
-    (=(playerHealth) 130)
+    (=(playerHealth) 100)
     (atLocation p j1)
     (on p f) ;player on the floor initially so they can move between the junctions
     (=(inventoryCount) 0)
     (=(maxInventorySize) 5)
 
+    ; ;Vendor
+    (atLocation v j10)
+    (sellItem v axe)
+
     ;Monsters
-    (not(isMonsterDead enderDragon))
     (=(monstersSlain) 0)    ;without this it doesnt work
+
+    (not(isMonsterDead enderDragon))
     (=(monsterHealth enderDragon) 100)
     (=(monsterStrength enderDragon) 20)
     (atLocation enderDragon j99)
+    (on enderDragon mountain )
 
     (not(isMonsterDead wither))
     (=(monsterHealth wither) 50)
     (=(monsterStrength wither) 20)
     (atLocation wither j50)
+    (on wither f)
+
+    (not(isMonsterDead creeper))
+    (=(monsterHealth creeper) 25)
+    (=(monsterStrength creeper) 20)
+    (atLocation creeper j25)
+    (on creeper f)
 
     ;Weapons
     (=(weaponDamage diamondSword) 100)
@@ -458,15 +477,39 @@ j91 j92 j93 j94 j95 j96 j97 j98 j99 j100 - Junction
     (on diamondSword f) ;sword on the floor so player can pickup
 
     (=(weaponDamage bow) 50)
-    (atLocation bow j1)
+    (atLocation bow j26)
     (on bow f)
 
+    (=(weaponDamage axe) 25)
+
     ;food
-    (atLocation chicken j60)
-    (=(foodValue chicken) 100)
+    (atLocation chicken j20)
+    (=(foodValue chicken) 200)
     (on chicken f )
+
+    ;Platform Levels
+    (=(platformLevel f) 0)
+    (=(platformLevel box) 1)
+    (=(platformLevel temple) 1)
+    (=(platformLevel tree) 2)
+    (=(platformLevel mountain) 3)
+
+    ;Box
+    (atLocation box j98)
+    (on box f)  ;box on the floor so player can push it if need be
+
+    ;Tree
+    (atLocation tree j99)
+    ;mountain
+    (atLocation mountain j99)
+    ;temple
+    (atLocation temple j10)
+    ;gold
+    (atLocation g j10)
+    (on g temple)
+
 )
 
-(:goal (and (atLocation p j100) (isMonsterDead enderDragon) (isMonsterDead wither) ))
+(:goal (and (atLocation p j100) (not(atLocation chicken j20)) (not (carryItem p chicken)) (isMonsterDead creeper) (isMonsterDead wither) (isMonsterDead enderDragon) ))
 
 )

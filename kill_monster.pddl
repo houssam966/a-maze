@@ -56,6 +56,7 @@
     (atLocation banana j1)
     (=(foodValue banana) 20)
     (on banana f )
+
 )
 
 (:goal  (and (not(carryItem tyrion banana))

@@ -108,7 +108,7 @@
      (:action push
      :parameters (?p - player ?b - Box ?from ?to - Junction ?f - Floor)
      :precondition (and (> (playerHealth) 0) (on ?p ?f) (on ?b ?f)
-             (atLocation ?p ?from) (atLocation ?b ?from) (isConnected ?from ?to))
+             (atLocation ?p ?from) (atLocation ?b ?from) (isConnected ?from ?to) (not (isLocked ?from ?to)))
      :effect (and (atLocation ?p ?to) (not(atLocation ?p ?from))
          (atLocation ?b ?to) (not (atLocation ?b ?from)))
      )
@@ -187,8 +187,9 @@
     ; ?key {Key}: the key to unlock the path
     ; ?j {junction}: current location of the  player and the monster
     (:action finalAttack
-    :parameters (?p - Player ?m - Monster ?w - Weapon ?k - Key ?j - Junction)
+    :parameters (?p - Player ?m - Monster ?w - Weapon ?k - Key ?j - Junction ?platform - Platform)
     :precondition (and (atLocation ?p ?j) (atLocation ?m ?j) (carryItem ?p ?w)
+            (on ?p ?platform) (on ?m ?platform)
             (not (isMonsterDead ?m)) (>= (weaponDamage ?w) (monsterHealth ?m)) (> (playerHealth) 0))
     :effect (and (not (atLocation ?m ?j)) (isMonsterDead ?m) (not (carryItem ?p ?w))
             (carryItem ?p ?k) (increase (monstersSlain) 1))
