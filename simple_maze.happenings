@@ -1,0 +1,8 @@
+;;!domain: maze
+;;!problem: simple_maze
+
+0.001: (goto p j1 j2 f)
+0.002: (goto p j2 j3 f)
+
+; Makespan: 0.002
+; Cost: 0.002
