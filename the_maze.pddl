@@ -33,7 +33,7 @@ floor - Floor
 tree - Platform
 g1 g2 g3 - Gold
 key - Key
-banana apple cake - Food
+banana apple strawberry - Food
 sword axe knife - Weapon
 diamond - Item
 v v2 v3 - Vendor
