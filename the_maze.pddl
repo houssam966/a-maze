@@ -42,7 +42,7 @@ v v2 v3 - Vendor
 
 (:init
     (=(inventoryCount) 0)
-    (=(maxInventorySize) 6)
+    (=(maxInventorySize) 20)
     ;Platform Levels
     (=(platformLevel floor) 0)
     (=(platformLevel box) 1)
@@ -119,17 +119,20 @@ v v2 v3 - Vendor
     (isConnected j19 j18)
 ;player
    (atLocation ajan j1)
-   (=(playerHealth) 80)
+   (=(playerHealth) 100)
    (on ajan floor)
    ;v1
    (atLocation v j3)
    (sellItem v sword)
+   (=(weaponDamage sword) 30)
    ;v2
    (atLocation v2 j8)
    (sellItem v2 axe)
+   (=(weaponDamage axe) 30)
    ;v3
    (atLocation v3 j13)
    (sellItem v3 knife)
+   (=(weaponDamage knife) 30)
 ;diamond 
     (atLocation diamond j12)
     (on diamond floor)
@@ -159,7 +162,6 @@ v v2 v3 - Vendor
     (on box floor)
     ;tree
     (atLocation tree j4)
-    ; (atLocation tree2 j12)
     ;monster
     (not(isMonsterDead dragon))
     (=(monstersSlain) 0)    ;without this it doesnt work
@@ -177,15 +179,15 @@ v v2 v3 - Vendor
     (=(monsterStrength witch) 50)
     (atLocation witch j10)
      ;Weapons
-    (=(weaponDamage sword) 30)
+    
     ; (atLocation sword j4)
     ; (on sword floor) 
      ;Weapons
-    (=(weaponDamage axe) 30)
+    
     ; (atLocation axe j4)
     ; (on axe floor) 
      ;Weapons
-    (=(weaponDamage knife) 30)
+    
     ; (atLocation knife j11)
     ; (on knife floor) 
 
@@ -195,8 +197,6 @@ v v2 v3 - Vendor
 (:goal (and
     (atLocation ajan j20)
     (atLocation diamond j20)
-    ; (carryItem ajan banana)
-    ;  (carryItem ajan apple)
     (isMonsterDead dragon)
     (isMonsterDead giant)
     (isMonsterDead witch)
