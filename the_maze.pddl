@@ -165,7 +165,7 @@ v - Vendor
     (=(monsterStrength witch) 50)
     (atLocation witch j10)
      ;Weapons
-    ; (=(weaponDamage sword) 30)
+    (=(weaponDamage sword) 30)
     ; (atLocation sword j4)
     ; (on sword floor) 
      ;Weapons
