@@ -31,7 +31,7 @@ shield - Shield
 box - Box
 floor - Floor
 tree - Platform
-g1 g2 g3- Gold
+g1 g2 g3 - Gold
 key - Key
 banana apple cake - Food
 sword axe knife - Weapon
