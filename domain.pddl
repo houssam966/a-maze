@@ -172,12 +172,12 @@
     ; ?monster {Living}: the monster in the same location
     ; ?weapon {Weapon}: the weapon to be used
     ; ?j {junction}: current location of the  player and the monster
-    (:action attack
-    :parameters (?p - Player ?m - Monster ?w - Weapon ?j - Junction)
-    :precondition (and (atLocation ?p ?j) (atLocation ?m ?j) (carryItem ?p ?w)
-            (not (isMonsterDead ?m)) (< (weaponDamage ?w) (monsterHealth ?m)) (> (playerHealth) 0))
-    :effect (and (decrease (monsterHealth ?m) (weaponDamage ?w)) (decrease (playerHealth) (monsterStrength ?m)))
-    )
+    ; (:action attack
+    ; :parameters (?p - Player ?m - Monster ?w - Weapon ?j - Junction)
+    ; :precondition (and (atLocation ?p ?j) (atLocation ?m ?j) (carryItem ?p ?w)
+    ;         (not (isMonsterDead ?m)) (< (weaponDamage ?w) (monsterHealth ?m)) (> (playerHealth) 0))
+    ; :effect (and (decrease (monsterHealth ?m) (weaponDamage ?w)) (decrease (playerHealth) (monsterStrength ?m)))
+    ; )
 
     ; This action enables player to kill a monster in the same junction using a weapon stronger than the monster's current health
     ; Arguments:
@@ -191,7 +191,7 @@
     :precondition (and (atLocation ?p ?j) (atLocation ?m ?j) (carryItem ?p ?w)
             (not (isMonsterDead ?m)) (>= (weaponDamage ?w) (monsterHealth ?m)) (> (playerHealth) 0))
     :effect (and (not (atLocation ?m ?j)) (isMonsterDead ?m) (not (carryItem ?p ?w))
-            (carryItem ?p ?k) (increase (monstersSlain) 1))
+            (carryItem ?p ?k) (increase (monstersSlain) 1)  (decrease (playerHealth) (monsterStrength ?m)))
     )
 
     ; if the player has food, then eat the food before attack
@@ -200,8 +200,8 @@
     ; ?player {Living}: the player of the game
     ; ?food {Food}: the food the player can eat
      (:action eatFood
-      :parameters (?p - Player ?f - Food ?m - Monster)
-      :precondition (and(< (playerHealth) (monsterStrength ?m)) (carryItem ?p ?f))
+      :parameters (?p - Player ?f - Food )
+      :precondition (and(< (playerHealth) ) (carryItem ?p ?f))
       :effect (and (increase (playerHealth) (foodValue ?f)) (not (carryItem ?p ?f)) )
      )
     
