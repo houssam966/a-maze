@@ -69,7 +69,7 @@ v - Vendor
      (= (distanceBetweenJunctions j6 j7) 1)
     (isConnected j6 j9)
      (= (distanceBetweenJunctions j6 j9) 1)
-    (isConnected j7 j12)
+    (isLocked j7 j12)
      (= (distanceBetweenJunctions j7 j12) 1)
     (isConnected j7 j8)
      (= (distanceBetweenJunctions j7 j8) 1)
@@ -79,7 +79,7 @@ v - Vendor
      (= (distanceBetweenJunctions j8 j13) 1)
     (isConnected j9 j10)
      (= (distanceBetweenJunctions j9 j10) 1)
-     (isConnected j10 j11)
+     (isLocked j10 j11)
      (= (distanceBetweenJunctions j10 j11) 1)
     (isConnected j13 j14)
      (= (distanceBetweenJunctions j13 j14) 1)
@@ -152,27 +152,27 @@ v - Vendor
     (=(monsterStrength dragon) 50)
     (atLocation dragon j16)
     ;monster2
-    ; (not(isMonsterDead giant))
-    ; (=(monsterHealth giant) 20)
-    ; (=(monsterStrength giant) 50)
-    ; (atLocation giant j7)
-    ; ;monster
-    ; (not(isMonsterDead witch))
-    ; (=(monsterHealth witch) 20)
-    ; (=(monsterStrength witch) 50)
-    ; (atLocation witch j10)
+    (not(isMonsterDead giant))
+    (=(monsterHealth giant) 20)
+    (=(monsterStrength giant) 50)
+    (atLocation giant j7)
+    ;monster
+    (not(isMonsterDead witch))
+    (=(monsterHealth witch) 20)
+    (=(monsterStrength witch) 50)
+    (atLocation witch j10)
      ;Weapons
     (=(weaponDamage sword) 30)
     (atLocation sword j4)
     (on sword floor) 
      ;Weapons
-    ; (=(weaponDamage axe) 30)
-    ; (atLocation axe j4)
-    ; (on axe floor) 
-    ;  ;Weapons
-    ; (=(weaponDamage knife) 30)
-    ; (atLocation knife j4)
-    ; (on knife floor) 
+    (=(weaponDamage axe) 30)
+    (atLocation axe j4)
+    (on axe floor) 
+     ;Weapons
+    (=(weaponDamage knife) 30)
+    (atLocation knife j4)
+    (on knife floor) 
 
    
 )
