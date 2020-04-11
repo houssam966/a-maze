@@ -19,10 +19,15 @@
     (:predicates
         ;localisation
         (atLocation ?x - Locatable ?j - Junction)
-        (on ?l - Locatable ?p - Platform )  ;used place any locatable object on top of a platform
+        
+        ;used place any locatable object on top of a platform
+        (on ?l - Locatable ?p - Platform )  
+        
         ;maze
         (isConnected ?j1 ?j2 - Junction)
-        (isLocked ?j1 ?j2 - Junction)   ;if the route is connected, but needs a key to open
+
+        ;if the route is connected, but needs a key to open
+        (isLocked ?j1 ?j2 - Junction)   
         
         ;monster
         (isMonsterDead ?m - Monster)
@@ -38,10 +43,6 @@
 
         ;check if there is an item in the box
         (inBox ?b - Box ?i-Item)
-
-        ;check if the player can carry an item
-        (canTake ?p - Player ?item - Item)
-
     )
 
     (:functions
