@@ -144,21 +144,22 @@ v - Vendor
     (on box floor)
     ;tree
     (atLocation tree j4)
-    (atLocation tree2 j12)
+    ; (atLocation tree2 j12)
     ;monster
     (not(isMonsterDead dragon))
     (=(monstersSlain) 0)    ;without this it doesnt work
     (=(monsterHealth dragon) 20)
     (=(monsterStrength dragon) 50)
     (atLocation dragon j16)
-    ;monster2
+    monster2
     (not(isMonsterDead giant))
-    
+    (=(monstersSlain) 0) 
     (=(monsterHealth giant) 20)
     (=(monsterStrength giant) 50)
     (atLocation giant j7)
     ;monster
     (not(isMonsterDead witch))
+    (=(monstersSlain) 0) 
     (=(monsterHealth witch) 20)
     (=(monsterStrength witch) 50)
     (atLocation witch j10)
@@ -166,7 +167,7 @@ v - Vendor
     (=(weaponDamage sword) 30)
     (atLocation sword j4)
     (on sword floor) 
-     ;Weapons
+     Weapons
     (=(weaponDamage axe) 30)
     (atLocation axe j4)
     (on axe floor) 
