@@ -43,6 +43,7 @@ v v2 v3 - Vendor
 (:init
     (=(inventoryCount) 0)
     (=(maxInventorySize) 20)
+
     ;Platform Levels
     (=(platformLevel floor) 0)
     (=(platformLevel box) 1)
@@ -144,10 +145,10 @@ v v2 v3 - Vendor
     (atLocation apple j5)
     (on apple box)
     (=(foodValue apple) 50)
-
-    (atLocation cake j6)
-    (on cake floor)
-    (=(foodValue cake) 50)
+    ;
+    (atLocation strawberry j6)
+    (on strawberry floor)
+    (=(foodValue strawberry) 50)
     ;gold1
     (atLocation g1 j2)
     (on g1 floor)
@@ -173,25 +174,12 @@ v v2 v3 - Vendor
     (=(monsterHealth giant) 20)
     (=(monsterStrength giant) 50)
     (atLocation giant j7)
-    ;monster
+    ;monster3
     (not(isMonsterDead witch))
     (=(monsterHealth witch) 20)
     (=(monsterStrength witch) 50)
     (atLocation witch j10)
-     ;Weapons
-    
-    ; (atLocation sword j4)
-    ; (on sword floor) 
-     ;Weapons
-    
-    ; (atLocation axe j4)
-    ; (on axe floor) 
-     ;Weapons
-    
-    ; (atLocation knife j11)
-    ; (on knife floor) 
-
-   
+ 
 )
 
 (:goal (and
@@ -201,102 +189,4 @@ v v2 v3 - Vendor
     (isMonsterDead giant)
     (isMonsterDead witch)
 ))
-
-;un-comment the following line if metric is needed
-;(:metric minimize (???))
 )
-
-
-
-; Plan computed:
-;    Time: (ACTION) [action Duration; action Cost]
-;  0.0000: (GOTO AJAN J1 J2 FLOOR) [D:1.00; C:1.00]
-;  1.0000: (GOTO AJAN J2 J4 FLOOR) [D:1.00; C:1.00]
-;  2.0000: (PICKUP AJAN SWORD J4 FLOOR) [D:1.00; C:1.00]
-;  3.0000: (GOTO AJAN J4 J5 FLOOR) [D:1.00; C:1.00]
-;  4.0000: (PUSH AJAN BOX J5 J3 FLOOR) [D:1.00; C:1.00]
-;  5.0000: (PUSH AJAN BOX J3 J5 FLOOR) [D:1.00; C:1.00]
-;  6.0000: (GOTO AJAN J5 J3 FLOOR) [D:1.00; C:1.00]
-;  7.0000: (GOTO AJAN J3 J5 FLOOR) [D:1.00; C:1.00]
-;  8.0000: (PUSH AJAN BOX J5 J3 FLOOR) [D:1.00; C:1.00]
-;  9.0000: (PUSH AJAN BOX J3 J5 FLOOR) [D:1.00; C:1.00]
-;  10.0000: (PUSH AJAN BOX J5 J6 FLOOR) [D:1.00; C:1.00]
-;  11.0000: (PUSH AJAN BOX J6 J5 FLOOR) [D:1.00; C:1.00]
-;  12.0000: (GOTO AJAN J5 J6 FLOOR) [D:1.00; C:1.00]
-;  13.0000: (GOTO AJAN J6 J9 FLOOR) [D:1.00; C:1.00]
-;  14.0000: (GOTO AJAN J9 J6 FLOOR) [D:1.00; C:1.00]
-;  15.0000: (GOTO AJAN J6 J5 FLOOR) [D:1.00; C:1.00]
-;  16.0000: (PUSH AJAN BOX J5 J6 FLOOR) [D:1.00; C:1.00]
-;  17.0000: (PUSH AJAN BOX J6 J5 FLOOR) [D:1.00; C:1.00]
-;  18.0000: (PUSH AJAN BOX J5 J4 FLOOR) [D:1.00; C:1.00]
-;  19.0000: (GOTO AJAN J4 J5 FLOOR) [D:1.00; C:1.00]
-;  20.0000: (GOTO AJAN J5 J6 FLOOR) [D:1.00; C:1.00]
-;  21.0000: (PICKUP AJAN CAKE J6 FLOOR) [D:1.00; C:1.00]
-;  22.0000: (GOTO AJAN J6 J9 FLOOR) [D:1.00; C:1.00]
-;  23.0000: (GOTO AJAN J9 J10 FLOOR) [D:1.00; C:1.00]
-;  24.0000: (FINALATTACK AJAN WITCH SWORD KEY J10) [D:1.00; C:1.00]
-;  25.0000: (GOTO AJAN J10 J8 FLOOR) [D:1.00; C:1.00]
-;  26.0000: (GOTO AJAN J8 J7 FLOOR) [D:1.00; C:1.00]
-;  27.0000: (GOTO AJAN J7 J4 FLOOR) [D:1.00; C:1.00]
-;  28.0000: (PUSH AJAN BOX J4 J5 FLOOR) [D:1.00; C:1.00]
-;  29.0000: (PUSH AJAN BOX J5 J4 FLOOR) [D:1.00; C:1.00]
-;  30.0000: (DROP AJAN KEY J4 FLOOR) [D:1.00; C:1.00]
-;  31.0000: (PICKUP AJAN KEY J4 FLOOR) [D:1.00; C:1.00]
-;  32.0000: (DROP AJAN KEY J4 FLOOR) [D:1.00; C:1.00]
-;  32.0000: (GRAB AJAN BOX FLOOR APPLE J4) [D:1.00; C:1.00]
-;  33.0000: (EATFOOD AJAN APPLE) [D:1.00; C:1.00]
-;  34.0000: (PUSH AJAN BOX J4 J7 FLOOR) [D:1.00; C:1.00]
-;  35.0000: (EATFOOD AJAN CAKE) [D:1.00; C:1.00]
-;  36.0000: (GOTO AJAN J7 J4 FLOOR) [D:1.00; C:1.00]
-;  37.0000: (PICKUP AJAN KEY J4 FLOOR) [D:1.00; C:1.00]
-;  38.0000: (PICKUP AJAN AXE J4 FLOOR) [D:1.00; C:1.00]
-;  39.0000: (GOTO AJAN J4 J7 FLOOR) [D:1.00; C:1.00]
-;  40.0000: (DROP AJAN KEY J7 FLOOR) [D:1.00; C:1.00]
-;  41.0000: (PICKUP AJAN KEY J7 FLOOR) [D:1.00; C:1.00]
-;  42.0000: (DROP AJAN KEY J7 FLOOR) [D:1.00; C:1.00]
-;  43.0000: (PICKUP AJAN KEY J7 FLOOR) [D:1.00; C:1.00]
-;  44.0000: (DROP AJAN KEY J7 FLOOR) [D:1.00; C:1.00]
-;  45.0000: (PICKUP AJAN KEY J7 FLOOR) [D:1.00; C:1.00]
-;  46.0000: (DROP AJAN KEY J7 FLOOR) [D:1.00; C:1.00]
-;  47.0000: (PICKUP AJAN KEY J7 FLOOR) [D:1.00; C:1.00]
-;  48.0000: (DROP AJAN KEY J7 FLOOR) [D:1.00; C:1.00]
-;  49.0000: (PICKUP AJAN KEY J7 FLOOR) [D:1.00; C:1.00]
-;  50.0000: (DROP AJAN KEY J7 FLOOR) [D:1.00; C:1.00]
-;  51.0000: (PICKUP AJAN KEY J7 FLOOR) [D:1.00; C:1.00]
-;  52.0000: (UNLOCKROUTE AJAN KEY J7 J12) [D:1.00; C:1.00]
-;  53.0000: (PUSH AJAN BOX J7 J12 FLOOR) [D:1.00; C:1.00]
-;  54.0000: (PICKUP AJAN DIAMOND J12 FLOOR) [D:1.00; C:1.00]
-;  55.0000: (PUSH AJAN BOX J12 J7 FLOOR) [D:1.00; C:1.00]
-;  56.0000: (FINALATTACK AJAN GIANT AXE KEY J7) [D:1.00; C:1.00]
-;  57.0000: (PUSH AJAN BOX J7 J8 FLOOR) [D:1.00; C:1.00]
-;  58.0000: (PUSH AJAN BOX J8 J9 FLOOR) [D:1.00; C:1.00]
-;  59.0000: (PUSH AJAN BOX J9 J10 FLOOR) [D:1.00; C:1.00]
-;  60.0000: (UNLOCKROUTE AJAN KEY J10 J11) [D:1.00; C:1.00]
-;  61.0000: (PUSH AJAN BOX J10 J8 FLOOR) [D:1.00; C:1.00]
-;  62.0000: (PUSH AJAN BOX J8 J13 FLOOR) [D:1.00; C:1.00]
-;  63.0000: (PUSH AJAN BOX J13 J14 FLOOR) [D:1.00; C:1.00]
-;  64.0000: (PUSH AJAN BOX J14 J15 FLOOR) [D:1.00; C:1.00]
-;  65.0000: (GOTO AJAN J15 J14 FLOOR) [D:1.00; C:1.00]
-;  66.0000: (GOTO AJAN J14 J13 FLOOR) [D:1.00; C:1.00]
-;  67.0000: (GOTO AJAN J13 J8 FLOOR) [D:1.00; C:1.00]
-;  68.0000: (GOTO AJAN J8 J9 FLOOR) [D:1.00; C:1.00]
-;  69.0000: (GOTO AJAN J9 J10 FLOOR) [D:1.00; C:1.00]
-;  70.0000: (GOTO AJAN J10 J11 FLOOR) [D:1.00; C:1.00]
-;  71.0000: (PICKUP AJAN KNIFE J11 FLOOR) [D:1.00; C:1.00]
-;  72.0000: (GOTO AJAN J11 J10 FLOOR) [D:1.00; C:1.00]
-;  73.0000: (GOTO AJAN J10 J8 FLOOR) [D:1.00; C:1.00]
-;  74.0000: (GOTO AJAN J8 J13 FLOOR) [D:1.00; C:1.00]
-;  75.0000: (GOTO AJAN J13 J8 FLOOR) [D:1.00; C:1.00]
-;  76.0000: (GOTO AJAN J8 J13 FLOOR) [D:1.00; C:1.00]
-;  77.0000: (GOTO AJAN J13 J8 FLOOR) [D:1.00; C:1.00]
-;  78.0000: (GOTO AJAN J8 J13 FLOOR) [D:1.00; C:1.00]
-;  79.0000: (GOTO AJAN J13 J14 FLOOR) [D:1.00; C:1.00]
-;  80.0000: (GOTO AJAN J14 J15 FLOOR) [D:1.00; C:1.00]
-;  81.0000: (PUSH AJAN BOX J15 J16 FLOOR) [D:1.00; C:1.00]
-;  82.0000: (FINALATTACK AJAN DRAGON KNIFE KEY J16) [D:1.00; C:1.00]
-;  83.0000: (UNLOCKROUTE AJAN KEY J16 J17) [D:1.00; C:1.00]
-;  84.0000: (PUSH AJAN BOX J16 J17 FLOOR) [D:1.00; C:1.00]
-;  85.0000: (PUSH AJAN BOX J17 J18 FLOOR) [D:1.00; C:1.00]
-;  86.0000: (PUSH AJAN BOX J18 J19 FLOOR) [D:1.00; C:1.00]
-;  87.0000: (PUSH AJAN BOX J19 J20 FLOOR) [D:1.00; C:1.00]
-;  88.0000: (DROP AJAN DIAMOND J20 FLOOR) [D:1.00; C:1.00]
