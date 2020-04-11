@@ -16,18 +16,22 @@
 )
 
 (:init
+    ;junction
     (isConnected j1 j2)
-    (on p f)
-    (on b f)
-    (not(canTake p w))
-    (carryItem p k) 
+    
+    ;player
     (atLocation p j1) 
+    (on p f)
+    (carryItem p k)
+
+    ;box
     (atLocation b j1)
-    (atLocation w j1)
-    (not (isUnlocked b))
-    (=(playerHealth) 100)
+    (on b f)
+    (not(isUnlocked b))
+ 
+    (=(playerHealth) 100)   
 )
 
-(:goal  (and (not (carryItem p k)) (isUnlocked b) (canTake p w) (inBox b w))
+(:goal  (and  (isUnlocked b))
 )
 )
