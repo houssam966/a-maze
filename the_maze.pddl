@@ -156,7 +156,6 @@ v - Vendor
 (:goal (and
     (atLocation ajan j20)
     (atLocation diamond j20)
-    (carryItem ajan key)
     ; (carryItem ajan banana)
     ;  (carryItem ajan apple)
     (isMonsterDead dragon)
