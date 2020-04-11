@@ -201,7 +201,7 @@
     ; ?food {Food}: the food the player can eat
      (:action eatFood
       :parameters (?p - Player ?f - Food )
-      :precondition (and(< (playerHealth) ) (carryItem ?p ?f))
+      :precondition (and (> (playerHealth) 0) (carryItem ?p ?f))
       :effect (and (increase (playerHealth) (foodValue ?f)) (not (carryItem ?p ?f)) )
      )
     
