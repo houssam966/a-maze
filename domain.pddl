@@ -200,8 +200,8 @@
     ; ?player {Living}: the player of the game
     ; ?food {Food}: the food the player can eat
      (:action eatFood
-      :parameters (?p - Player ?f - Food )
-      :precondition (and(> (playerHealth) 0) (carryItem ?p ?f))
+      :parameters (?p - Player ?f - Food ?m - Monster)
+      :precondition (and(< (playerHealth) (monsterStrength ?m)) (carryItem ?p ?f))
       :effect (and (increase (playerHealth) (foodValue ?f)) (not (carryItem ?p ?f)) )
      )
     
