@@ -36,7 +36,7 @@ key - Key
 banana apple cake - Food
 sword axe knife - Weapon
 diamond - Item
-v - Vendor
+v v2 v3- Vendor
 
 )
 
@@ -121,9 +121,15 @@ v - Vendor
    (atLocation ajan j1)
    (=(playerHealth) 80)
    (on ajan floor)
-   ;v
+   ;v1
    (atLocation v j3)
    (sellItem v sword)
+   ;v2
+   (atLocation v2 j8)
+   (sellItem v2 axe)
+   ;v3
+   (atLocation v3 j13)
+   (sellItem v3 knife)
 ;diamond 
     (atLocation diamond j12)
     (on diamond floor)
@@ -142,6 +148,12 @@ v - Vendor
     ;gold1
     (atLocation g1 j2)
     (on g1 floor)
+    ;gold2
+    (atLocation g2 j9)
+    (on g2 floor)
+    ;gold3
+    (atLocation g3 j11)
+    (on g3 floor)
     ;box
     (atLocation box j5)
     (on box floor)
@@ -170,12 +182,12 @@ v - Vendor
     ; (on sword floor) 
      ;Weapons
     (=(weaponDamage axe) 30)
-    (atLocation axe j4)
-    (on axe floor) 
+    ; (atLocation axe j4)
+    ; (on axe floor) 
      ;Weapons
     (=(weaponDamage knife) 30)
-    (atLocation knife j11)
-    (on knife floor) 
+    ; (atLocation knife j11)
+    ; (on knife floor) 
 
    
 )
