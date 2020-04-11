@@ -1,6 +1,0 @@
-#!/bin/bash
-ulimit -t 1800
-ulimit -v 1500000
-export CISSTOPCONT=1
-cd /store/nms_informatics_research/planning/planners//home/k1889983/Documents/a-maze/outputDir/
-/dcs/research/ais/planning/planners/lpg-td-1.0 -quality -out lpgquality.soln -o /home/k1889983/Documents/a-maze/domain.pddl -f /home/k1889983/Documents/a-maze/huge.pddl > lpg-td-1.0quality
