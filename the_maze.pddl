@@ -86,7 +86,7 @@ v - Vendor
      (= (distanceBetweenJunctions j14 j15) 1)
     (isConnected j15 j16)
      (= (distanceBetweenJunctions j15 j16) 1)
-    (isConnected j16 j17)
+   (isLocked j16 j17)
      (= (distanceBetweenJunctions j16 j17) 1)
     (isConnected j17 j18)
      (= (distanceBetweenJunctions j17 j18) 1)
@@ -94,7 +94,7 @@ v - Vendor
      (= (distanceBetweenJunctions j18 j19) 1)
     (isConnected j19 j20)
      (= (distanceBetweenJunctions j19 j20) 1)
-     (isLocked j16 j17)
+     
 ;other direction   
     (isConnected j2 j1)
     (isConnected j3 j2)
