@@ -130,9 +130,9 @@ v - Vendor
     (atLocation apple j14)
     (on apple tree2)
     (=(foodValue apple) 50)
-    ;key
-    (atLocation key j12)
-    (on key box)
+    ; ;key
+    ; (atLocation key j12)
+    ; (on key box)
     ;box
     (atLocation box j5)
     (on box floor)
