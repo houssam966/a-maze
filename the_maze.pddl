@@ -25,8 +25,7 @@
 (:objects 
 ajan  - Player
 j1 j2 j3 j4 j5 j6 j7 j8 j9 j10 j11 j12 j13 j14 j15 j16 j17 j18 j19 j20 - Junction
-dragon - Monster
-giant - Monster
+dragon giant witch - Monster
 i - Inventory
 shield - Shield
 box - Box
@@ -34,7 +33,7 @@ floor - Floor
 tree tree2 - Platform
 gold - Gold
 key - Key
-banana apple - Food
+banana apple cake - Food
 sword axe knife - Weapon
 diamond - Item
 v - Vendor
@@ -117,19 +116,23 @@ v - Vendor
     (isConnected j19 j18)
 ;player
    (atLocation ajan j1)
-   (=(playerHealth) 50)
+   (=(playerHealth) 80)
    (on ajan floor)
 ;diamond 
-    (atLocation diamond j3)
+    (atLocation diamond j12)
     (on diamond floor)
     ;banana
     (atLocation banana j4)
     (on banana tree)
     (=(foodValue banana) 50)
     ;apple
-    (atLocation apple j14)
-    (on apple tree2)
+    (atLocation apple j5)
+    (on apple box)
     (=(foodValue apple) 50)
+
+    (atLocation cake j6)
+    (on cake floor)
+    (=(foodValue cake) 50)
     ; ;key
     ; (atLocation key j12)
     ; (on key box)
@@ -145,10 +148,29 @@ v - Vendor
     (=(monsterHealth dragon) 20)
     (=(monsterStrength dragon) 50)
     (atLocation dragon j16)
+    ;monster2
+    (not(isMonsterDead giant))
+    
+    (=(monsterHealth giant) 20)
+    (=(monsterStrength giant) 50)
+    (atLocation giant j7)
+    ;monster
+    (not(isMonsterDead witch))
+    (=(monsterHealth witch) 20)
+    (=(monsterStrength witch) 50)
+    (atLocation witch j10)
      ;Weapons
     (=(weaponDamage sword) 30)
     (atLocation sword j4)
     (on sword floor) 
+     ;Weapons
+    (=(weaponDamage axe) 30)
+    (atLocation axe j4)
+    (on axe floor) 
+     ;Weapons
+    (=(weaponDamage knife) 30)
+    (atLocation knife j4)
+    (on knife floor) 
 
    
 )
@@ -159,6 +181,8 @@ v - Vendor
     ; (carryItem ajan banana)
     ;  (carryItem ajan apple)
     (isMonsterDead dragon)
+    (isMonsterDead giant)
+    (isMonsterDead witch)
 ))
 
 ;un-comment the following line if metric is needed
