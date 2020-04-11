@@ -222,8 +222,8 @@
     ; @parameter platform {Platform}: used place any locatable object on top of a platform
     (:action take
         :parameters (?p - player ?j - Junction ?platform - Platform ?b - Box ?i - Item)
-        :precondition (and (atLocation ?p ?j) (atLocation ?b ?j) (atLocation ?w ?j) (on ?p ?platform) (on ?b ?platform) (inBox ?b ?i) (isUnlocked ?b) 
+        :precondition (and (atLocation ?p ?j) (atLocation ?b ?j) (atLocation ?i ?j) (on ?p ?platform) (on ?b ?platform) (inBox ?b ?i) (isUnlocked ?b) 
                       (<(inventoryCount) (maxInventorySize)) (> (playerHealth) 0))
-        :effect (and (carryItem ?p ?w) (not (inBox ?b ?w)) (increase (inventoryCount) 1))
+        :effect (and (carryItem ?p ?i) (not (inBox ?b ?i)) (increase (inventoryCount) 1))
     )  
 )
