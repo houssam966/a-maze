@@ -37,7 +37,7 @@ key - Key
 banana apple - Food
 sword axe knife - Weapon
 diamond - Item
- v - Vendor
+v - Vendor
 
 )
 
@@ -94,6 +94,7 @@ diamond - Item
      (= (distanceBetweenJunctions j18 j19) 1)
     (isConnected j19 j20)
      (= (distanceBetweenJunctions j19 j20) 1)
+     (isLocked j16 j17)
 ;other direction   
     (isConnected j2 j1)
     (isConnected j3 j2)
