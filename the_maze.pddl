@@ -165,7 +165,7 @@ v - Vendor
     (=(weaponDamage sword) 30)
     (atLocation sword j4)
     (on sword floor) 
-     Weapons
+     ;Weapons
     (=(weaponDamage axe) 30)
     (atLocation axe j4)
     (on axe floor) 
