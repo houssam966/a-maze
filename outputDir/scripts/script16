@@ -1,0 +1,6 @@
+#!/bin/bash
+ulimit -t 1800
+ulimit -v 1500000
+export CISSTOPCONT=1
+cd /store/nms_informatics_research/planning/planners//home/k1889983/Documents/a-maze/outputDir/
+/dcs/research/ais/planning/planners/crikey3-latest /home/k1889983/Documents/a-maze/domain.pddl /home/k1889983/Documents/a-maze/huge.pddl > crikey3

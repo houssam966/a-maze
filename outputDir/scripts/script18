@@ -1,0 +1,15 @@
+#!/bin/bash
+ulimit -t 1800
+ulimit -v 1500000
+export CISSTOPCONT=1
+cd /store/nms_informatics_research/planning/planners//home/k1889983/Documents/a-maze/outputDir/
+mkdir lamatmp
+cd lamatmp
+/dcs/research/ais/planning/planners/lama/lama/translate/translate.py /home/k1889983/Documents/a-maze/domain.pddl /home/k1889983/Documents/a-maze/huge.pddl
+/dcs/research/ais/planning/planners/lama/lama/preprocess/preprocess < output.sas
+/dcs/research/ais/planning/planners/lama/lama/search/release-search "fFlLi" < output > ../lama
+rm output.sas
+rm output
+rm output
+rm sas_plan*
+rmdir lamatmp

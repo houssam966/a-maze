@@ -1,0 +1,7 @@
+#!/bin/bash
+ulimit -t 1800
+ulimit -v 1500000
+export CISSTOPCONT=1
+cd /store/nms_informatics_research/planning/planners//home/k1889983/Documents/a-maze/outputDir/
+export CLASSPATH=/dcs/research/ais/planning/planners/tilsapa
+java -Xmx1300m myplanner.Planner /home/k1889983/Documents/a-maze/domain.pddl /home/k1889983/Documents/a-maze/huge.pddl -text -timelimit 1800 > tilsapa
