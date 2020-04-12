@@ -19,14 +19,31 @@
     (:predicates
         ;localisation
         (atLocation ?x - Locatable ?j - Junction)
-        (on ?l - Locatable ?p - Platform )  ;used place any locatable object on top of a platform
+        
+        ;used place any locatable object on top of a platform
+        (on ?l - Locatable ?p - Platform )  
+        
         ;maze
         (isConnected ?j1 ?j2 - Junction)
-        (isLocked ?j1 ?j2 - Junction)   ;if the route is connected, but needs a key to open
+
+        ;if the route is connected, but needs a key to open
+        (isLocked ?j1 ?j2 - Junction)   
+        
         ;monster
         (isMonsterDead ?m - Monster)
+        
         ;player
         (carryItem ?p - Player ?item - Item)
+        
+        ;check if the item is Gold
+        (isGold ?g - Gold)
+
+        ;check if the box is open
+        (isUnlocked ?b - Box)
+
+        ;check if there is an item in the box
+        (inBox ?b - Box ?i-Item)
+        
         ;vendor
         (sellItem ?v - Vendor ?item - Item)
     )
@@ -201,7 +218,7 @@
     ; ?food {Food}: the food the player can eat
      (:action eatFood
       :parameters (?p - Player ?f - Food )
-      :precondition (and(> (playerHealth) 0) (carryItem ?p ?f))
+      :precondition (and (> (playerHealth) 0) (carryItem ?p ?f))
       :effect (and (increase (playerHealth) (foodValue ?f)) (not (carryItem ?p ?f)) )
      )
     
@@ -214,4 +231,34 @@
         :parameters (?p - Player ?k - Key ?j1 - Junction ?j2 - Junction)
         :precondition (and(atLocation ?p ?j1) (carryItem ?p ?k) (isLocked ?j1 ?j2))
         :effect (and (not (carryItem ?p ?k)) (not (isLocked ?j1 ?j2)) (isConnected ?j1 ?j2))
+    )
+
+    
+    ; if there is a locked box and player has a key, then use the key to unlock the box
+    ; to be able to take the items inside it
+    ; @parameter player {Living}: the player of the game
+    ; @parameter k {Key}: the key that can be used to unlock a box
+    ; @parameter b {Box}: the box that can be unlock in order to take the item inside it
+    ; @parameter item {Item}: the items (Box Sword Shield Key Food Gold) of the game
+    ; @parameter j{Junction}: the current location of the player, box and item
+    ; @parameter platform {Platform}: used place any locatable object on top of a platform
+    (:action unlockBox
+        :parameters (?p - Player ?k - Key ?b - Box ?j - Junction ?platform - Platform)
+        :precondition (and (atLocation ?p ?j) (atLocation ?b ?j)  (on ?p ?platform) (on ?b ?platform)
+                      (carryItem ?p ?k) (not(isUnlocked ?b)) (> (playerHealth) 0))
+        :effect (and  (isUnlocked ?b))  
+    )
+    
+    ; this action makes player able to pick up an item given that item and the player is in the same location and player is free
+    ; @parameter player {Living}: the player of the game
+    ; @parameter b {Box}: the box that can be unlock in order to take the item inside it
+    ; @parameter item {Item}: the items (Box Sword Shield Key Food Gold) of the game
+    ; @parameter j{Junction}: the current location of the player, box and item
+    ; @parameter platform {Platform}: used place any locatable object on top of a platform
+    (:action take
+        :parameters (?p - player ?j - Junction ?platform - Platform ?b - Box ?i - Item)
+        :precondition (and (atLocation ?p ?j) (atLocation ?b ?j) (atLocation ?i ?j) (on ?p ?platform) (on ?b ?platform) (inBox ?b ?i) 
+                      (isUnlocked ?b) (<(inventoryCount) (maxInventorySize)) (> (playerHealth) 0))
+        :effect (and (carryItem ?p ?i) (not (inBox ?b ?i)) (increase (inventoryCount) 1))
+    )  
 )
