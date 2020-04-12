@@ -19,11 +19,11 @@
 )
 (:init
 
-   (isConnected j1 j2)
-         (= (distanceBetweenJunctions j1 j2) 1)
-        (isConnected j2 j1)
-        (isConnected j2 j3)
-         (= (distanceBetweenJunctions j2 j3) 1)
+    red(isConnected j1 j2)
+    (= (distanceBetweenJunctions j1 j2) 1)
+    (isConnected j2 j1)
+    (isConnected j2 j3)
+    (= (distanceBetweenJunctions j2 j3) 1)
         
     ;Player
     (=(playerHealth) 30)
