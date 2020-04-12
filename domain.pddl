@@ -1,4 +1,3 @@
-
 (define (domain maze)
 
     (:requirements :strips :typing :fluents :equality :negative-preconditions :conditional-effects :action-costs)
