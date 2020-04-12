@@ -32,6 +32,6 @@
     (=(playerHealth) 100)   
 )
 
-(:goal  (and  (isUnlocked b))
+(:goal  (and  (isUnlocked b) (not(carryItem p k)))
 )
 )

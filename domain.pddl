@@ -246,7 +246,7 @@
         :parameters (?p - Player ?k - Key ?b - Box ?j - Junction ?platform - Platform)
         :precondition (and (atLocation ?p ?j) (atLocation ?b ?j)  (on ?p ?platform) (on ?b ?platform)
                       (carryItem ?p ?k) (not(isUnlocked ?b)) (> (playerHealth) 0))
-        :effect (and  (isUnlocked ?b))  
+        :effect (and  (isUnlocked ?b) (not(carryItem ?p ?k)))  
     )
     
     ; this action makes player able to pick up an item given that item and the player is in the same location and player is free
