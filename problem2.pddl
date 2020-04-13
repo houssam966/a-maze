@@ -13,6 +13,7 @@
  g -Gold
  banana - Food
  w - Weapon
+ v - Vendor
 )
 (:init
     (= playerHealth 1)
@@ -22,8 +23,10 @@
 
 
     (isConnected j1 j2)
+     (= (distanceBetweenJunctions j1 j2) 1)
     (isConnected j2 j1)
     (isConnected j2 j3)
+     (= (distanceBetweenJunctions j2 j3) 1)
     (isConnected j3 j2)
     (atLocation p j1)
     (atLocation k j3)

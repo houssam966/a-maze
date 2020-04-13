@@ -14,6 +14,7 @@
  banana - Food
  w - Weapon
  g - Gold
+ v - Vendor
 )
 (:init
     (isConnected j1 j2)
