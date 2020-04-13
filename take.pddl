@@ -13,6 +13,7 @@
  banana - Food
  w - Weapon
  g - Gold
+ v - Vendor
 )
 
 (:init
@@ -26,8 +27,11 @@
     ;box
     (atLocation b j1)
     (on b f)
-    (inBox b w)
     (isUnlocked b)
+
+    ;weapon
+    (atLocation w j1)
+    (inBox b w)
  
     (=(playerHealth) 100)  
     (=(inventoryCount) 0)

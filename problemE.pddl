@@ -14,20 +14,20 @@
  (define (problem problemE)
  (:domain maze)
  (:objects
-  j1 j2 j3 j4 j5 j6 j7 j8 j9 j10 j11 j12 j13 j14 j15  - Junction
+  j1 j2 j3 j4 j5 j6 j7 j8 j9 j10 j11 j12 j13 j14 j15 - Junction
   polarBear - Player
-  iceFloor sea - Platform
+  ice - Floor
   fisherman1 fisherman2 - Vendor
   furrier1 furrier2 furrier3 - Monster
   i - Inventory
   shield - Shield
   key - Key
   family - Item
-  banana bonito - Food ;item
+  bonito seaBass - Food ;item
   spear - Weapon
   f - Floor 
   gold - Gold
-  ice1 ice2 treasure1 treasure2 - Box
+  treasure1 treasure2 treasure3 treasure4 - Box
  )
 
  (:init
@@ -78,57 +78,66 @@
      (=(maxInventorySize) 20)
     
      ;Platform Levels
-     ;(=(platformLevel sea) 0)
-     ;(=(platformLevel treasure) 1)
-
+     (=(platformLevel ice) 0)
+     (=(platformLevel treasure1) 1)
+     (=(platformLevel treasure2) 1)
+     (=(platformLevel treasure3) 1)
+     (=(platformLevel treasure4) 1)
+   
      ;Player
      (atLocation polarBear j1)
-     (on polarBear sea)
-     (=(playerHealth) 100)
+     (on polarBear ice)
+     (=(playerHealth) 50)
     
-
      ;Monster
      (atLocation furrier1 j4)
+     (on furrier1 ice)
      (not(isMonsterDead furrier1))
      (=(monstersSlain) 0)
-     (=(monsterHealth furrier1) 50)
-     (=(monsterStrength furrier1) 40)
+     (=(monsterHealth furrier1) 20)
+     (=(monsterStrength furrier1) 10)
 
      (atLocation furrier2 j8)
-     (=(monsterHealth furrier2) 50)
-     (=(monsterStrength furrier2) 40)
+     (on furrier2 ice)
+     (not(isMonsterDead furrier2))
+     (=(monsterHealth furrier2) 20)
+     (=(monsterStrength furrier2) 10)
 
      (atLocation furrier3 j13)
-     (=(monsterHealth furrier3) 50)
-     (=(monsterStrength furrier3) 40)
+     (on furrier3 ice)
+     (not(isMonsterDead furrier3))
+     (=(monsterHealth furrier3) 20)    
+     (=(monsterStrength furrier3) 10)
 
      ;Box
-     (atLocation ice1 j2)
-     (on ice1 sea)
-     (on key ice1)
+     (atLocation treasure1 j2)
+     (on treasure1 ice)
+     (on key treasure1)
 
-     (atLocation treasure1 j3)
-     (on treasure1 sea)
-     (inBox treasure1 bonito)
+     (atLocation treasure2 j3)
+     (on treasure2 ice)
+     (not(isUnlocked treasure2))
+     (inBox treasure2 seaBass)
 
+     (atLocation treasure3 j5)
+     (on treasure3 ice)
+     (on gold treasure3)
 
-     (atLocation ice2 j5)
-     (on ice2 sea)
-     (on gold ice2)
-
-     (atLocation treasure2 j10)
-     (on treasure2 sea)
-     (inBox ice2 gold)
+     (atLocation treasure4 j10)
+     (on treasure4 ice)
+     (not(isUnlocked treasure4))
+     (inBox treasure4 gold)
 
      ;weapon
      (atLocation spear j6)
-     (on spear sea)
+     (on spear ice)
+     (=(weaponDamage spear)30)
 
      ;Vendor
-     (atLocation fisherman1 j5)
+     (atLocation fisherman1 j7)
      (sellItem fisherman1 bonito)
 
-     (atLocation fisherman2 j12)
+     (atLocation fisherman2 j12) 
      (sellItem fisherman2 bonito)
 
      ;Key
@@ -137,7 +146,7 @@
      ;Food
      (atLocation bonito j14)
  )
- (:goal (and  (atLocation polarBear j15))
+ (:goal (and  (atLocation polarBear j15) (carryItem polarBear bonito) (isUnlocked treasure4) 
+         (not(inBox treasure2 seaBass))(isMonsterDead furrier1)) 
  )
-
  )
