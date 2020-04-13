@@ -1,12 +1,12 @@
 ;;!domain: maze
 ;;!problem: climb_grab
 
-(goto p j1 j2 f)
-(grab p box f key j2)
-(climb p f box j2)
-(grab p tree box banana j2)
-(descend p box f j2)
-(goto p j2 j3 f)
+0.00100: (goto p j1 j2 f)
+0.00200: (grab p box f key j2)
+0.00300: (climb p f box j2)
+0.00400: (grab p tree box banana j2)
+0.00500: (descend p box f j2)
+0.00600: (goto p j2 j3 f)
 
-; Makespan: NaN
-; Cost: 0
+; Makespan: 0.006
+; Cost: 0.006

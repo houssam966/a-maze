@@ -5,6 +5,7 @@
 (:objects
  j1 j2 j3 j4 - Junction
  p - Player
+ v - Vendor
  m - Monster
  key - Key
  box - Box
@@ -20,10 +21,13 @@
 (:init
     (isConnected j1 j2)
     (isConnected j2 j1)
+    (= (distanceBetweenJunctions j1 j2) 2)
     (isConnected j2 j3)
     (isConnected j3 j2)
+    (= (distanceBetweenJunctions j1 j2) 2)
     (isConnected j3 j4)
     (isConnected j4 j3)
+    (= (distanceBetweenJunctions j1 j2) 2)
 
     ;Platform Levels
     (=(platformLevel f) 0)
@@ -37,6 +41,7 @@
     (atLocation tree j2)
     ;Key
     (atLocation key j2)
+
     (on key box)
     ;Banana
     (atLocation banana j2)
