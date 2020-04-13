@@ -13,7 +13,7 @@
  f - Floor
  g - Gold
  key - Key
- banana apple - Food
+ banana - Food
  sword  - Weapon
  axe  - Weapon
  v - Vendor
@@ -24,6 +24,7 @@
     (= (distanceBetweenJunctions j1 j2) 1)
     (isConnected j2 j1)
     (isConnected j2 j3)
+    (isConnected j3 j2)
     (= (distanceBetweenJunctions j2 j3) 1)
         
     ;Player
@@ -36,14 +37,14 @@
     ;Monsters
     (not(isMonsterDead dragon))
     (=(monstersSlain) 0)    ;without this it doesnt work
-    (=(monsterHealth dragon) 30)
-    (=(monsterStrength dragon) 15)
+    (=(monsterHealth dragon) 20)
+    (=(monsterStrength dragon) 20)
     (atLocation dragon j2)
     (on dragon f)
 
     (not(isMonsterDead basilisk))
-    (=(monsterHealth basilisk) 30)
-    (=(monsterStrength basilisk) 15)
+    (=(monsterHealth basilisk) 20)
+    (=(monsterStrength basilisk) 20)
     (atLocation basilisk j2)
     (on basilisk f)
 
@@ -61,14 +62,11 @@
     (=(foodValue banana) 20)
     (on banana f )
 
-     ;food
-    (atLocation apple j1)
-    (=(foodValue apple) 20)
-    (on apple f )
 
 )
 
-(:goal  (and (not(carryItem tyrion banana))
+(:goal  (and  
+    (not(carryItem tyrion banana))
     (not(atLocation banana j1))
     (isMonsterDead dragon) (isMonsterDead basilisk)
     (atLocation tyrion j3)))

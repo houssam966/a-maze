@@ -169,16 +169,19 @@ v v2 v3 - Vendor
     (=(monsterHealth dragon) 20)
     (=(monsterStrength dragon) 50)
     (atLocation dragon j16)
+    (on dragon floor)
     ;monster2
     (not(isMonsterDead giant))
     (=(monsterHealth giant) 20)
     (=(monsterStrength giant) 50)
     (atLocation giant j7)
+    (on giant floor)
     ;monster3
     (not(isMonsterDead witch))
     (=(monsterHealth witch) 20)
     (=(monsterStrength witch) 50)
     (atLocation witch j10)
+    (on witch floor)
  
 )
 

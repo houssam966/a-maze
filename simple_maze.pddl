@@ -28,7 +28,7 @@
     (isConnected j3 j2)
     (= (distanceBetweenJunctions j2 j3) 2)
 
-    (=(playerHealth) 100)
+  
     (atLocation p j1)
     (on p f)
 )
