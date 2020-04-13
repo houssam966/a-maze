@@ -68,7 +68,7 @@
         (monsterHealth ?m - Monster)
 
         ;how high is a platform. This affects climbability of a platform.
-        (platformLevel ?p - Platform) 
+        (platformLevel ?p - Platform)
         ;this affects how quickly the player health decreases
         (distanceBetweenJunctions ?j1 ?j2 - Junction)
     )
@@ -124,7 +124,7 @@
      (:action push
      :parameters (?p - player ?b - Box ?from ?to - Junction ?f - Floor)
      :precondition (and (> (playerHealth) 0) (on ?p ?f) (on ?b ?f)
-             (atLocation ?p ?from) (atLocation ?b ?from) (isConnected ?from ?to))
+             (atLocation ?p ?from) (atLocation ?b ?from) (isConnected ?from ?to) (not (isLocked ?from ?to)))
      :effect (and (atLocation ?p ?to) (not(atLocation ?p ?from))
          (atLocation ?b ?to) (not (atLocation ?b ?from)))
      )
@@ -167,14 +167,14 @@
              (= (-(platformLevel ?from) (platformLevel ?current)) 1) (> (playerHealth) 0))
      :effect (and (carryItem ?p ?i) (not (atLocation ?i ?j)) (not(on ?i ?from)) (increase (inventoryCount) 1))
      )
-     
+
     ; This action is used to trade gold for food from a vendor
     ; Arguments:
     ; ?player {Living}: the player of the game
     ; ?vendor {Living}: the vendor to trade with
     ; ?j {Junction}: current location of player and vendor
     ; ?gold {Gold}: gold to buy item
-    ; ?item {Item}: item traded with gold 
+    ; ?item {Item}: item traded with gold
     (:action trade
     :parameters (?p - Player ?v - Vendor ?j - Junction ?g - Gold ?i - Item)
     :precondition (and (atLocation ?p ?j) (atLocation ?v ?j) (carryItem ?p ?g) (sellItem ?v ?i) (> (playerHealth) 0))
@@ -206,13 +206,12 @@
     ; and the player has a key, then use the key to unlock the route
     ; @parameter player {Living}: the player of the game
     ; @parameter k {Key}: the key that can be used to unlock a route
-    ; @parameter j1, j1 {Junction}: the 2 junctions that have a locked route 
+    ; @parameter j1, j1 {Junction}: the 2 junctions that have a locked route
     (:action unlockRoute
         :parameters (?p - Player ?k - Key ?j1 - Junction ?j2 - Junction)
         :precondition (and(atLocation ?p ?j1) (carryItem ?p ?k) (isLocked ?j1 ?j2))
         :effect (and (not (carryItem ?p ?k)) (not (isLocked ?j1 ?j2)) (isConnected ?j1 ?j2))
     )
-
     
     ; if there is a locked box and player has a key, then use the key to unlock the box
     ; to be able to take the items inside it
@@ -242,3 +241,4 @@
         :effect (and (carryItem ?p ?i) (not (inBox ?b ?i)) (increase (inventoryCount) 1))
     )  
 )
+

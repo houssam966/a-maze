@@ -76,6 +76,7 @@
      ;Inventory
      (=(inventoryCount) 0)
      (=(maxInventorySize) 20)
+     (=(foodValue bonito) 10)
     
      ;Platform Levels
      (=(platformLevel ice) 0)
@@ -146,7 +147,7 @@
      ;Food
      (atLocation bonito j14)
  )
- (:goal (and  (atLocation polarBear j15) (carryItem polarBear bonito) (isUnlocked treasure4) 
-         (not(inBox treasure2 seaBass))(isMonsterDead furrier1)) 
+ (:goal (and  (atLocation polarBear j15) (carryItem polarBear seaBass) (isUnlocked treasure4) (=(playerHealth) 60)
+          (not(isMonsterDead furrier1)) )
  )
  )

@@ -16,14 +16,17 @@
  banana - Food
  sword  - Weapon
  axe  - Weapon
+ v - Vendor
 )
 (:init
 
     (isConnected j1 j2)
+    (= (distanceBetweenJunctions j1 j2) 1)
     (isConnected j2 j1)
     (isConnected j2 j3)
     (isConnected j3 j2)
-
+    (= (distanceBetweenJunctions j2 j3) 1)
+        
     ;Player
     (=(playerHealth) 30)
     (atLocation tyrion j1)
@@ -37,11 +40,13 @@
     (=(monsterHealth dragon) 20)
     (=(monsterStrength dragon) 20)
     (atLocation dragon j2)
+    (on dragon f)
 
     (not(isMonsterDead basilisk))
     (=(monsterHealth basilisk) 20)
     (=(monsterStrength basilisk) 20)
     (atLocation basilisk j2)
+    (on basilisk f)
 
     ;Weapons
     (=(weaponDamage sword) 30)
@@ -56,9 +61,12 @@
     (atLocation banana j1)
     (=(foodValue banana) 20)
     (on banana f )
+
+
 )
 
-(:goal  (and (not(carryItem tyrion banana))
+(:goal  (and  
+    (not(carryItem tyrion banana))
     (not(atLocation banana j1))
     (isMonsterDead dragon) (isMonsterDead basilisk)
     (atLocation tyrion j3)))

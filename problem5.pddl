@@ -32,6 +32,8 @@
     f - Floor
     g -Gold
     apple banana - Food
+    w - Weapon
+    v - Vendor
 )
 
 (:init 
