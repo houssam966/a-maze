@@ -16,6 +16,7 @@
  banana - Food
  w - Weapon
  g - Gold
+ v - Vendor
 )
 
 (:init

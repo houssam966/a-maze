@@ -16,6 +16,7 @@
  banana - Food
  sword  - Weapon
  axe  - Weapon
+ v - Vendor
 )
 (:init
 

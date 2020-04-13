@@ -13,6 +13,7 @@
  w - Weapon
  b - Box
  g - Gold
+ v - Vendor
 )
 (:init
     (isConnected j1 j2)

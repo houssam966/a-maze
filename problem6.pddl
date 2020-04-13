@@ -25,6 +25,7 @@
     b - Box
     f - Floor
     leadPipe - Weapon
+    v - Vendor
 
 )
 

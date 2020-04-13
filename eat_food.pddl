@@ -1,4 +1,4 @@
-(define (problem problem_eat)
+(define (problem eat_food)
     (:domain maze)
     (:objects
     j1 j2 j3 j4 - Junction
