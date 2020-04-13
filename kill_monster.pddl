@@ -13,7 +13,7 @@
  f - Floor
  g - Gold
  key - Key
- banana - Food
+ banana apple - Food
  sword  - Weapon
  axe  - Weapon
  v - Vendor
@@ -39,11 +39,13 @@
     (=(monsterHealth dragon) 30)
     (=(monsterStrength dragon) 15)
     (atLocation dragon j2)
+    (on dragon f)
 
     (not(isMonsterDead basilisk))
     (=(monsterHealth basilisk) 30)
     (=(monsterStrength basilisk) 15)
     (atLocation basilisk j2)
+    (on basilisk f)
 
     ;Weapons
     (=(weaponDamage sword) 30)
@@ -58,6 +60,12 @@
     (atLocation banana j1)
     (=(foodValue banana) 20)
     (on banana f )
+
+     ;food
+    (atLocation apple j1)
+    (=(foodValue apple) 20)
+    (on apple f )
+
 )
 
 (:goal  (and (not(carryItem tyrion banana))
