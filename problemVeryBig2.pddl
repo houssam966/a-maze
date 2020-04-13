@@ -1627,8 +1627,8 @@
     
 )
 
-;the player must retrieve the key from j101, then take
-;the item from j0 to j101
+;the player must retrieve the key from j201, then take
+;the item from j0 to j201
 (:goal (and
     (atLocation p j201)
     (atLocation specialItem j201)
