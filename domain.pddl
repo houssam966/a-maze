@@ -42,7 +42,7 @@
         (isUnlocked ?b - Box)
 
         ;check if there is an item in the box
-        (inBox ?b - Box ?i-Item)
+        (inBox ?b - Box ?i - Item)
         
         ;vendor
         (sellItem ?v - Vendor ?item - Item)
@@ -208,7 +208,7 @@
     :precondition (and (atLocation ?p ?j) (atLocation ?m ?j) (carryItem ?p ?w)
             (on ?p ?platform) (on ?m ?platform)
             (not (isMonsterDead ?m)) (>= (weaponDamage ?w) (monsterHealth ?m)) (> (playerHealth) 0))
-    :effect (and (not (atLocation ?m ?j)) (isMonsterDead ?m) (not (carryItem ?p ?w))
+    :effect (and (not (atLocation ?m ?j)) (isMonsterDead ?m)
             (carryItem ?p ?k) (increase (monstersSlain) 1))
     )
 

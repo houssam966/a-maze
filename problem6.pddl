@@ -25,12 +25,13 @@
     b - Box
     f - Floor
     leadPipe - Weapon
+    v - Vendor
 
 )
 
 (:init
 
-    (= playerHealth 10000)
+    (= playerHealth 100)
     (= playerWealth 0)
     (= monstersSlain 0)
     (= inventoryCount 0)
@@ -67,26 +68,47 @@
 
 
     (isConnected j0 j1)
+    (= (distanceBetweenJunctions j0 j1) 0)
     (isConnected j1 j2)
+    (= (distanceBetweenJunctions j1 j2) 0)
     (isConnected j2 j3)
+    (= (distanceBetweenJunctions j2 j3) 0)
     (isConnected j3 j4)
+    (= (distanceBetweenJunctions j3 j4) 0)
     (isConnected j4 j5)
+    (= (distanceBetweenJunctions j4 j5) 0)
     (isConnected j5 j6)
+    (= (distanceBetweenJunctions j5 j6) 0)
     (isConnected j6 j7)
+    (= (distanceBetweenJunctions j6 j7) 0)
     (isConnected j7 j8)
+    (= (distanceBetweenJunctions j7 j8) 0)
     (isConnected j8 j9)
+    (= (distanceBetweenJunctions j8 j9) 0)
     (isConnected j9 j10)
+    (= (distanceBetweenJunctions j9 j10) 0)
     (isConnected j10 j11)
+    (= (distanceBetweenJunctions j10 j11) 0)
     (isConnected j11 j12)
+    (= (distanceBetweenJunctions j11 j12) 0)
     (isConnected j12 j13)
+    (= (distanceBetweenJunctions j12 j13) 0)
     (isConnected j13 j14)
+    (= (distanceBetweenJunctions j13 j14) 0)
     (isConnected j14 j15)
+    (= (distanceBetweenJunctions j14 j15) 0)
     (isConnected j15 j16)
+    (= (distanceBetweenJunctions j15 j16) 0)
     (isConnected j16 j17)
+    (= (distanceBetweenJunctions j16 j17) 0)
     (isConnected j17 j18)
+    (= (distanceBetweenJunctions j17 j18) 0)
     (isConnected j18 j19)
+    (= (distanceBetweenJunctions j18 j19) 0)
     (isConnected j19 j20)
+    (= (distanceBetweenJunctions j19 j20) 0)
     (isConnected j20 j21)
+    (= (distanceBetweenJunctions j20 j21) 0)
 
     (atLocation hagger j0)
 

@@ -13,6 +13,7 @@
     box - Box
     g - Gold
     tree - Platform
+    v - Vendor
     )
     (:init
         (=(platformLevel f) 0)
