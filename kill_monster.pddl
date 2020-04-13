@@ -19,7 +19,7 @@
 )
 (:init
 
-    red(isConnected j1 j2)
+    (isConnected j1 j2)
     (= (distanceBetweenJunctions j1 j2) 1)
     (isConnected j2 j1)
     (isConnected j2 j3)
