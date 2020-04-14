@@ -135,12 +135,16 @@
      (atLocation fisherman2 j12) 
      (sellItem fisherman2 bonito)
 
-      ;Key
+     ;Key
      (atLocation key j10)
      (on key ice )
 
      (atLocation key j14)
      (on key ice )
+
+     ;family
+     (atLocation family j10)
+     (on family ice )
  )
 
  (:goal (and  (atLocation polarBear j15) (isMonsterDead furrier3) 
