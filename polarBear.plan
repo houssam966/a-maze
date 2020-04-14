@@ -1,5 +1,5 @@
 ;;!domain: maze
-;;!problem: problemE
+;;!problem: polarBear
 
  0.0000: (GOTO POLARBEAR J1 J2 ICE) [D:1.00; C:1.00]
  1.0000: (GRAB POLARBEAR TREASURE1 ICE KEY J2) [D:1.00; C:1.00]
