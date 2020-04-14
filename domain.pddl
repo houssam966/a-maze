@@ -52,23 +52,29 @@
         (playerHealth)
         (playerWealth)
         (monstersSlain)
+        
         ;inventory
         (maxInventorySize)
         (inventoryCount)
+        
         ;amount of health replenished by food
         (foodValue ?f - Food)
+        
         ;how much damage the weapon can deal to the monster
         (weaponDamage ?w - Weapon)
+        
         (shieldStrength ?s - Shield)
 
         ;monster
         ;how much damage the monster can deal to the player/shield
         (monsterStrength ?m - Monster)
+        
         ;monster health bar
         (monsterHealth ?m - Monster)
 
         ;how high is a platform. This affects climbability of a platform.
         (platformLevel ?p - Platform)
+        
         ;this affects how quickly the player health decreases
         (distanceBetweenJunctions ?j1 ?j2 - Junction)
      )
@@ -194,8 +200,7 @@
        (carryItem ?p ?k) (increase (monstersSlain) 1)  (decrease (playerHealth) (monsterStrength ?m)))
      )
 
-     ; if the player has food, then eat the food before attack
-     ; increase hunger by the food's value
+     ; if the player has food, then eat the food before attack and increase hunger by the food's value
      ; Arguments
      ; ?player {Living}: the player of the game
      ; ?food {Food}: the food the player can eat
@@ -205,8 +210,8 @@
       :effect (and (increase (playerHealth) (foodValue ?f)) (not (carryItem ?p ?f)) )
      )
   
-     ; if the player is at a junction(j1) that has a locked path to another junction(j2),
-     ; and the player has a key, then use the key to unlock the route
+     ; if the player is at a junction(j1) that has a locked path to another junction(j2), and the player has a key, 
+     ; then use the key to unlock the route
      ; Arguments
      ; player {Living}: the player of the game
      ; k {Key}: the key that can be used to unlock a route
@@ -217,8 +222,7 @@
         :effect (and (not (carryItem ?p ?k)) (not (isLocked ?j1 ?j2)) (isConnected ?j1 ?j2))
      )
     
-     ; if there is a locked box and player has a key, then use the key to unlock the box
-     ; to be able to take the items inside it
+     ; if there is a locked box and player has a key, then use the key to unlock the box to be able to take the items inside it
      ; Arguments
      ; player {Living}: the player of the game
      ; k {Key}: the key that can be used to unlock a box
