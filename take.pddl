@@ -1,4 +1,4 @@
-(define (problem take)
+(define (problem unlockBox)
 (:domain maze)
 (:objects
  j1 j2 j3 j4 - Junction
@@ -23,11 +23,12 @@
     ;player
     (atLocation p j1) 
     (on p f)
+    (carryItem p k)
 
     ;box
     (atLocation b j1)
     (on b f)
-    (isUnlocked b)
+    (not(isUnlocked b))
 
     ;weapon
     (atLocation w j1)
@@ -35,8 +36,9 @@
  
     (=(playerHealth) 100)  
     (=(inventoryCount) 0)
-    (=(maxInventorySize) 10) 
+    (=(maxInventorySize) 10)    
 )
+
 
 (:goal  (and  (carryItem p w) (not (inBox b w)))
 )

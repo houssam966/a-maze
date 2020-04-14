@@ -1,16 +1,13 @@
-;       
-; j1 ---> j2 ---> j3 <-- j6
-;                ---
-;                 |      |
-;                 |      |
-;                 |      |
-;                j4 --- >j5 --- j7 --- j8 --> j9 --> j10<-----j13---->j14
-;                                                    ---      |
-;                                                     |       |
-;                                                     |       |
-;                                                     |------->j12
-;                                                    j11
-
+;                    j6                                    j13 ----> j14 ---->j15
+;                    / \                                  /  \
+;                   /   \                                /    \
+;                  /     \                              /      \   
+; j1 ---> j2 ---> j3     j5 ---> j7 ---> j8 --> j9 --> j10      j12 
+;                  \     /                               \     / 
+;                   \   /                                 \   /   
+;                    \ /                                   \ /    
+;                    j4                                     j11                     
+             
  (define (problem problemE)
  (:domain maze)
  (:objects
@@ -29,7 +26,6 @@
   gold - Gold
   treasure1 treasure2 treasure3 treasure4 - Box
  )
-
  (:init
 
      ;One ways
@@ -55,6 +51,7 @@
 
      ;locked junctions
      (isLocked j9 j10)
+     (isLocked j14 j15)
 
      ;Distance between junctions
      (= (distanceBetweenJunctions j1 j2) 1)
@@ -88,27 +85,21 @@
      ;Player
      (atLocation polarBear j1)
      (on polarBear ice)
-     (=(playerHealth) 50)
+     (=(playerHealth) 30)
     
-     ;Monster
-     (atLocation furrier1 j4)
-     (on furrier1 ice)
-     (not(isMonsterDead furrier1))
+     ;Monster   
      (=(monstersSlain) 0)
-     (=(monsterHealth furrier1) 20)
-     (=(monsterStrength furrier1) 10)
-
      (atLocation furrier2 j8)
      (on furrier2 ice)
      (not(isMonsterDead furrier2))
-     (=(monsterHealth furrier2) 20)
-     (=(monsterStrength furrier2) 10)
+     (=(monsterHealth furrier2) 15)
+     (=(monsterStrength furrier2) 30)
 
      (atLocation furrier3 j13)
      (on furrier3 ice)
      (not(isMonsterDead furrier3))
-     (=(monsterHealth furrier3) 20)    
-     (=(monsterStrength furrier3) 10)
+     (=(monsterHealth furrier3) 15)    
+     (=(monsterStrength furrier3) 30)
 
      ;Box
      (atLocation treasure1 j2)
@@ -118,7 +109,6 @@
      (atLocation treasure2 j3)
      (on treasure2 ice)
      (not(isUnlocked treasure2))
-     (inBox treasure2 seaBass)
 
      (atLocation treasure3 j5)
      (on treasure3 ice)
@@ -128,6 +118,10 @@
      (on treasure4 ice)
      (not(isUnlocked treasure4))
      (inBox treasure4 gold)
+
+     ;food
+     (atLocation seaBass j3)
+     (inBox treasure2 seaBass)
 
      ;weapon
      (atLocation spear j6)
@@ -141,13 +135,15 @@
      (atLocation fisherman2 j12) 
      (sellItem fisherman2 bonito)
 
-     ;Key
-     (atLocation key j11)
+      ;Key
+     (atLocation key j10)
+     (on key ice )
 
-     ;Food
-     (atLocation bonito j14)
+     (atLocation key j14)
+     (on key ice )
  )
- (:goal (and  (atLocation polarBear j15) (carryItem polarBear seaBass) (isUnlocked treasure4) (=(playerHealth) 60)
-          (not(isMonsterDead furrier1)) )
- )
+
+ (:goal (and  (atLocation polarBear j15) (isMonsterDead furrier3) 
+         (carryItem polarBear seaBass))
+ ) 
  )
