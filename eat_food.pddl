@@ -1,4 +1,4 @@
-(define (problem problem_eat)
+(define (problem eat_food)
     (:domain maze)
     (:objects
     j1 j2 j3 j4 - Junction
@@ -13,16 +13,19 @@
     box - Box
     g - Gold
     tree - Platform
-    v - Vendor
+     v - Vendor
     )
     (:init
         (=(platformLevel f) 0)
         (=(platformLevel box) 1)
         (=(platformLevel tree) 2)
         (isConnected j1 j2)
+         (= (distanceBetweenJunctions j1 j2) 1)
         (isConnected j2 j1)
         (isConnected j2 j3)
+         (= (distanceBetweenJunctions j2 j3) 1)
         (isConnected j3 j4)
+         (= (distanceBetweenJunctions j3 j4) 1)
 
         ;player
         (atLocation p j1)
