@@ -217,9 +217,9 @@
      ; k {Key}: the key that can be used to unlock a route
      ; j1, j1 {Junction}: the 2 junctions that have a locked route
      (:action unlockRoute
-        :parameters (?p - Player ?k - Key ?j1 - Junction ?j2 - Junction)
-        :precondition (and(atLocation ?p ?j1) (carryItem ?p ?k) (isLocked ?j1 ?j2))
-        :effect (and (not (carryItem ?p ?k)) (not (isLocked ?j1 ?j2)) (isConnected ?j1 ?j2))
+      :parameters (?p - Player ?k - Key ?j1 - Junction ?j2 - Junction)
+      :precondition (and(atLocation ?p ?j1) (carryItem ?p ?k) (isLocked ?j1 ?j2)(> (playerHealth) 0))
+      :effect (and (not (carryItem ?p ?k)) (not (isLocked ?j1 ?j2)) (isConnected ?j1 ?j2))
      )
     
      ; if there is a locked box and player has a key, then use the key to unlock the box to be able to take the items inside it
