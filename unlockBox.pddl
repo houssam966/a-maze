@@ -13,6 +13,7 @@
  banana - Food
  w - Weapon
  g - Gold
+ v - Vendor
 )
 
 (:init
@@ -32,6 +33,6 @@
     (=(playerHealth) 100)   
 )
 
-(:goal  (and  (isUnlocked b))
+(:goal  (and  (isUnlocked b) (not(carryItem p k)))
 )
 )
