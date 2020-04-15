@@ -1,17 +1,15 @@
 ;;!domain: maze
 ;;!problem: big_maze
 
-
- 0.0000: (GOTO P J1 J2 F) [D:1.00; C:1.00]
- 1.0000: (GOTO P J2 J3 F) [D:1.00; C:1.00]
- 2.0000: (GOTO P J3 J4 F) [D:1.00; C:1.00]
- 3.0000: (GOTO P J4 J5 F) [D:1.00; C:1.00]
- 4.0000: (GOTO P J5 J6 F) [D:1.00; C:1.00]
- 5.0000: (GOTO P J6 J7 F) [D:1.00; C:1.00]
- 6.0000: (GOTO P J7 J8 F) [D:1.00; C:1.00]
- 7.0000: (GOTO P J8 J9 F) [D:1.00; C:1.00]
- 8.0000: (GOTO P J9 J10 F) [D:1.00; C:1.00]
+0.00100: (goto p j1 j2 f)
+0.00200: (goto p j2 j3 f)
+0.00300: (goto p j3 j4 f)
+0.00400: (goto p j4 j5 f)
+0.00500: (goto p j5 j6 f)
+0.00600: (goto p j6 j7 f)
+0.00700: (goto p j7 j8 f)
+0.00800: (goto p j8 j9 f)
+0.00900: (goto p j9 j10 f)
 
 ; Makespan: 0.009000000000000001
 ; Cost: 0.009000000000000001
-

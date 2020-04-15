@@ -1,7 +1,9 @@
 
+;;!domain: maze
+;;!problem: harry_potter
 ; Version LPG-td-1.0
 ; Seed 37982883
-; Command line: ./metric-lpg -o /home/k1889983/Documents/a-maze/domain.pddl -f /home/k1889983/Documents/a-maze/harry_potter.pddl -out /home/k1889983/Documents/a-maze/harry_potter.plan -speed 
+; Command line: ./metric-lpg -o /home/k1889983/Documents/a-maze/domain.pddl -f /home/k1889983/Documents/a-maze/harry_potter.pddl -out /home/k1889983/Documents/a-maze/harry_potter.plan -speed
 ; Problem /home/k1889983/Documents/a-maze/harry_potter.pddl
 ; Actions having STRIPS duration
 ; Time 1.43
