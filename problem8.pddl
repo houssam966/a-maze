@@ -1,7 +1,6 @@
-
-(define (problem problem_big_maze) 
+(define (problem problem_big_maze2) 
 (:domain maze)
-
+;this maze is an extended version of big_maze
 ;Map layout
 ;Key
 ;- / | = connection
@@ -17,17 +16,26 @@
 ;                        :
 ;                        :
 ;                        j15
+;                        |
+;                        |
+;     j16---j17---j18---j19
+;     |                  |
+;     |                  |
+;     j20---j21---------j22
+;            :
+;            :
+;           j23
 
 
 (:objects 
-    j1 j2 j3 j4 j5 j6 j7 j8 j9 j10 j11 j12 j13 j14 j15 - Junction
+    j1 j2 j3 j4 j5 j6 j7 j8 j9 j10 j11 j12 j13 j14 j15 j16 j17 j18 j19 j20 j21 j22 j23 - Junction
     p - Player
     m1 m2 m3 - Monster
     i - Item
     in - Inventory
     s - Shield
     sting - Weapon
-    k - Key
+    k1 k2 - Key
     b - Box
     f - Floor
     g -Gold
@@ -37,14 +45,15 @@
 
 (:init 
 
-    (= playerHealth 10)
+    (= playerHealth 17)
     (= playerWealth 0)
     (= monstersSlain 0)
     (= inventoryCount 0)
     (= maxInventorySize 5)
 
     (on p f)
-    (on k f)
+    (on k1 f)
+    (on k2 f)
     (on sting f)
     (on apple f)
     (on banana f)
@@ -151,6 +160,51 @@
     (isLocked j14 j15)
     (= (distanceBetweenJunctions j14 j15) 1)
 
+    (isConnected j15 j19)
+    (isConnected j19 j15)
+    (= (distanceBetweenJunctions j15 j19) 1)
+    (= (distanceBetweenJunctions j19 j15) 1)
+
+    (isconnected j19 j18)
+    (isConnected j18 j18)
+    (= (distanceBetweenJunctions j19 j18) 1)
+    (= (distanceBetweenJunctions j18 j19) 1)
+
+    (isCOnnected j19 j22)
+    (isConnected j22 j19)
+    (= (distanceBetweenJunctions j19 j22) 1)
+    (= (distanceBetweenJunctions j22 j19) 1)
+
+    (isConnected j18 j17)
+    (isConnected j17 j18)
+    (= (distanceBetweenJunctions j18 j17) 1)
+    (= (distanceBetweenJunctions j17 j18) 1)
+
+    (isConnected j17 j16)
+    (isConnected j16 j17)
+    (= (distanceBetweenJunctions j17 j16) 1)
+    (= (distanceBetweenJunctions j16 j17) 1)
+
+    (isConnected j16 j20)
+    (isConnected j20 j16)
+    (= (distanceBetweenJunctions j16 j20) 1)
+    (= (distanceBetweenJunctions j20 j16) 1)
+
+    (isConnected j20 j21)
+    (isConnected j21 j20)
+    (= (distanceBetweenJunctions j20 j21) 1)
+    (= (distanceBetweenJunctions j21 j20) 1)
+
+    (isConnected j21 j22)
+    (isConnected j22 j21)
+    (= (distanceBetweenJunctions j21 j22) 1)
+    (= (distanceBetweenJunctions j22 j21) 1)
+
+    (isLocked j21 j23)
+    (= (distanceBetweenJunctions j21 j23) 1)
+
+
+
     (atLocation p j6)
 
     ;sword
@@ -179,11 +233,13 @@
     (= (foodValue banana) 5)
 
     ;key
-    (atLocation k j2)
+    (atLocation k1 j2)
+
+    (atLocation k2 j16)
 )
 
 ;the player just has to escape the maze
-(:goal (and (atLocation p j15))
+(:goal (and (atLocation p j23))
     
 )
 )

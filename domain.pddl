@@ -200,7 +200,8 @@
        (carryItem ?p ?k) (increase (monstersSlain) 1)  (decrease (playerHealth) (monsterStrength ?m)))
      )
 
-     ; if the player has food, then eat the food before attack and increase hunger by the food's value
+
+     ; If the player has food, then eat the food before attack and increase hunger by the food's value
      ; Arguments
      ; ?player {Living}: the player of the game
      ; ?food {Food}: the food the player can eat
@@ -210,7 +211,7 @@
       :effect (and (increase (playerHealth) (foodValue ?f)) (not (carryItem ?p ?f)) )
      )
   
-     ; if the player is at a junction(j1) that has a locked path to another junction(j2), and the player has a key, 
+     ; If the player is at a junction(j1) that has a locked path to another junction(j2), and the player has a key, 
      ; then use the key to unlock the route
      ; Arguments
      ; player {Living}: the player of the game
@@ -222,7 +223,7 @@
       :effect (and (not (carryItem ?p ?k)) (not (isLocked ?j1 ?j2)) (isConnected ?j1 ?j2))
      )
     
-     ; if there is a locked box and player has a key, then use the key to unlock the box to be able to take the items inside it
+     ; If there is a locked box and player has a key, then use the key to unlock the box to be able to take the items inside it
      ; Arguments
      ; player {Living}: the player of the game
      ; k {Key}: the key that can be used to unlock a box
@@ -237,7 +238,7 @@
       :effect (and  (isUnlocked ?b) (not(carryItem ?p ?k)))  
      )
     
-     ; this action makes player able to pick up an item given that item and the player is in the same location and player is free
+     ; This action makes player able to pick up an item given that item and the player is in the same location and player is free
      ; player {Living}: the player of the game
      ; b {Box}: the box that can be unlock in order to take the item inside it
      ; item {Item}: the items (Box Sword Shield Key Food Gold) of the game
